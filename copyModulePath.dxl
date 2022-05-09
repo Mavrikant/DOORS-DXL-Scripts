@@ -1,0 +1,8 @@
+// This script copies full path of module to clipboard.
+/*
+  This script copies full path of module to clipboard.
+  Author: M. Serdar Karaman
+*/
+
+Module currMod = current()
+copyToClipboard(fullName(currMod))

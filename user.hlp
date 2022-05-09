@@ -1,0 +1,10 @@
+User-defined DXL library
+This library is provided to allow you to
+add your own DXL programs to the library.
+
+For example, if you have your own standard
+document formats which you wish to parse, put
+a DXL parsing program in this library.
+
+See the DOORS DXL Manual for more information
+on defining library functions.

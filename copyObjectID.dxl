@@ -1,0 +1,31 @@
+// This script copies ID of selected objects.
+/*
+  This function copies id of selected object to clipboard.
+  Author: M. Serdar Karaman
+*/
+
+Module currMod = current
+Object startObj, endObj
+
+Buffer b = create
+getSelection(currMod,startObj, endObj)
+ 
+if (!null startObj) //if range has been selected, otherwise do nothing
+{
+  while (!null startObj && isSelected startObj) 
+  {
+    b += identifier(startObj) "\n"
+    startObj = next(startObj) 
+  }
+  copyToClipboard b""
+}
+else
+{
+  DB dbMain = create(currMod, "Copy object ID", styleCentered|styleFixed)
+  DBE  dbeLabel = label(dbMain, "No object is selected!                       ")
+  realize(dbMain)
+  show dbMain
+  block(dbMain)
+  destroy(dbMain)
+}
+
