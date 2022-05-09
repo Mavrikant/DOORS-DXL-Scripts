@@ -1,0 +1,29 @@
+// Filter objects that contains a magic number
+/*
+*	Filter objects that contains a magic number
+   Author: M. Serdar Karaman
+*/
+
+Module mod = current 
+AttrDef ad = find(mod, "Req") 
+if(!null ad)
+{
+   string currentSearchText
+   Object obj
+   int accepted = 0
+   int rejected = 0
+
+   
+   string txt = " [\\[\\(,]*([2-9]|[1-9][0-9]+)" 
+      Filter filter = contains(attribute "Object Text", txt, true, true) 
+   
+   filtering on
+   set(mod, filter, accepted, rejected)
+   
+   Object firstObj = first(mod)
+   
+   if(firstObj == null)
+   {
+         close(mod, false)
+   }
+}
