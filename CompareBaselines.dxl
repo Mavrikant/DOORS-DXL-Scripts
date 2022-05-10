@@ -1,0 +1,505 @@
+// baseline comparator example
+
+// Licensed Materials - Property of IBM -  You may copy, modify, and distribute 
+// these samples, or their modifications, in any form, internally or as part of 
+// your application or related documentation. These samples have not been tested 
+// under all conditions and are provided to you by IBM without obligation of 
+// support of any kind.  IBM PROVIDES THESE SAMPLES  "AS IS", SUBJECT TO ANY 
+// STATUTORY WARRANTIES THAT CANNOT BE EXCLUDED. IBM MAKES NO WARRANTIES 
+// OR CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, 
+// THE IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A 
+// PARTICULAR PURPOSE, AND NON-INFRINGEMENT REGARDING THESE SAMPLES OR 
+// TECHNICAL SUPPORT, IF ANY.
+//
+// DOORS - %full_filespec: baseline.dxl~11.1.1:dxl:ERS#1 %  %date_created: Tue Jan 20 08:46:14 2009 %
+//
+// (c) Copyright IBM Corporation 1993, 2009. All Rights Reserved.
+//
+// U.S. Government Users Restricted Rights: Use, duplication or disclosure restricted
+// by GSA ADP Schedule Contract with IBM Corp.
+
+/*
+
+  example baseline DXL program.
+  Some useful DB tips as well.
+
+  compare any two baselines of the current module (or a baseline
+  against the current version).  Sets a filter on objects which
+  differ w.r.t. Object Heading and Object Text.
+
+  Suggested customizations:
+
+     make attributes compared selectable from list
+     make report go to file
+     allow other modules to be compared
+
+*/
+pragma runLim,0 // disable timeout limit
+
+
+DBE list1, list2   // two global lists containing the baseline
+                   // selected (or current version)
+
+Skip baselines = create   // cache current baselines
+
+
+string fileBase = getenv("USERPROFILE")
+fileBase = fileBase "\\Desktop\\BaselineExport"
+Stat sta = create fileBase
+Stream linkStream
+if (null sta || !directory sta)
+{
+   mkdir fileBase
+}
+
+
+
+// function to compare an attribute of two objects with
+// same absolute number
+//
+bool compare(int absno, Object o1, o2, string attr) {
+
+  string s1, s2
+
+  s1 = o1.attr
+  s2 = o2.attr
+
+  if (s1!=s2) {
+    print (NLS_("object #")) absno (NLS_(" has differing ")) attr (NLS_("\n<\t")) s1 (NLS_("\n>\t")) s2 (NLS_("\n"))
+    accept o1                      // set filter
+    accept o2                      // on both objects
+    return false
+  }
+  return true
+}
+
+// Build a skip list which maps absnos onto their corresponding
+// objects.  Also initialize the DXL filter to "reject"
+//
+Skip getAbsnos(Module m) {
+  Skip res = create
+
+  Object o
+  for o in m do {
+    int a = o.(NLS_("Absolute Number"))
+    reject o                        // filter those mentioned in report
+    put(res, a, o)
+  }
+  return res
+}
+
+// Main comparison routine:
+//   find out which modules to compare
+//   compare objects present in both, report on
+//   those present in only one.
+//
+//
+void compareFn (DBE dbe) {
+  string name1, name2
+  int idx1, idx2
+
+  idx1 = get list1              // position in list
+  idx2 = get list2
+
+  name1 = get list1             // baseline name
+  name2 = get list2
+
+  if (idx1 < 0 || idx2 < 0) {          // error checking
+    ack (NLS_("two selections are needed"))
+    return
+  } else if (idx1 == idx2) {
+    ack (NLS_("same selection on both sides"))
+    return
+  }
+
+  Baseline sel1, sel2
+
+  string str
+
+  for str in baselines do {     // find each baseline
+
+    Baseline b = key baselines     // the baseline is the key
+
+    string str = (major b) (NLS_(".")) (minor b) (NLS_(": ")) (suffix b)
+
+    if (name1==str) sel1 = b
+
+    if (name2==str) sel2 = b
+  }
+
+  Module old = current
+  Module b1, b2
+
+  if (idx1==0) b1 = old       // i.e. the current Module
+  else
+    b1 = load(sel1, true)     // load the baselines on the screen
+
+  if (idx2==0) b2 = old       // i.e.e teh current Module
+  else
+    b2 = load(sel2, true)
+
+  current = b1                // make sure filtering is off
+  filtering off               // on both sides.
+  current = b2
+  filtering off
+  current = old
+
+  Skip absno1 = getAbsnos b1  // build caches of absnos -> objects
+  Skip absno2 = getAbsnos b2
+
+  Object o1, o2
+  int diffs = 0
+
+  for o1 in absno1 do {        // loop through side 1
+    Object o2
+    int i = (int key absno1)
+
+    if (find(absno2, i, o2)) { // absno exists in other baseline
+
+      // compare attributes -- easy to add more tests!
+
+      if (!compare(i, o1, o2, (NLS_("Object Heading"))) || 
+          !compare(i, o1, o2, (NLS_("Object Text"))))
+        diffs++                            // found a difference
+
+      delete(absno2, i)                    // remove from list2
+
+    } else {
+      print (NLS_("object #")) i (NLS_(" only exists in ")) name1 (NLS_("\n"))
+      accept o1
+      diffs++
+    }
+  }
+
+  for o2 in absno2 do {                 // now we can check for
+                                        // objects not in list1
+    int i = (int key absno2)
+    print (NLS_("object #")) i (NLS_(" only exists in ")) name2 (NLS_("\n"))
+    accept o2
+    diffs++
+  }
+
+  delete absno1          // delete caches
+  delete absno2
+
+  bool doFilter          // set to true if differences
+
+  if (diffs==0) {
+    print (NLS_("no differences found\n"))
+    doFilter=false
+  } else { // set filtering on in baselines
+
+    if (diffs==1)
+      print (NLS_("one difference found\n"))
+    else
+      print diffs (NLS_(" differences found\n"))
+
+    doFilter=true
+  }
+
+  current = b1              // set filters 
+  filtering doFilter
+  refresh current
+  current = b2
+  filtering doFilter
+  refresh current
+  current = old             // return to former current module
+}
+
+
+void writeLinks(Object o)
+{
+    Link l
+    ModName_ otherMod = null
+    ModuleVersion otherVersion = null
+    Object othero
+    string outLinkedId = null
+    
+    string linkModName = "*"
+    int count = 0
+    linkStream << "\tLinks: \n"
+    
+    for l in all(o->linkModName) do
+    {
+      count++
+    }
+    if (count > 0)
+    {
+       string headings[count]
+       int i = 0
+       
+       for l in all(o->linkModName) do
+       {
+         otherVersion = targetVersion l
+         otherMod = module(otherVersion)
+         if (null otherMod || isDeleted otherMod)
+         {
+             continue
+         }
+
+         iTarget= targetAbsNo(l)
+         headings[i++] = name(otherMod) "_" iTarget ""
+         
+       /* TODO: This section will be corrected!!!
+           // ensure module is open
+           print name(otherMod) "Opening linked module\n"
+           if (null data(otherVersion))
+           {
+              load(otherVersion, false)
+           }
+           othero = target l
+
+           if (null othero)
+           {
+               load(otherVersion,false)
+               othero = target l
+               
+               print "Link dest null\n"
+           }
+
+           if (null othero) continue
+           
+           if (isDeleted othero) continue
+
+           outLinkedId = (identifier othero)
+           linkStream << "\t\t" outLinkedId "\n"
+         */
+       }
+       //linkStream << "\t\t" count "\n"
+    
+       sort headings
+       for (i = 0; i < count; i++)
+       {
+       linkStream << "\t\t" headings[i] "\n"
+       }
+    
+    } // links > 0
+    
+}
+
+void printObjectInfo(Object obj, Skip skipAttrs)
+{
+   Buffer strBuff = create
+   string aName     = ""
+
+   if (isDeleted(obj))
+   {
+        linkStream << "Deleted Object: " obj."Absolute Number" "\n"
+   }
+   else
+   {
+       linkStream << "Object: " obj."Absolute Number" "\n"
+       linkStream << "\tHeading/Text: "
+       if("" != obj."Object Heading" "")
+       {
+          linkStream << obj."Object Heading" ""
+       }
+       else if("" != obj."Object Text" "")
+       {
+          linkStream << obj."Object Text" ""
+       }
+       linkStream << "\n"
+
+       linkStream << "\tParent: "
+
+       Object parentObject = parent(obj)
+       if(null != parentObject)
+       {
+          linkStream << parentObject."Absolute Number" ""
+       }
+       else
+       {
+          linkStream << "-"
+       }
+
+       linkStream << "\n"
+       // changes to other attributes
+       for aName in skipAttrs do
+       {
+          linkStream << "\t" aName ": "
+          strBuff = probeAttr_(obj, aName)
+          linkStream << tempStringOf(strBuff)
+          linkStream << "\n"
+       }
+   }
+   delete(strBuff)
+}
+
+void getAttrs(Module newMod, Skip attrs)
+{
+	AttrDef ad = null
+	string  adDxl = ""
+
+	// loop through attributes in module
+	for ad in newMod do
+	{
+		if (!null ad)
+		{
+			// only interested in object attributes
+			if (ad.object)
+			{
+				// exclude system attributes
+				if (ad.system && (ad.name != "Last Modified On")) continue
+
+				// exclude DXL attributes
+				adDxl = ad.dxl
+
+				if (adDxl "" != "") continue
+
+				// to exclude an attribute insert test for it here
+				if (ad.name == "Object Heading") continue
+				if (ad.name == "Object Text") continue
+				if (ad.name == "ChangeHistory") continue
+
+				put(attrs, ad.name, ad.name)
+			}
+		}
+	}
+   
+}
+
+void listLinks(Module mod)
+{
+   Object obj
+   Skip skipAttrs = createString
+
+   for obj in entire (mod) do
+   {
+      getAttrs(mod, skipAttrs)
+      printObjectInfo(obj, skipAttrs)
+      writeLinks(obj)
+      linkStream << "\n"
+   }
+   delete skipAttrs
+}
+
+void writeBaselineToFile(Module mod, Baseline bLine)
+{
+  Module foundMod = null
+  string baselineStr = major (bLine) "" "." minor (bLine) ""
+  outFileName = fileBase "\\" name(mod) "_Baseline_" baselineStr ".txt"
+
+  linkStream = write outFileName
+  foundMod = load (mod, bLine, false)
+  linkStream << "Module   : " fullName(foundMod) "\n"
+  linkStream << "Baseline : " baselineStr "\n"
+  linkStream << "Suffix   : " suffix(bLine) "\n"
+  linkStream << "Description : " annotation(bLine) "\n"
+  listLinks(foundMod)
+  flush linkStream
+  close linkStream
+}
+
+
+void compareBC4 (DBE dbe) 
+{
+  string name1, name2
+  int idx1, idx2
+
+  idx1 = get list1              // position in list
+  idx2 = get list2
+
+  name1 = get list1             // baseline name
+  name2 = get list2
+
+  if (idx1 < 0 || idx2 < 0) {          // error checking
+    ack (NLS_("two selections are needed"))
+    return
+  } else if (idx1 == idx2) {
+    ack (NLS_("same selection on both sides"))
+    return
+  }
+
+  Module currentModule = current Module
+  Baseline sel1, sel2
+  name1 = get list1             // baseline name
+  name2 = get list2
+
+  string str
+
+  for str in baselines do {     // find each baseline
+
+    Baseline b = key baselines     // the baseline is the key
+    
+    string str = (major b) (NLS_(".")) (minor b) (NLS_(": ")) (suffix b)
+    if (name1==str) sel1 = b
+    if (name2==str) sel2 = b
+  }
+
+  //if (idx1==0) sel1 = current       // i.e. the current Module
+  //if (idx2==0) sel2 = current 
+
+
+  string leftBaselineStr = major (sel1) "" "." minor (sel1) ""
+  string rightBaselineStr = major (sel2) "" "." minor (sel2) ""
+
+  writeBaselineToFile(currentModule, sel1)
+  writeBaselineToFile(currentModule, sel2)
+
+  system "C:\\Program Files\\Beyond Compare 4\\BCompare.exe " fileBase "\\" name(currentModule) "_Baseline_" leftBaselineStr ".txt" " " fileBase "\\" name(currentModule) "_Baseline_" rightBaselineStr ".txt"
+}
+
+//// MAIN PROGRAM ////////////////////////
+
+Module m = current      // check calling context
+
+if (null m) {
+  ack (NLS_("program requires current Module"))
+  halt
+}
+
+// count number of baselines
+
+Baseline b
+int i=0
+
+for b in m do {
+  i++
+}
+ 
+if (i==0) {
+  ack (NLS_("no baselines to compare"))
+  halt
+}
+
+// Now make a dialog for selecting two baselines for
+// comparison
+
+string where = (current Module).(NLS_("Name"))
+
+DB db = create ((NLS_("Baseline Compare \"")) where (NLS_("\"")), styleThemed|styleAutoparent)
+string empty[] = {}
+
+list1 = list(db, (NLS_("Old")), 300, i+1 <? 10, empty)  // make maximum size of 5 elements
+list2 = list(db, (NLS_("New")), 300, i+1 <? 10, empty)
+
+list1->(NLS_("right"))->(NLS_("unattached"))          // make lists side by side
+list2->(NLS_("left"))->(NLS_("flush"))->list1
+list2->(NLS_("top"))->(NLS_("aligned"))->list1
+list2->(NLS_("right"))->(NLS_("unattached"))
+
+DBE button1 = button(db, (NLS_("Compare on Doors")), compareFn)
+DBE button2 = button(db, (NLS_("Compare on Beyond Compare 4")), compareBC4)
+
+button1->(NLS_("right"))->(NLS_("unattached"))          // make lists side by side
+button2->(NLS_("left"))->(NLS_("flush"))->button1
+button2->(NLS_("top"))->(NLS_("aligned"))->button1
+button2->(NLS_("right"))->(NLS_("unattached"))
+
+realize db                            // we realize so that the
+                                      // lists can be populated
+                                      // using insert
+
+// fill up the baselines skip list with current baselines
+
+for b in m do {
+  string str = (major b) (NLS_(".")) (minor b) (NLS_(": ")) (suffix b)
+  put(baselines, b, str)
+  insert(list1, 0, str)
+  insert(list2, 0, str)
+}
+
+//insert(list1, 0, (NLS_("current")))           // put current at head of lists
+//insert(list2, 0, (NLS_("current")))
+
+show db // Show GUI
