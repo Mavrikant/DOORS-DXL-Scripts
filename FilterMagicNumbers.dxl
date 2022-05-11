@@ -4,6 +4,11 @@
    Author: M. Serdar Karaman
 */
 
+//**********************************  History  ******************************
+// Halil Yılmaz       2022-05-08  Initial version of this script
+// M. Serdar Karaman  2022-05-09  Regex format is changed to exlude 1 and 0 numbers.
+
+
 Module mod = current 
 AttrDef ad = find(mod, "Req") 
 if(!null ad)
@@ -13,9 +18,8 @@ if(!null ad)
    int accepted = 0
    int rejected = 0
 
-   
    string txt = " [\\[\\(,]*([2-9]|[1-9][0-9]+)" 
-      Filter filter = contains(attribute "Object Text", txt, true, true) 
+   Filter filter = contains(attribute "Object Text", txt, true, true) 
    
    filtering on
    set(mod, filter, accepted, rejected)

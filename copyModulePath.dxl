@@ -4,5 +4,8 @@
   Author: M. Serdar Karaman
 */
 
+//**********************************  History  ******************************
+// M. Serdar Karaman  2022-05-10  Initial version
+
 Module currMod = current()
 copyToClipboard(fullName(currMod))
