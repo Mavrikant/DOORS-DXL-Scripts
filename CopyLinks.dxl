@@ -20,14 +20,16 @@ void CopyLinks(DB db)
   for linkModDes in currFolder do
   {
     string linkMod = getName(linkModDes)
-    Object obj    = object(intOf(get(sourceIDField)))
-    Object cpyObj = object(intOf(get(destinationIDField)))
+    Object srcObj = object(intOf(get(sourceIDField)))
+    Object dstObj = object(intOf(get(destinationIDField)))
 
     Link myLink
-    for myLink in obj -> linkMod  do
+    for myLink in srcObj -> linkMod do
     {
-      Object targ = target(myLink)
-      cpyObj -> linkMod -> targ 
+      ModName_ targetMod = target(myLink)
+      read(fullName(targetMod), false)
+      Object targetObj = target(myLink)
+      dstObj -> linkMod -> targetObj 
     }
   }
 }
