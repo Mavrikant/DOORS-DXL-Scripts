@@ -1,0 +1,42 @@
+// This script copies links in source object to destination object.
+/*
+  This script copies links in source object to destination object.
+
+  In order to use this script, files containing linked objects should be opened
+*/
+
+//**********************************  History  ******************************
+// Caner Bayram       2022-05-01  Initial version
+// M. Serdar Karaman  2022-05-13  Script turned into GUI
+
+Folder currFolder = current
+DBE sourceIDField = null
+DBE destinationIDField = null
+DB db = null
+
+void CopyLinks(DB db)
+{
+  LinkModuleDescriptor linkModDes
+  for linkModDes in currFolder do
+  {
+    string linkMod = getName(linkModDes)
+    Object obj    = object(intOf(get(sourceIDField)))
+    Object cpyObj = object(intOf(get(destinationIDField)))
+
+    Link myLink
+    for myLink in obj -> linkMod  do
+    {
+      Object targ = target(myLink)
+      cpyObj -> linkMod -> targ 
+    }
+  }
+}
+
+//////////////////////// GUI PROGRAM ////////////////////////
+string moduleName = (current Module).(NLS_("Name"))
+db = create (moduleName " - Copy Links",  styleCentered | styleThemed | styleAutoparent)
+
+sourceIDField = field(db, "Source: " moduleName "_", "", 50) 
+destinationIDField = field(db, "Destination: " moduleName "_", "", 50) 
+apply(db, "Copy", CopyLinks)
+show (db)

@@ -1,4 +1,5 @@
-copyModulePath _2 Copy module path
-copyObjectID _3 Copy object ID
+CopyModulePath _2 Copy module path
+CopyObjectID _3 Copy object ID
 CompareBaselines _4 Enhanced Baseline Comparison
 FilterMagicNumbers __ Filter objects that contains a magic number
+CopyLinks __ Copy links from one to object to another
