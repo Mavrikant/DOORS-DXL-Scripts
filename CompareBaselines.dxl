@@ -10,9 +10,11 @@
 // Halil Yılmaz       2022-05-09  Initial version of baseline to txt export script
 // M. Serdar Karaman  2022-05-10  Example in Doors's itself (baseline.dxl) merged with this script
 // M. Serdar Karaman  2022-05-11  Cleaning, Refactoring, and Documentation
+// M. Serdar Karaman  2022-05-17  Script is able to compare current version of module with previous baseline, Refactoring 
 
 
 pragma runLim,0 // disable timeout limit
+Module m = current      // check calling context
 DBE list1, list2   // two global lists containing the baseline selected (or current version)
 Skip baselines = create   // cache current baselines
 string fileBase = getenv("USERPROFILE")
@@ -54,6 +56,25 @@ Skip getAbsnos(Module m)
   return res
 }
 
+bool isSelectedIdxAreInValid()
+{
+  int idx1 = get list1              // position in list
+  int idx2 = get list2
+
+  if (idx1 < 0 || idx2 < 0) // error checking
+  {          
+    ack (NLS_("Two selections are needed"))
+    return true
+  } 
+  else if (idx1 == idx2) 
+  {
+    ack (NLS_("Same selection on both sides"))
+    return true
+  }
+  return false
+
+}
+
 // Main comparison routine:
 //   find out which modules to compare
 //   compare objects present in both, report on
@@ -69,16 +90,8 @@ void compareFn (DBE dbe)
   name1 = get list1             // baseline name
   name2 = get list2
 
-  if (idx1 < 0 || idx2 < 0) // error checking
-  {          
-    ack (NLS_("Two selections are needed"))
-    return
-  } 
-  else if (idx1 == idx2) 
-  {
-    ack (NLS_("Same selection on both sides"))
-    return
-  }
+
+  if (isSelectedIdxAreInValid()) return
 
   Baseline sel1, sel2
   string str
@@ -326,23 +339,35 @@ void listLinks(Module mod)
    delete skipAttrs
 }
 
+string getBaselineStr(Baseline bLine)
+{
+  if (bLine != null) return major (bLine) "" "." minor (bLine) ""
+  else               return "current"
+}
+
 void writeBaselineToFile(Module mod, Baseline bLine)
 {
-  Module foundMod = null
-  string baselineStr = major (bLine) "" "." minor (bLine) ""
-  outFileName = fileBase "\\" name(mod) "_Baseline_" baselineStr ".txt"
+  Module foundMod = m
+  string suffixStr = "current"
+  string descriptionStr = "current"
 
+  if (bLine != null)
+  {
+    foundMod = load (mod, bLine, false)
+    suffixStr = suffix(bLine)
+    descriptionStr = annotation(bLine)
+  }
+
+  outFileName = fileBase "\\" name(mod) "_Baseline_" getBaselineStr(bLine) ".txt"
   linkStream = write outFileName
-  foundMod = load (mod, bLine, false)
   linkStream << "Module     : " fullName(foundMod) "\n"
-  linkStream << "Baseline   : " baselineStr "\n"
-  linkStream << "Suffix     : " suffix(bLine) "\n"
-  linkStream << "Description: " annotation(bLine) "\n"
+  linkStream << "Baseline   : " getBaselineStr(bLine) "\n"
+  linkStream << "Suffix     : " suffixStr "\n"
+  linkStream << "Description: " descriptionStr "\n"
   listLinks(foundMod)
   flush linkStream
   close linkStream
 }
-
 
 void compareBC4 (DBE dbe)
 {
@@ -351,40 +376,31 @@ void compareBC4 (DBE dbe)
   string name1 = get list1          // baseline name
   string name2 = get list2
   Module currentModule = current Module
-  Baseline sel1, sel2
+  Baseline sel1 = null
+  Baseline sel2 = null
 
-  if (idx1 < 0 || idx2 < 0) {          // error checking
-    ack (NLS_("Two selections are needed"))
-    return
-  } else if (idx1 == idx2) {
-    ack (NLS_("Same selection on both sides"))
-    return
-  }
+  if (isSelectedIdxAreInValid()) return
 
   string str
   for str in baselines do // find each baseline
   {     
     Baseline b = key baselines     // the baseline is the key
-    string str = (major b) (NLS_(".")) (minor b) (NLS_(": ")) (suffix b)
+    string str = getBaselineStr(b) (NLS_(": ")) (suffix b)
     if (name1==str) sel1 = b
     if (name2==str) sel2 = b
   }
 
-  //if (idx1==0) sel1 = current       // i.e. the current Module
-  //if (idx2==0) sel2 = current
-
   writeBaselineToFile(currentModule, sel1)
   writeBaselineToFile(currentModule, sel2)
 
-  string leftBaselinePath  = fileBase "\\" name(currentModule) "_Baseline_" major (sel1) "." minor (sel1) ".txt"
-  string rightBaselinePath = fileBase "\\" name(currentModule) "_Baseline_" major (sel2) "." minor (sel2) ".txt"
+  string leftBaselinePath  = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel1) ".txt"
+  string rightBaselinePath = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel2) ".txt"
   system "C:\\Program Files\\Beyond Compare 4\\BCompare.exe " leftBaselinePath " " rightBaselinePath
 }
 
 
 
 //////////////////////// GUI PROGRAM ////////////////////////
-Module m = current      // check calling context
 
 if (null m) 
 {
@@ -432,14 +448,13 @@ realize db                            // we realize so that the lists can be pop
 
 for b in m do // fill up the baselines skip list with current baselines
 {
-  string str = (major b) (NLS_(".")) (minor b) (NLS_(": ")) (suffix b)
+  string str = getBaselineStr(b) (NLS_(": ")) (suffix b)
   put(baselines, b, str)
   insert(list1, 0, str)
   insert(list2, 0, str)
 }
 
-// TODO: Add current baseline to the list. Currenly this feature is not working with Beyond Compare 4
-//insert(list1, 0, (NLS_("current")))           // put current at head of lists
-//insert(list2, 0, (NLS_("current")))
+insert(list1, 0, (NLS_("current"))) // put current at head of lists
+insert(list2, 0, (NLS_("current"))) // put current at head of lists
 
 show db // Show GUI
