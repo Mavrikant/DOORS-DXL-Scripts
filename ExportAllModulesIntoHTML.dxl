@@ -7,6 +7,8 @@
 //**********************************  History  ******************************
 // M. Serdar Karaman       2022-05-25  Initial version. It exports as txt file.
 
+#include <C:\Program Files (x86)\IBM\Rational\DOORS\9.5\lib\dxl\addins\user\libhtml.dxl>
+
 pragma runLim,0 // disable timeout limit
 Module m = current      // check calling context
 string fileBase = getenv("USERPROFILE")
@@ -17,223 +19,15 @@ if (null sta || !directory sta)
 {
   mkdir(fileBase)
 }
+delete sta
 
-// Turn baseline in to string
-string getBaselineStr(Baseline bLine)
+void processFormal(string modName)
 {
-  if (bLine != null) return major (bLine) "" "." minor (bLine) ""
-  else               return "current"
-}
-
-// Build a skip list which maps absnos onto their corresponding objects. Also initialize the DXL filter to "reject"
-Skip getAbsnos(Module m)
-{
-  Skip res = create
-
-  Object o
-  for o in m do {
-    int a = o.(NLS_("Absolute Number"))
-    reject o                        // filter those mentioned in report
-    put(res, a, o)
-  }
-  return res
-}
-
-void writeLinks(Object o)
-{
-  Link l
-  ModName_ otherMod = null
-  ModuleVersion otherVersion = null
-  Object othero
-  string outLinkedId = null
-
-  string linkModName = "*"
-  int count = 0
-  linkStream << "\tLinks: \n"
-
-  for l in all(o->linkModName) do
-  {
-    count++
-  }
-  if (count > 0)
-  {
-    string headings[count]
-    int i = 0
-
-    for l in all(o->linkModName) do
-    {
-      otherVersion = targetVersion l
-      otherMod = module(otherVersion)
-      if (null otherMod || isDeleted otherMod) continue
-
-      iTarget= targetAbsNo(l)
-      headings[i++] = name(otherMod) "_" iTarget ""
-
-    /* TODO: This section will be corrected!!!
-        // ensure module is open
-        print name(otherMod) "Opening linked module\n"
-        if (null data(otherVersion))
-        {
-          load(otherVersion, false)
-        }
-        othero = target l
-
-        if (null othero)
-        {
-            load(otherVersion,false)
-            othero = target l
-
-            print "Link dest null\n"
-        }
-
-        if (null othero) continue
-
-        if (isDeleted othero) continue
-
-        outLinkedId = (identifier othero)
-        linkStream << "\t\t" outLinkedId "\n"
-      */
-    }
-    //linkStream << "\t\t" count "\n"
-
-    sort headings
-    for (i = 0; i < count; i++)
-    {
-      linkStream << "\t\t" headings[i] "\n"
-    }
-  } // links > 0
-}
-
-void printObjectInfo(Object obj, Skip skipAttrs)
-{
-  Buffer strBuff = create
-  string aName     = ""
-
-  if (isDeleted(obj))
-  {
-    linkStream << "Deleted Object: " obj."Absolute Number" "\n"
-  }
-  else
-  {
-    linkStream << "Object: " obj."Absolute Number" "\n"
-    linkStream << "\tHeading/Text: "
-    if("" != obj."Object Heading" "")
-    {
-      linkStream << obj."Object Heading" ""
-    }
-    else if("" != obj."Object Text" "")
-    {
-      linkStream << obj."Object Text" ""
-    }
-    linkStream << "\n"
-
-    linkStream << "\tParent: "
-
-    Object parentObject = parent(obj)
-    if(null != parentObject)
-    {
-      linkStream << parentObject."Absolute Number" ""
-    }
-    else
-    {
-      linkStream << "-"
-    }
-
-    linkStream << "\n"
-    // changes to other attributes
-    for aName in skipAttrs do
-    {
-      linkStream << "\t" aName ": "
-      strBuff = probeAttr_(obj, aName)
-      linkStream << tempStringOf(strBuff)
-      linkStream << "\n"
-    }
-  }
-  delete(strBuff)
-}
-
-void getAttrs(Module newMod, Skip attrs)
-{
-  AttrDef ad = null
-
-  for ad in newMod do // loop through attributes in module
-  {
-    if (!null ad)
-    {
-      if (ad.object) // only interested in object attributes
-      {
-        if (ad.system && (ad.name != "Last Modified On")) continue // exclude system attributes
-
-        // exclude DXL attributes
-        string adDxl = ad.dxl
-
-        if (adDxl "" != "") continue
-
-        // to exclude an attribute insert test for it here
-        if (ad.name == "Object Heading") continue
-        if (ad.name == "Object Text") continue
-        if (ad.name == "ChangeHistory") continue
-
-        put(attrs, ad.name, ad.name)
-      }
-    }
-  }
-}
-
-void listLinks(Module mod)
-{
-  Object obj
-  Skip skipAttrs = createString
-
-  for obj in entire (mod) do
-  {
-    getAttrs(mod, skipAttrs)
-    printObjectInfo(obj, skipAttrs)
-    writeLinks(obj)
-    linkStream << "\n"
-  }
-  delete skipAttrs
-}
-
-void writeBaselineToFile(Module mod, Baseline bLine)
-{
-  Module foundMod = m
-  string suffixStr = "current"
-  string descriptionStr = "current"
-
-  if (bLine != null)
-  {
-    foundMod = load (mod, bLine, false)
-    suffixStr = suffix(bLine)
-    descriptionStr = annotation(bLine)
-  }
-
-  outFileName = fileBase fullName(foundMod) "_Baseline_" getBaselineStr(bLine) ".txt"
-  linkStream = write outFileName
-  linkStream << "Module     : " fullName(foundMod) "\n"
-  linkStream << "Baseline   : " getBaselineStr(bLine) "\n"
-  linkStream << "Suffix     : " suffixStr "\n"
-  linkStream << "Description: " descriptionStr "\n"
-  listLinks(foundMod)
-  flush linkStream
-  close linkStream
-}
-
-void processDescriptive(string mName)
-{
-	print("Descriptive Module: " mName "\n")
-}
-
-void processFormal(Module mod)
-{
-	print("Formal Module: " fullName(mod) "\n")
-  m = mod
-  writeBaselineToFile(mod, null)
-}
-
-void processLink(string mName)
-{
-	print("Link Module: " mName "\n")
+	//print("Formal Module: " fullName(mod) "\n")
+  //m = mod
+  do_export_file(modName)
+  //dumpSingleMod(m)
+  //writeBaselineToFile(mod, null)
 }
 
 void processFolder(Folder f)
@@ -245,71 +39,68 @@ void processFolder(Folder f)
   if (null sta || !directory sta)
   {
     mkdir(fileBase)
+  }else{
+    delete sta
   }
-
-	print("Folder: " fullName(f) "\n")
+	//print("Folder: " fullName(f) "\n")
 }
 
-void processProject(Project f)
+void initialProcessFolder(Folder f)
 {
-	print("Project: " fullName(f) "\n")
+  string split = null
+  string delim = "/";
+  for split in splitString(fullName(f), delim) do { 
+    fileBase = fileBase "\\" split
+    Stat sta = create fileBase
+    Stream linkStream
+    if (null sta || !directory sta)
+    {
+      mkdir(fileBase)
+    }else{
+      delete sta
+    }
+  }
 }
 
 // This function scans all items in the given folder, recursing through sub-projects and folders. 
+bool initial = true;
 void scanFolder(Folder f)
 {
-	Item itm
 
 	if (null f)
 	{
-		print("NULL Folder parameter passed")
+		//print("NULL Folder parameter passed")
 		return
 	}
 
-  string fileBase = getenv("USERPROFILE")
-  fileBase = fileBase "\\Desktop\\DoorsExport" fullName(f)
-  Stat sta = create fileBase
-  Stream linkStream
-  if (null sta || !directory sta)
-  {
-    mkdir(fileBase)
-  }
+  if(initial){initialProcessFolder(f); initial = false;}
 
-	for itm in f do
+	Item itm
+  for itm in f do
 	{
 		if (null itm) continue
 		if (isDeleted(itm)) continue
 
-		if (type (itm) == "Project")
-		{
-			processProject(project(itm))
-			scanFolder(folder(itm))
-		}
-		else if (type (itm) == "Folder")
+		if (type (itm) == "Folder")
 		{
 			processFolder(folder(itm))
 			scanFolder(folder(itm))
 		}
 		else if (type (itm) == "Formal")
 		{
-      string ModuleName = fullName(itm)
-      ModName_ ModRef = module ModuleName
-      Module mod = read(fullName ModRef, false)
-      processFormal(mod)
-            
-		}
-		else if (type (itm) == "Link")
-		{
-			processLink(fullName(itm))
-		}
-		else if (type (itm) == "Descriptive")
-		{
-			processDescriptive(fullName(itm))
+      //string ModuleName = fullName(itm)
+      //ModName_ ModRef = module fullName(itm)
+      //Module mod = read(fullName ModRef, false)
+      processFormal(fullName(itm))
 		}
 	}
 }
 
+
+
 /************************************
 	MAIN
 ************************************/
+print dateOf(intOf(today()))
 scanFolder(current Folder)
+print dateOf(intOf(today()))
