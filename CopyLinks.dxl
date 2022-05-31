@@ -8,6 +8,12 @@
 //**********************************  History  ******************************
 // Caner Bayram       2022-05-01  Initial version
 // M. Serdar Karaman  2022-05-13  Script turned into GUI
+// M. Serdar Karaman  2022-05-31  Refactoring, Null problem is solved. 
+
+//***********************************  TODO  ********************************
+// Memory leak analysis
+// Copy in-links
+// Link selection GUI for copy
 
 Folder currFolder = current
 DBE sourceIDField = null
@@ -16,14 +22,15 @@ DB db = null
 
 void CopyLinks(DB db)
 {
-  LinkModuleDescriptor linkModDes
+  Object srcObj = object(intOf(get(sourceIDField)))
+  Object dstObj = object(intOf(get(destinationIDField)))
+
+  LinkModuleDescriptor linkModDes = null
   for linkModDes in currFolder do
   {
     string linkMod = getName(linkModDes)
-    Object srcObj = object(intOf(get(sourceIDField)))
-    Object dstObj = object(intOf(get(destinationIDField)))
-
-    Link myLink
+    print linkMod "\n"
+    Link myLink = null
     for myLink in srcObj -> linkMod do
     {
       ModName_ targetMod = target(myLink)
