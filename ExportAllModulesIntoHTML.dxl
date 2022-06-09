@@ -11,6 +11,7 @@
 
 #include <C:\Program Files (x86)\IBM\Rational\DOORS\9.5\lib\dxl\utils\doctools/itfutil.inc>
 pragma runLim,0 // disable timeout limit
+pragma encoding, "utf-8"
 
 Module m = current      // check calling context
 string fileBase = getenv("USERPROFILE")
@@ -603,9 +604,9 @@ bool htmlExportLinkInfo(string l1, string l2, string modName, bool inTable, bool
 
 
     if (outlink)
-        ob+= (NLS_("⮞"))
+        ob+= "⮞"
     else
-        ob += (NLS_("⮜"))
+        ob += "⮜"
     ((ob += (NLS_("<a href = "))) += QT)
         if (target_mod != modName ) 
             ob += getFileOf(guessExportName((NLS_("")), target_mod))
