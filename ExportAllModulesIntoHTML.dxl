@@ -7,9 +7,11 @@
 //**********************************  History  ******************************
 // M. Serdar Karaman       2022-05-25  Initial version. It exports as txt file.
 // M. Serdar Karaman       2022-06-07  Export into html format with css and js. 
+// M. Serdar Karaman       2022-06-10  Works with batch mode of Doors . 
 
+#include <utils\openModulesMemoryManagement.inc>
+#include <utils\doctools/itfutil.inc>
 
-#include <C:\Program Files (x86)\IBM\Rational\DOORS\9.5\lib\dxl\utils\doctools/itfutil.inc>
 pragma runLim,0 // disable timeout limit
 pragma encoding, "utf-8"
 

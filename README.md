@@ -35,11 +35,19 @@ All numbers (except 0 and 1) not located inside of square brackets ```[]``` assu
 
 ### Copy Links
 
+![Copy Links Tool](images/Copy_links.png)
+
 Its copies links on the source object to the destination object.
 
 ### Export all modules into Html
 
 These scripts recursively export all items under the project to a folder as a fancy-styled useful HTML report.
+
+Following batch command can be used with **Task Scheduler** to periodically export modules.
+
+```"C:\Program Files (x86)\IBM\Rational\DOORS\9.5\bin\doors.exe" -u "USERNAME" -P "PASSWORD" -p "PROJECT_NAME" -b "addins\user\ExportAllModulesIntoHTML.dxl" -W```
+
+Html reports can be served with python's simple http server command ```python -m http.server 1111```  
 
 ## License
 
