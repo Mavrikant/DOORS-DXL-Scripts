@@ -21,11 +21,9 @@ Its copies the full path of the current module into the clipboard.
 
 It copies Id of the selected object(s) into the clipboard. If multiple objects are selected they are will be separated by a newline.
 
-### Copy Object ID (Ctrl + 3)
+### Enhanced Baseline Comparison (Ctrl + 3)
 
 This script shows baseline comparison windows similar to DOORS's windows with an extra button for Beyond Compare. It creates a .txt export of selected baselines in the background and then compares them with Beyond Compare. It's easier to see the difference with this method.  
- 
-**TODO:** Add a button for WinMerge too.
 
 ![Baseline Comparison Tool](images/BaselineComparisonGUI.png)
 

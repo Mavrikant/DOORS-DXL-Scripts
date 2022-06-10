@@ -12,6 +12,8 @@
 // M. Serdar Karaman  2022-05-11  Cleaning, Refactoring, and Documentation
 // M. Serdar Karaman  2022-05-17  Script is able to compare current version of module with previous baseline, Refactoring
 
+//************************************  TODO  ********************************
+// Add button WinMerge
 
 pragma runLim,0 // disable timeout limit
 Module m = current      // check calling context
