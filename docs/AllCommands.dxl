@@ -1,0 +1,4180 @@
+string getNextModuleFormName(Module,string)
+GetNextModuleFormName
+string getModuleFormProperties(Module,string)
+GetModuleFormProperties
+string getModuleFormAttr(Module,string)
+bool deleteModuleForm(Module,string)
+bool updateModuleForm(Module,string,string,string)
+bool addModuleForm(Module,string,string,string)
+int syswaitPIPEFAULT_
+int syswaitPROCESSERROR_
+int syswaitINFINITE_
+string getProperties(ModuleVersion, ModuleProperties&)
+string bringToFront()
+MoveBaseWindowToFront
+string bringToFront(Module)
+string validateDOORSURL(string)
+string decodeURL(string, string& dbHost, int& dbPort, string& dbName, string& dbId, Item&, ModuleVersion&, string& viewName, int& objectAbsno)
+string decodeURL(string, string& dbHost, int& dbPort, string& dbName, string& dbId, Item&, ModuleVersion&, int& objectAbsno)
+string getURL(Project)
+string getURL(Folder)
+string getURL(Object)
+string getURL(ModName_)
+string getURL(ModuleVersion)
+string getURL(Module)
+string getURL(Database__)
+bool runningAsDoorsnet()
+void setVersions__(string,string)
+int win32SystemWait_(string commandString,string& sResult, int waitTime,Skip envString)
+int win32SystemWait_(string commandString,string& sResult, int waitTime)
+string getDiagnosticLog_()
+void showDiagnosticWindow_()
+ShowDiagnosticWindow
+void crashTestAsynch_()
+void crashTestSynch_()
+void ::=(DxlObjectLHS lhs, _x newValue)
+DxlObjectLHS ::->(DxlObject obj, string fieldName)
+_x ::->(DxlObject obj, string fieldName)
+void delete(DxlObject theObject)
+DxlObject automatic()
+struct DxlObjectLHS{};
+void ::do (int&, Codepages__, void)
+Codepages__ supportedCodepages
+Codepages__ installedCodepages
+Buffer convertToCodepage(int,Buffer&)
+Buffer convertFromCodepage(int,Buffer&)
+string convertToCodepage(int,string)
+string convertFromCodepage(int,string)
+string codepageName(int)
+int currentANSIcodepage()
+void ::do (Locale&, Locales__, void)
+Locales__ supportedLocales
+Locales__ installedLocales
+bool installed(Locale)
+string region(Locale)
+string language(Locale)
+Module lastSelectedModule_()
+Object lastSelectedObject_()
+void setTriggerState_(bool)
+bool getTriggerState_()
+void ::do (string&, LongDateFormats__, void)
+void ::do (string&, ShortDateFormats__, void)
+LongDateFormats__ longDateFormats()
+LongDateFormats__ longDateFormats(Locale)
+LongDateFormatsLocale
+ShortDateFormats__ shortDateFormats()
+ShortDateFormats__ shortDateFormats(Locale)
+ShortDateFormatsLocale
+bool isValidDate(string)
+string getShortDate(string)
+Date dateAndTime(Date)
+bool includesTime(Date)
+string getDateFormat(Locale,bool)
+string getDateFormat(Locale)
+GetLocaleShortDateFormat
+string getDateFormat(bool)
+string getDateFormat()
+Date date(string,Locale,string)
+DateOfStringLocaleFormat
+Date date(string,string)
+Date date(string,Locale)
+string stringOf(Date,Locale,string)
+StringOfDateLocaleFormat
+string stringOf(Date,string)
+string stringOf(Date,Locale)
+string stringOf(Date)
+Date getDateOf(string)
+bool containsStaticOle(Attr__)
+bool containsUnregisteredOle(Attr__)
+ContainsUnregisteredOle
+string ::-= (Attr__, string)
+RemoveMultiStringAttr
+string ::+= (Attr__, string)
+string replaceText(Attr__ attribute, string oldText,string newText, int position, int length)
+string replaceText(Attr__ attribute, string newText, int position, int length)
+string ::= (Attr__, RTF_string__)
+void delete(ClipboardLock&)
+ClipboardLock create(int timeout)
+void setRichClip(Buffer, string, string, bool, bool)
+SetRTFClipStyleFontFromBufferFlags
+void setRichClip(Buffer, string, string)
+SetRTFClipStyleFontFromBuffer
+void setRichClip(Buffer, string)
+SetRTFClipParFromBuffer
+void setRichClip(Buffer)
+SetRTFClipFromBuffer
+void setRichClip(RTF_string__, string, string, bool, bool)
+SetRTFClipStyleFontFlags
+void setRichClip(RTF_string__, string, string)
+void setRichClip(RTF_string__, string)
+void setRichClip(RTF_string__)
+string stringOf(RTF_string__)
+RTF_string__ richClip()
+string getBoundedUnicode(Attr__, int)
+GetBoundedUnicodeAttr
+string getBoundedAttr(Attr__, int)
+GetBoundedStringAttr
+string setAttrFromHTML(Buffer&, Attr__)
+string htmlText(Buffer&, Attr__, bool, bool, string, string, string, string)
+GetHTMLAttrWithPictures
+string htmlText(Buffer&, Attr__, bool, bool, string, string)
+RTF_buffer_No_Ole__ richTextNoOle(Attr__)
+RTF_buffer_With_Ole__ richTextWithOle(Attr__)
+RTF_string__ richText(string)
+RTF_buffer__ richText(Buffer)
+RTF_buffer__ richText(Attr__)
+RTF_string__ richText(Attr__, bool)
+string richText(Attr__, bool)
+GetRTFStringAttrFlagLegacy
+RTF_string__ richText(Attr__)
+string richText(Attr__)
+GetRTFStringAttrLegacy
+RTF_string__ richTextNoOle(Attr__, bool)
+string richTextNoOle(Attr__, bool)
+GetRTFStringAttrFlagNoOle
+RTF_string__ richTextNoOle(Attr__)
+string richTextNoOle(Attr__)
+GetRTFStringAttrNoOle
+RTF_string__ richTextWithOle(Attr__, bool)
+string richTextWithOle(Attr__, bool)
+GetRTFStringAttrFlagWithOle
+RTF_string__ richTextWithOle(Attr__)
+string richTextWithOle(Attr__)
+GetRTFStringAttrWithOle
+string set(Attr__, Attr__)
+Buffer ::= (Attr__, Buffer)
+Buffer ::= (Buffer&, RTF_buffer_No_Ole__)
+GetRichBufferAttrNoOle
+Buffer ::= (Buffer&, RTF_buffer_With_Ole__)
+GetRichBufferAttrWithOle
+Buffer ::= (Buffer&, RTF_buffer__)
+GetRichBufferAttrLegacy
+Date ::= (Date&, Attr__)
+Buffer ::= (Buffer&, Attr__)
+string unicodeString(Attr__)
+string ::= (string&, Attr__)
+bool ::= (bool&, Attr__)
+real ::= (real&, Attr__)
+int ::= (int&, Attr__)
+string get(DBE, Attr__)
+string set(DBE, Attr__)
+Buffer ::= (Attr__, RTF_buffer_No_Ole__)
+Buffer ::= (Attr__, RTF_buffer_With_Ole__)
+Buffer ::= (Attr__, RTF_buffer__)
+SetRichBufferAttrLegacy
+Date ::= (Attr__, Date)
+string ::= (Attr__, string)
+bool ::= (Attr__, bool)
+real ::= (Attr__, real )
+int ::= (Attr__, int )
+bool canControl(AttrType)
+bool canControlVal(AttrDef)
+canControlAttrdefVal
+bool canControlDef(AttrDef)
+canControlAttrdefDef
+bool canDelete(AttrType)
+bool canDeleteVal(AttrDef)
+bool canDeleteDef(AttrDef)
+bool canCreate(AttrType)
+bool canCreateVal(AttrDef)
+bool canCreateDef(AttrDef)
+bool canModify(AttrType)
+bool canModifyVal(AttrDef)
+bool canModifyDef(AttrDef)
+bool canRead(AttrType)
+bool canReadVal(AttrDef)
+bool canReadDef(AttrDef)
+bool canWrite(ModName_,View)
+bool canWrite(Attr__)
+bool canWrite(Module,string)
+bool canWrite(Module)
+bool canWrite(Object)
+bool canControl(BaselineSetDefinition)
+bool canControl(ModName_,View)
+bool canControl(Item)
+bool canControl(Folder)
+bool canControl(Attr__)
+bool canControl(Module,string)
+bool canControl(Module)
+bool canControl(Object)
+bool canDelete(ModName_,View)
+bool canDelete(Item)
+bool canDelete(Folder)
+bool canDelete(Attr__)
+bool canDelete(Module,string)
+bool canDelete(Module)
+bool canDelete(Object)
+bool canCreate(ModName_,View)
+bool canCreate(Item)
+bool canCreate(Folder)
+bool canCreate(Attr__)
+bool canCreate(Module,string)
+bool canCreate(Module)
+bool canCreate(Object)
+bool canModify(ModName_,View)
+bool canModify(Item)
+bool canModify(Folder)
+bool canModify(Attr__)
+bool canModify(Module,string)
+bool canModify(Module)
+bool canModify(Object)
+bool canRead(ModName_, View)
+bool canRead(Item)
+bool canRead(Folder)
+bool canRead(Attr__)
+bool canRead(Module,string)
+bool canRead(Module)
+bool canRead(Object)
+bool hasSpecificValue(ExternalLink,AttrDef)
+bool hasSpecificValue(Link,AttrDef)
+bool hasSpecificValue(Module,AttrDef)
+bool hasSpecificValue(Object,AttrDef)
+bool dataIsFromServer()
+void refresh(Module m, bool scrollToCurrent)
+void refresh(Module)
+void system(string command, void(int), void())
+void system(string command, void(int))
+void system(string command)
+void run(string command)
+string checkDXLFile(string)
+string checkDXL(string)
+string deleteKeyRegistry(string)
+string deleteValueRegistry(string, string)
+string setRegistry(string, string, int)
+string setRegistry(string, string, string)
+string getRegistry(string, string)
+string doorsRegistryOptions()
+DoorsRegistryOptions
+bool unsaved(Module)
+bool sectionNeedsSaved(Object)
+bool modified(Object)
+bool baseline(Module)
+string version(Module)
+bool autoIndent(Module)
+string defaultTableAttribute(Module)
+DefaultTableAttributeMod
+bool overrideTableAttribute(Module)
+OverrideTableAttributeMod
+bool enableDefaultTableAttribute(Module)
+EnableDefaultTableAttributeMod
+bool showExplorer(Module)
+bool showGraphicsDatatips(Module)
+bool showGraphicsLinks(Module)
+bool showChangeBars(Module)
+bool linkIndicators(Module)
+bool filterTables(Module)
+bool showPictures(Module)
+bool showTables(Module)
+bool descendants(Module)
+bool ancestors(Module)
+bool deletions(Module)
+bool graphics(Module)
+bool filtering(Module)
+bool sorting(Module)
+bool outlining(Module)
+void defaultTableAttribute(string)
+DefaultTableAttributeSet
+void overrideTableAttribute(bool)
+OverrideTableAttributeSet
+void enableDefaultTableAttribute(bool)
+EnableDefaultTableAttributeSet
+void showExplorer(bool)
+void showGraphicsDatatips(bool)
+void showGraphicsLinks(bool)
+void showChangeBars(bool)
+void linkIndicators(bool)
+void filterTables(bool)
+void showPictures(bool)
+void showTables(bool)
+void descendants(bool)
+void ancestors(bool)
+void outlining(bool)
+void filtering(bool)
+void deletions(bool)
+void autoIndent(bool)
+bool isLastObjectInDXLSet(Object)
+IsLastObjectInDXLSet
+bool isFirstObjectInDXLSet(Object)
+IsFirstObjectInDXLSet
+bool isVisible(Object)
+bool isOutline(Object)
+bool isFiltered(Object)
+Module module(Object)
+string number(Object)
+string richtext_identifier(Object)
+string identifier(Object)
+TemplateB__ below(Template)
+void instance(TemplateB__)
+void instance(Template)
+Template ::>>(Template,int)
+Template ::>>(Template,string)
+Template ::<>(Template,string)
+Template ::<<(Template,string)
+Template template(string)
+bool getCalculatingLayoutHeight_(void)
+GetDisplayCalculatingHeight
+void display(Attr__)
+void displayRichWithColour(string)
+void displayRichWithColor(string)
+DisplayRichStringWithColour
+void displayRich(string)
+void display(string)
+Object current(Module)
+Object ::= (ObjectRef__,Last__)
+Object ::= (ObjectRef__,Below__)
+Object ::= (ObjectRef__,Object)
+Module ::= (ModuleRef__,Module)
+string setCurrentFolder_(Folder newCurrent)
+Folder ::=(FolderRef__, Project)
+Folder ::=(FolderRef__, Folder)
+ExternalLink current()
+ObjectRef__ current()
+ModuleRef__ current()
+FolderRef__ current()
+string update(string description, string name,ExternalLinkDirection direction, ExternalLinkBehaviour follow, string body, ExternalLink newLink)
+string create(Object o,string description, string name,ExternalLinkDirection direction, ExternalLinkBehaviour follow, string body, ExternalLink& newLink)
+Object create (Last__,int)
+mkNodeBelowLastAbsno
+Object create (Last__)
+Object create (Below__,int)
+Object create (Below__)
+Below__ first (Below__)
+Last__ last (Below__)
+Below__ below (Object)
+Object create(Before__,int)
+Object create(Before__)
+Before__ before (Object)
+Object after (Object)
+string splitHeadingAndText(Object)
+Object create(Object, int)
+Object create(Object)
+Object create(Module, int)
+Object create(Module)
+Date lastModifiedTime(Link)
+LastModifiedTimeLink
+Date lastModifiedTime(Object)
+LastModifiedTimeObject
+Date lastModifiedTime(Module)
+LastModifiedTimeModule
+Link ::<- (Object, Object)
+Link ::-> (Object, Object)
+Link ::<- (InLinkRef__, Object)
+Link ::-> (OutLinkRef__, Object)
+ModuleVersion linkVersion(LinkRef)
+ModuleVersion linkVersion(Link)
+ModuleVersion targetVersion(Link)
+ModuleVersion sourceVersion(LinkRef)
+LinkRefSourceVersion
+ModuleVersion sourceVersion(Link)
+Module module(LinkRef)
+ModName_ source(LinkRef)
+string source(LinkRef)
+int sourceAbsNo(LinkRef)
+int sourceAbsNo(Link)
+int targetAbsNo(Link)
+ExternalLinkBehaviour openAsURL
+ExternalLinkBehaviour none
+ExternalLinkDirection outward
+ExternalLinkDirection inward
+ExternalLinkBehaviour behaviour(ExternalLink)
+ExternalLinkBehaviour
+ExternalLinkDirection direction(ExternalLink)
+ExternalLinkGetDirection
+string body(ExternalLink)
+string description(ExternalLink)
+ExternalLinkDescription
+string name(ExternalLink)
+string follow(ExternalLink)
+Object target(ExternalLink)
+Object source(ExternalLink)
+void ::do (ModName_&, InLinkRef__, void)
+void ::do (string&, InLinkRef__, void)
+void ::do (ExternalLink&, ExtLinkRef__, void)
+void ::do (LinkRef&, InLinkRef__, void)
+void ::do (Link&, InLinkRef__, void)
+void ::do (Link&, OutLinkRef__, void)
+ExtLinkRef__ all(ExtLinkRef__)
+ExtLinkRef__ ::-> (Object, string)
+ExtLinkRef__ ::<- (Object, string)
+OutLinkRef__ all(OutLinkRef__)
+OutLinkRef__ ::-> (Object, string)
+InLinkRef__ all(InLinkRef__)
+InLinkRef__ ::<- (Object, string)
+string ::..(Attr__, string)
+bool isMember(Attr__, string)
+Attr__ ::. (ExternalLink, ReservedName__)
+SpecialExternalLinkAttrRef
+Attr__ ::. (Link, ReservedName__)
+Attr__ ::. (Module, ReservedName__)
+Attr__ ::. (Object, ReservedName__)
+ReservedName__ reserved(string)
+Attr__ ::. (ModuleProperties, string)
+Attr__ ::. (ExternalLink, string)
+Attr__ ::. (Link, string)
+Attr__ ::. (Module, string)
+Attr__ ::. (Object, string)
+void ::do (Object&, Root__, void)
+void ::do (Object&, Module, void)
+void ::do (Object&, Object, void)
+void loadAndGoto(int, ModuleVersion)
+Object gotoObject(int absno, Module m, bool followingURL)
+Object gotoObject(int absno, Module m)
+Object ::[] (Module, int)
+Object ::[] (Object, int)
+Object object(int, Module)
+NodeByAbsNumberModule
+Object parent(Object)
+Object first(Sibling__)
+Object last(Sibling__)
+Object first(Object)
+Object previous(Sibling__)
+Object next(Sibling__)
+Sibling__ sibling(Object)
+Object previous(Object)
+Object first(Module)
+bool isVisible(Module)
+bool isShare(Module)
+bool close(Module, bool, bool)
+bool close(Module, bool)
+void addCPSCallbacks6(string dxlFnGetConfiguredAttributes(Skip))
+void addCPSCallbacks5(int dxlFnGetConfiguredAttributes(Skip), bool dxlFnGetLinkToSource(Skip), bool dxlFnGetLinksToSource(Skip), void dxlFnTranslateChangeType(Skip), bool dxlFnSubmitChangeProposal(Skip), bool dxlFnAddObjectsToProposal(Skip))
+void addCPSCallbacks4(bool dxlFnGetUserKeyDOORSnetGuest(Skip), bool dxlFnGetCPSEMailUpdates(), void dxlFnStartDOORSnetCPS(Skip), int dxlFnGetStapleCount (Skip), int dxlFnGetCPCount (Skip))
+void addCPSCallbacks3(void dxlFnFilterOnStapleSet(Skip), Object dxlFnGetUserSection(Skip), bool dxlFnStartCPEdit(Skip), void dxlFnStopCPEdit(Skip))
+void addCPSCallbacks2(void dxlFnFilterOnObject(Skip), Object dxlFnGetStapled(Skip), string dxlFnGetSourcePath(Skip), string dxlFnGetCPIdentifier(Skip))
+void addCPSCallbacks1(string dxlFnGetUserCPRole(Skip), bool dxlFnSubmitChangeSuggestion(Skip), Module dxlFnOpenModule(Skip), void dxlFnCloseModule(Skip), string dxlFnGetCPTargetPath(Skip))
+Module share(ModName_,string&,string)
+ShareLockModuleAnnot
+Module share(ModName_,string&)
+Module edit(ModName_,string,bool)
+Module edit(ModName_,string)
+Module share(string,bool,bool,bool)
+ShareModuleStdViewSilentD
+Module share(string,bool,bool)
+Module share(string,bool)
+Module share(string)
+Module edit(string,bool,bool,bool)
+EditModuleStdViewSilentD
+Module edit(string,bool,bool)
+Module edit(string,bool)
+Module read(string,bool,bool)
+Module read(string,bool)
+string reconstructProjectIndexFile_(void)
+reconstructProjectIndexFile
+void ::do (Project&, Database__, void)
+void ::do (string&, Database__, void)
+int dxlWarningLineNumber()
+string dxlWarningFilename()
+void disableDisplayWarnings()
+DisableDisplayWarnings
+void enableDisplayWarnings()
+EnableDisplayWarnings
+void disableRepeatWarnings()
+DisableRepeatWarnings
+void enableRepeatWarnings()
+EnableRepeatWarnings
+void disableGeneralRichTextWarnings()
+DisableGeneralRichTextWarnings
+void enableGeneralRichTextWarnings(string logFile)
+EnableGeneralRichTextWarnings
+void disableObjectTextRichTextWarnings()
+DisableObjectRichTextWarnings
+void enableObjectTextRichTextWarnings(string logFile)
+EnableObjectRichTextWarnings
+void disableObjectTextAssignmentWarnings()
+DisableObjectTextWarnings
+void enableObjectTextAssignmentWarnings(string logFile)
+EnableObjectTextWarnings
+int stringCompare(string, string)
+int maximumAttributeLength
+string setReplyMessage_(string)
+string getIncomingReplyBody_(void)
+getIncomingReplyBody
+string getIncomingReplyHeader_(void)
+getIncomingReplyHeader
+void setReplyUI_(int replyUI(void))
+string sendBroadcastMessage(string)
+SendBroadcastMessage
+string getMessageOfTheDay(void)
+string setMessageOfTheDay(string)
+Item itemFromReference(Item referrer, string)
+string getReference(Item referrer, Item referee)
+string getModuleReport(ModName_)
+bool cachedRunFile(Module m,string filename)
+string getServerOption_(string,string&)
+string setMessageOfTheDayOption (bool bSetting)
+SetMessageOfTheDayOption
+bool getMessageOfTheDayOption()
+getMessageOfTheDayOption
+int clientMinorProtocolVersion_()
+int clientMajorProtocolVersion_()
+int serverMinorProtocolVersion_()
+int serverMajorProtocolVersion_()
+bool usingDBServer_()
+int getServerSeqNum_()
+int getClientSeqNum_()
+string setEditDXLControlled (bool bSetting)
+SetDatabaseEditDXLControlled
+bool getEditDXLControlled()
+GetDatabaseEditDXLControlled
+bool setOLEHistorySave(bool bSetting)
+SetDatabaseSaveOLEInHistory
+bool getOLEHistorySave()
+GetDatabaseSaveOLEInHistory
+bool setOLEPictureSave(bool bSetting)
+bool getOLEPictureSave()
+bool setDatabaseName(string newName)
+string getDatabaseName()
+string doorsInfo(int)
+const string DXLLibraryVersion
+int infoServerVersion
+int infoSupportPassword
+char getInvalidCharInProjectName(string)
+char getInvalidCharInModuleName(string)
+void activateURL(string)
+char isValidName(string)
+bool isValidPrefix(string)
+bool isValidDescription(string)
+bool isValidName(string)
+string getLicenseString_()
+bool getLicense_(string,real,string&)
+void setChangeBar_(Object, bool)
+void changeBar(Object, bool)
+void flushDeletions()
+string canDelete(ExternalLink)
+CanDeleteExtLinkString
+bool canDelete(ExternalLink)
+CanDeleteExtLinkBool
+string canDelete(Link)
+bool canDelete(Link)
+ModName_ source(ExternalLink)
+string source(ExternalLink)
+ModName_ source(Link)
+ModName_ target(Link)
+string type(Module, string)
+string doorsVersion()
+void linksVisible(bool)
+void setAPIClientTimeout(int)
+void replyAPI(IPC,string)
+void replyAPI(string)
+string getRegisteredDXLServer(string&)
+string initRegisteredDXLServer(IPC)
+initDXLServerAndRegister
+string initRegisteredDXLServerV2(IPC)
+initDXLServerAndRegisterV2
+int getSecureDXLServerPortnumber(void)
+getSecureDXLServerPortnumber
+string getSecureDXLServerClientInfo(void)
+getSecureDXLServerClientInfo
+string initSecureDXLServer(string)
+void initDXLServerV2(IPC)
+void initDXLServer(IPC)
+IPC initDXLServer(string)
+void move (Object, Last__)
+void move (Object, Below__)
+void move (Object, Object)
+string purgeObjects_(Module)
+string undelete(Object)
+bool isDeleted(Object)
+string canDelete (Object)
+void softDelete (Object, bool)
+softDeleteObjectCheckLinks
+void softDelete (Object)
+string purgeObject_ (Object)
+void hardDelete (Object)
+void delete (Object)
+void delete (ExternalLink)
+hardDeleteExternalLink
+void ::do (Lock&, LockList, void)
+void delete(LockList)
+LockList getLocksInModule(ModName_,bool)
+LockList getLocksInFolder(Project,bool)
+LockList getLocksInFolder(Project,bool,bool)
+LockList getLocksInFolder(Folder,bool)
+LockList getLocksInFolder(Folder,bool,bool)
+LockList getLocksInDatabase()
+LockList getLocksInDatabase(bool)
+Item ::= (Item&, LockRef__)
+bool ::= (bool&, LockRef__)
+Date ::= (Date&, LockRef__)
+int ::= (int&, LockRef__)
+string ::= (string&, LockRef__)
+LockRef__ ::. (Lock, LockElement_)
+LockHnodeValueReference
+LockElement_ childLocked()
+LockChildLockedValueReference
+LockElement_ removed()
+LockRemovedValueReference
+LockElement_ resourceName()
+LockResourceReference
+LockElement_ annotation()
+LockAnnotationReference
+LockElement_ connectionId()
+LockConnIdValueReference
+LockElement_ lockMode()
+LockModeValueReference
+LockDateValueReference
+LockIDValueReference
+LockHostValueReference
+LockUserValueReference
+void ::do (Item&, Clipboard__, void)
+Clipboard__ clipboard
+struct Clipboard__ {};
+bool itemClipboardIsEmpty()
+string clipClear(bool)
+string clipPasteAndUpdateReferences(Folder)
+string clipPaste(Folder)
+string clipCopy(Item)
+string clipCut(Item)
+string getPersistedVersion_(Item anItem, string& versionString)
+bool containsLinkModule(Item)
+ItemContainsLinkModule
+bool inClipboard(Item)
+string rename (Item, string, string)
+Folder getParentFolder(Item)
+Project getParentProject(Item)
+string move(Item, Folder)
+string rootNameTemp_ (Item)
+string rootName_ (Item)
+string fullNameTemp_ (Item)
+string fullName (Item)
+string purge (Item&)
+string undelete (Item)
+string delete (Item)
+bool isDeleted (Item)
+string descriptionTemp_ (Item)
+string description (Item)
+Item itemFromID (string)
+string qualifiedUniqueID(Item)
+string uniqueID (Item)
+string nameTemp_(Item)
+bool equal(Item, Item)
+Item getItem(ModName_)
+Item getItem(Module)
+string move(Folder, Folder)
+string shareLock(Folder,string&,string)
+ShareLockFolderAnnot
+string shareLock(Folder,string&)
+bool inClipboard(Folder)
+string rename (Folder, string, string)
+Folder getParentFolder(Folder)
+Project getParentProject(Folder)
+string path (Folder)
+string rootNameTemp_ (Folder)
+string rootName_ (Folder)
+string fullName (Folder)
+string purge (Folder&)
+string purge (Folder)
+string undelete (Folder)
+string delete (Folder)
+string type (Folder)
+bool isDeleted (Folder)
+string description (Folder)
+string name (Folder)
+void ::do (Item&, AllFolder_, void)
+AllFolder_ all(Folder)
+void ::do (Item&, Folder, void)
+string closeFolder()
+string create (string,string,Folder&)
+Folder create (string,string)
+string qualifiedUniqueID(Folder)
+string uniqueID (Folder)
+Folder folder (Item)
+bool folder (string)
+Folder folder (string)
+string move(Project, Folder)
+string convertFolderToProject(Folder&,Project&)
+string convertFolderToProject(Folder,Project&)
+string convertProjectToFolder(Project&,Folder&)
+string convertProjectToFolder(Project,Folder&)
+string shareLock(Project,string&,string)
+ShareLockProjectAnnot
+string shareLock(Project,string&)
+bool inClipboard(Project)
+Project getRootProject_(void)
+string setRootProject_(Project)
+string setPasswordConfirmRequired(Project, bool)
+bool passwordConfirmRequired(Project)
+string rename (Project, string, string)
+Folder getParentFolder(Project)
+Project getParentProject(Project)
+bool isDeleted(Project)
+bool isDeleted(string)
+string openProject(string)
+string openProject(string, string)
+string openProject(string, string, string)
+string purge (Project&)
+string purge (Project)
+string undelete (Project)
+string delete (Project)
+bool purgeProject_ (string)
+bool undeleteProject_ (string)
+bool deleteProject_ (string)
+string path (Project)
+string rootName_ (Project)
+string fullName (Project)
+string description (Project)
+string name(Project)
+Project project(Item)
+Project project(string)
+bool project(string)
+string qualifiedUniqueID(Project)
+string uniqueID (Project)
+Project create (string,string,string)
+Project create (string,string,string,string,string,int,int,string&)
+string create (string,string,Project&)
+Project create (string,string)
+string listLostSections_(Module,bool)
+string listLostSections_(Module)
+string restoreLostSections_(Module)
+string qualifiedUniqueID(ModName_)
+string uniqueID (ModName_)
+string type (Module)
+string type (ModName_)
+ModName_ module (Module module)
+ModName_ module (string name)
+bool open (ModName_ )
+bool exists (ModName_)
+bool module (string name)
+void extractBelow (Object o)
+void extractAfter (Object o)
+bool setUpExtraction (Module m, string formal, link)
+void undoMarkUp (Object o)
+Object markUp (Object o, int firstchar, lastchar)
+Module create (string name, desc, int mapping, bool win)
+Module create (string name, desc, prefix, int absno, bool win)
+string create (string name, desc, int mapping, Module& m)
+string create (string name, desc, prefix, int absno, string filename, Module& m)
+CreateDescriptiveSilent
+string create (string name, desc, prefix, int absno, Module& m)
+Module create (string name, desc, int mapping)
+Module create (string name, desc, prefix, int absno, string filename)
+Module create (string name, desc, prefix, int absno)
+bool copy (ModName_, string, string)
+string rename (ModName_, string, string)
+bool rename (ModName_, string, string)
+bool isLockedClosed(ModName_)
+string unlock(ModName_)
+string lock(ModName_,string)
+string lock(ModName_)
+bool isLocked(ModName_)
+string purge (ModName_&)
+string purge (ModName_)
+string undelete (ModName_)
+string delete (ModName_&,bool)
+string delete (ModName_,bool)
+string delete (ModName_&)
+string delete (ModName_)
+bool isDeleted(ModName_)
+bool purge (ModName_&)
+bool purge (ModName_)
+bool undelete (ModName_)
+bool softDelete (ModName_)
+bool hardDelete (ModName_&)
+bool hardDelete (ModName_)
+bool delete (ModName_&)
+bool delete (ModName_)
+void ::do (Module&, Folder, void)
+void ::do (Module&, Project, void)
+void ::do (Item&, Project, void)
+void ::do (string&, Project, void)
+string move(ModName_, Folder)
+bool inClipboard(Module)
+bool inClipboard(ModName_)
+Folder getParentFolder(ModName_)
+Project getParentProject(ModName_)
+Folder getParentFolder(Module)
+Project getParentProject(Module)
+string path (Module)
+string rootName_ (Module)
+string fullName (Module)
+string description (Module)
+string path (ModName_)
+string rootName_ (ModName_)
+string fullName (ModName_)
+string description (ModName_)
+string name(ModName_)
+string text(IntegrityCheckItem)
+IntegrityCheckItem checkItem(IntegrityProblem)
+CheckItemFromProblem
+void markRepaired(IntegrityProblem, bool)
+bool repaired(ProblemItem)
+bool repaired(IntegrityProblem)
+string addProjectEntry(ProblemItem)
+string convertToFolder(ProblemItem)
+string setParent(ProblemItem, Folder)
+Folder parentRef(ProblemItem)
+string parentRefID(ProblemItem)
+Folder parentRef(IntegrityProblem)
+string parentRefID(IntegrityProblem)
+IntegrityItemType type(ProblemItem)
+IntegrityItemType type(IntegrityProblem)
+IntegrityItemType type(IntegrityCheckItem)
+Folder folder(IntegrityProblem)
+Date timestamp(IntegrityCheckItem)
+bool cancelled(IntegrityResultsData)
+bool canceled(IntegrityResultsData)
+IntegrityCheckCancelled
+ProblemItem problems(IntegrityResultsData, string)
+ProblemItemFromIndex
+string uniqueID(ProblemItem)
+string uniqueID(IntegrityProblem)
+string uniqueID(IntegrityCheckItem)
+void ::do (IntegrityProblem&, ProblemItem, void)
+void ::do (ProblemItem&, IntegrityResultsData, void)
+void ::do (IntegrityProblem&, IntegrityResultsData, void)
+void ::do (IntegrityCheckItem&, IntegrityResultsData, void)
+void delete(IntegrityResultsData&)
+string checkFolderIntegrity(Folder&,IntegrityResultsData&,bool)
+CheckFolderIntegrity
+string checkDatabaseIntegrity(Folder,IntegrityResultsData&)
+CheckDatabaseIntegrity
+IntegrityItemType missingProjectListEntry()
+missingProjListEntry_
+IntegrityItemType invalidProjectListEntry()
+invalidProjListEntry_
+IntegrityItemType orphanedItem()
+IntegrityItemType noDataFound()
+IntegrityItemType referencesValidFolder()
+IntegrityItemType referencesInvalidFolder()
+IntegrityItemType failedCheck()
+IntegrityItemType completedCheck()
+IntegrityItemType startedCheck()
+string getWebBrowser()
+void setWebBrowser(string browserPath)
+string unlockDoorsnetFile(string, ConfType)
+string lockDoorsnetFile(string, ConfType)
+string getWarnViewChangesKey_(void)
+GetWarnViewChangesKey
+Skip getUserOptionSkip_(void)
+ConfDirectory__ confDirectory(string, ConfType)
+ConfDirectory__ confDirectory(string)
+void ::do (string&, ConfDirectory__, void)
+string configFileName()
+string configDirectory()
+bool end(ConfStream)
+void close(ConfStream)
+ConfStream ::<<(ConfStream, Buffer)
+ConfStream ::>=(ConfStream, Buffer)
+confGetBufferFullLine
+ConfStream ::->(ConfStream, Buffer)
+ConfStream ::>>(ConfStream, Buffer)
+ConfStream ::<<(ConfStream, string)
+ConfStream ::>>(ConfStream, string&)
+string confDownloadFile(string, string)
+confDownloadFileUser
+string confDownloadFile(string, string, ConfType)
+string confUploadFile(string, string)
+string confUploadFile(string, string, ConfType)
+bool confFileExists(string, ConfType)
+bool confFileExists(string)
+string confCopyFile(string, string, ConfType)
+string confRenameFile(string, string, ConfType)
+string confDeleteFile(string, ConfType)
+ConfStream confAppend(string, ConfType)
+ConfStream confWrite(string, ConfType)
+ConfStream confRead(string, ConfType)
+string confDeleteDirectory(string, ConfType)
+void confMkdir (string, ConfType)
+string confCopyFile(string, string)
+string confRenameFile(string, string)
+string confDeleteFile(string)
+ConfStream confAppend(string)
+ConfStream confWrite(string)
+ConfStream confRead(string)
+void confMkdir(string)
+ConfType confSysUser
+ConfType confProjUser
+struct ConfType {}; struct ConfStream {}; struct ConfDirectory__ {};
+Conf Directory do loop
+bool readBool(TokenReader) 
+bool compareToken(TokenReader, string t)
+bool endOfTokenStream(TokenReader)
+void skipCurrentToken(TokenReader)
+string expectEndToken(TokenReader)
+string expectInteger(TokenReader, string t, int &intVal)
+string expectString(TokenReader tr, string t, string &strVal)
+string expect(TokenReader, string t)
+string readString(TokenReader)
+int readInteger(TokenReader)
+string close(TokenReader&)
+int getCurrentTokenStreamFormatVersion(TokenReader)
+GetCurrentTokenStreamFormatVersion
+int getDataFormatVersion(TokenReader)
+GetDataFormatVersion
+TokenReader create(string)
+void writeBoolLn(TokenWriter, string, bool)
+string writeFailed(TokenWriter)
+void writeEndTokenWithoutIndent(TokenWriter)
+WriteEndTokenWithoutIndent
+void writeEndToken(TokenWriter)
+void writeInteger(TokenWriter, int theInteger)
+void writeRealLn(TokenWriter, string tok, real theReal)
+void writeIntegerLn(TokenWriter, string tok, int theInteger)
+void writeStringLn(TokenWriter, string tok, string theString)
+void removeIndent(TokenWriter)
+void addIndent(TokenWriter)
+void writeLn(TokenWriter, int i)
+void writeLn(TokenWriter, string tok)
+void writeLn(TokenWriter)
+void writeTokenStart(TokenWriter, string tok)
+void write(TokenWriter, int i)
+void write(TokenWriter, string theString)
+string close(TokenWriter&)
+TokenWriter create(string)
+void showOlePropertiesDialog(Object)
+ShowOlePropertiesDialog
+bool isOleObjectSelected(Object)
+oleMethod(OleAutoObj, string)
+oleMethod(OleAutoObj, string, OleAutoArgs)
+oleMethod(OleAutoObj, string, OleAutoArgs, OleAutoObj&)
+oleMethod(OleAutoObj, string, OleAutoArgs, char&)
+oleMethod(OleAutoObj, string, OleAutoArgs, bool&)
+oleMethod(OleAutoObj, string, OleAutoArgs, int&)
+oleMethod(OleAutoObj, string, OleAutoArgs, string&)
+bool olePasteLink(Object)
+bool olePaste(Object)
+oleInsert(Object, string, bool)
+oleInsert(Object, string)
+oleGetAutoObject(Object)
+olePut(OleAutoObj, string, OleAutoObj)
+olePut(OleAutoObj, string, char)
+olePut(OleAutoObj, string, bool)
+olePut(OleAutoObj, string, real)
+olePut(OleAutoObj, string, int)
+olePut(OleAutoObj, string, string)
+oleGet(OleAutoObj, string, OleAutoArgs, OleAutoObj&)
+oleGet(OleAutoObj, string, OleAutoObj&)
+oleGet(OleAutoObj, string, OleAutoArgs, char&)
+oleGet(OleAutoObj, string, char&)
+oleGet(OleAutoObj, string, OleAutoArgs, bool&)
+oleGet(OleAutoObj, string, bool&)
+oleGet(OleAutoObj, string, OleAutoArgs, int&)
+oleGet(OleAutoObj, string, int&)
+oleGet(OleAutoObj, string, OleAutoArgs, string&)
+oleGet(OleAutoObj, string, string&)
+string oleDeactivate(Object, Column col, int oleIndex)
+DeactivateEmbeddedObj
+oleDeactivate(Object)
+oleGetAutoObject(string)
+GetAutoObjFromString
+oleCreateAutoObject(string)
+bool oleCloseAutoObject(OleAutoObj&)
+bool olePasteLink( Attr__)
+olePasteLinkEmbeddedObject
+bool olePaste(Attr__)
+olePasteEmbeddedObject
+string oleResetSize( Attr__)
+string oleSetHeightandWidth( Attr__, int height, int width, int index)
+oleSetHeightandWidth
+string oleSetMinWidth( Attr__, int width)
+string oleSetMaxWidth( Attr__, int width)
+bool containsOle(Attr__)
+oleContainsEmbeddedObjects
+int oleCount(Attr__)
+oleCountEmbeddedObjects
+string exportPicture(EmbeddedOleObject, string fileName, int format)
+string getOleWidthHeight(EmbeddedOleObject, int&, int&)
+oleGetAutoObject(Object, Column col, int oleIndex)
+string oleDelete(Object, Column col, int oleIndex)
+DeleteEmbeddedOleObj
+string oleCut(Object, Column col, int oleIndex)
+string oleRtf(EmbeddedOleObject)
+bool oleCopy(EmbeddedOleObject)
+string oleCopy(Object, Column col, int oleIndex)
+CopyEmbeddedOleFromColumn
+string oleOpen(Object, Column col, int oleIndex)
+string oleActivate(Object, Column col, int oleIndex)
+void ::do (EmbeddedOleObject&, Object, void)
+void oleSaveBitmap(Object)
+bool oleCopy(Object)
+bool oleOpen(Object)
+bool oleActivate(Object)
+void put(OleAutoArgs, string, OleAutoObj)
+void put(OleAutoArgs, string, bool)
+void put(OleAutoArgs, string, char)
+void put(OleAutoArgs, string, int)
+void put(OleAutoArgs, string, string)
+void put(OleAutoArgs, OleAutoObj)
+void put(OleAutoArgs, bool)
+void put(OleAutoArgs, char)
+void put(OleAutoArgs, int)
+void put(OleAutoArgs, string)
+void delete(OleAutoArgs&)
+OleAutoArgs create()
+void clear(OleAutoArgs)
+void oleSetResult(string)
+string oleGetResult()
+void disable(Trigger)
+void enable(Trigger)
+string disable(string name, trigLevelDesc_ d, trigEvent_ e, trigType_ t, int p)
+string enable(string name, trigLevelDesc_ d, trigEvent_ e, trigType_ t, int p)
+void set(TriggerStatus)
+void ::do (Trigger&, Database__, void)
+void ::do (Trigger&, Project, void)
+void ::do (Trigger&, Module, void)
+string stringOf(trigEvent_)
+string stringOf(trigType_)
+string stringOf(trigLevel_)
+trigEvent_ event(Trigger)
+string scope(Trigger)
+Item stored(Trigger)
+string stored(Trigger)
+trigType_ type(Trigger)
+trigLevel_ level(Trigger)
+Link link(Trigger trig)
+ModuleVersion version(Trigger trig)
+TriggerGetModuleVersion
+Module module(Trigger trig, int unused)
+TriggerGetVersionedModule
+Module module(Trigger)
+void value(Trigger, Buffer data)
+string value(Trigger)
+void createDropCallback(int fmt, int tymed, void cb(Trigger), Trigger td)
+string setDropList(int, Trigger, Skip)
+string setDropString(int, Trigger, string)
+Skip draggedObjects()
+Skip droppedList(string, Trigger)
+Skip droppedList(int, Trigger)
+string droppedString(string, Trigger, bool)
+string droppedString(string, Trigger)
+bool dropDataAvailable(string, int, Trigger)
+RegDropDataAvailable
+int registeredFormat(string)
+bool droppedAttrOLETextAvailable(string, Trigger, bool)
+DroppedAttrOLETextAvailSpecial
+bool droppedAttrOLETextAvailable(string, Trigger)
+DroppedAttrOLETextAvail
+bool droppedAttrRichTextAvailable(string, Trigger, bool)
+DroppedAttrRTFAvailSpecial
+bool droppedAttrRichTextAvailable(string, Trigger)
+bool droppedAttrTextAvailable(string, Trigger, bool)
+DroppedAttrTextAvailSpecial
+bool droppedAttrTextAvailable(string, Trigger)
+DroppedAttrTextAvail
+RTF_string__ droppedAttributeOLEText(string, Trigger, bool)
+RTF_string__ droppedAttributeOLEText(string, Trigger)
+RTF_string__ droppedAttributeRichText(string, Trigger, bool)
+RTF_string__ droppedAttributeRichText(string, Trigger)
+string droppedAttributeOLEText(string, Trigger, bool)
+DroppedAttrOLETextSpecial
+string droppedAttributeOLEText(string, Trigger)
+string droppedAttributeRichText(string, Trigger, bool)
+DroppedAttrRTFSpecial
+string droppedAttributeRichText(string, Trigger)
+string droppedAttributeText(string, Trigger, bool)
+DroppedAttrTextSpecial
+string droppedAttributeText(string, Trigger)
+string droppedString(int, Trigger, bool)
+string droppedString(int, Trigger)
+bool dropDataAvailable(int, int, Trigger)
+string clipboardFormatName(int fmt)
+int nextClipboardFormat(int fmt)
+AttrType typedef(Trigger)
+string typedef(Trigger)
+string attrtype(Trigger)
+AttrDef attrdef(Trigger)
+string attrdef(Trigger)
+string attribute(Trigger)
+Object linkTarget(Trigger)
+Object object(Trigger)
+string object(Trigger)
+string levelModifier(Trigger)
+string module(Trigger)
+int priority(Trigger)
+string name(Trigger)
+string kind(Trigger)
+TriggerStatus trigError
+TriggerStatus trigRunOK
+TriggerStatus trigPreConFail
+TriggerStatus trigPreConPass
+trigLevelMod_ user()
+trigLevelMod_ descriptive()
+trigLevelMod_ link()
+trigLevelMod_ formal()
+trigLevel_ attrtype()
+trigLevel_ attrdef()
+trigLevel_ attribute()
+trigLevel_ project()
+trigLevelDesc_ ::-> (trigLevelDesc_, trigLevelDesc_)
+trigLevelDesc_ ::-> (trigLevelDesc_, trigLevel_)
+trigLevelDesc_ ::-> (trigLevelDesc_, trigLevelMod_)
+trigLevelDesc_ ::-> (trigLevel_, trigLevelMod_)
+trigLevelDesc_ ::-> (trigLevelDesc_, string)
+trigLevelDesc_ ::-> (trigLevel_, string)
+trigLevelDesc_ ::-> (trigLevel_, trigLevel_)
+string delete(Trigger&)
+string delete(string name, trigLevel_ l, trigType_ t, trigEvent_ e, int p)
+string delete(string name, trigLevelDesc_ d, trigType_ t, trigEvent_ e, int p)
+Trigger trigger(trigLevelDesc_ d, trigEvent_ e, int p, void post(Trigger))
+Trigger trigger(trigLevel_ l, trigEvent_ e, int p, void post(Trigger))
+Trigger trigger(trigLevelDesc_ d, trigEvent_ e, int p, bool pre(Trigger))
+Trigger trigger(trigLevel_ l, trigEvent_ e, int p, bool pre(Trigger))
+Trigger trigger(string name, trigLevelDesc_ d, trigType_ t, trigEvent_ e, int p, string dxl)
+Trigger trigger(string name, trigLevel_ l, trigType_ t, trigEvent_ e, int p, string dxl)
+bool copyToClipboard(string)
+bool clipboardIsTransient()
+clipboardIsTransient
+bool clipboardIsEmpty()
+bool clearClipboard()
+bool pasteDown(bool)
+pasteDownWithInlinks
+bool pasteSame(bool)
+void deselect(Object)
+void deselect(Module)
+void setSelection(Object, Object)
+void setSelection(Object)
+void getSelection(Module, Object&, Object&)
+Object getSelection(Module)
+bool isSelected(Object)
+string HTMLToPlainText(Buffer&)
+HTMLToPlainTextBuffer
+string HTMLToRichText(Buffer&)
+HTMLToRichTextBuffer
+void safeHTMLBuffer(Buffer, bool, bool)
+void safeHTMLBuffer(Buffer, bool)
+void set(Buffer, int, char)
+int firstNonSpace(Buffer)
+int substring(string, string, int)
+int keyword(Buffer, string, int)
+BufferContainsFullKey
+int contains(Buffer, string, int)
+int contains(Buffer, char, int)
+BufferContainsCharAfter
+int contains(Buffer, char)
+void matchStrings(Buffer, Buffer, Skip, bool)
+bool search(Regexp, Buffer, int, int)
+bool search(Regexp, Buffer, int)
+void combine(Buffer, Buffer, int)
+void combine(Buffer, Buffer, int, int)
+string tempStringOf(Buffer)
+string stringOf(Buffer)
+string ::..(Buffer, string)
+bool ::>=(Buffer, Buffer)
+bool ::<=(Buffer, Buffer)
+bool ::> (Buffer, Buffer)
+bool ::< (Buffer, Buffer)
+bool ::!=(Buffer, Buffer)
+bool ::==(Buffer, Buffer)
+Stream ::>=(Stream,Buffer)
+Stream ::->(Stream,Buffer)
+Stream ::>>(Stream,Buffer)
+Stream ::<<(Stream,Buffer)
+bool ::..(Regexp, Buffer)
+void length(Buffer, int)
+GetBufferNumberOfCharacters
+string ::[](Buffer, Range_)
+Buffer ::[](Buffer, Range_)
+char ::[](Buffer, int)
+void setlower(Buffer)
+void setupper(Buffer)
+void setempty(Buffer)
+Buffer ::+=(Buffer, char)
+Buffer ::+=(Buffer, Buffer)
+Buffer ::+=(Buffer, string)
+void delete(Buffer&)
+string diff(Buffer result, source, target, bool)
+string diff(Buffer result, source, target)
+string diff(Buffer result, source, target, string removeMarkup, insertMarkup)
+int importRTF(string, Module, Skip)
+importRTFWithMapping
+int importRTF(string, Module, bool, bool)
+int charsetDefault()
+void deleteFontTable(Module)
+string fontTable(Module)
+string fullRichText(string)
+string removeUnlistedRichText(string)
+RemoveUnlistedRichText
+string richTextFragment(string,string, bool)
+GetRTFFragmentOfCellContentUsingFontTable
+string richTextFragment(string,string)
+GetRTFFragmentUsingFontTable
+string richTextFragment(string)
+string exportRTFString(string)
+string applyTextFormattingToParagraph(string, bool, int, int)
+ApplyTextFormattingToParagraph
+Buffer rtfSubString(Buffer, Buffer, int, int)
+string cutRichText(string, int, int, bool)
+string cutRichText(string, int, int)
+string plainText(string)
+string richText(string)
+Buffer replaceRichText(Buffer&, string, int, int, string)
+string replaceRichText(string, int, int, string)
+bool findPlainText(string, string, int&, int&, bool, bool)
+FindPlainStringReverse
+bool findPlainText(string, string, int&, int&, bool)
+bool findRichText(string, string, int&, int&, bool)
+bool isRichText(string)
+EmbeddedOleObject ::.(RichText, RTFEmbeddedOLE_)
+GetEmbeddedOleObject
+bool ::. (RichTextParagraph, RTFString_)
+string ::. (RichTextParagraph, RTFText_)
+GetStringRichTextPar
+int ::. (RichTextParagraph, RTFInt_)
+int ::. (RichText, RTFInt_)
+int ::. (RichText, RTFCharset_)
+bool ::. (RichText, RTFString_)
+string ::. (RichText, RTFText_)
+RTFInt_ indentLevel()
+RTFString_ isBullet()
+RTFInt_ bulletStyle()
+RTFEmbeddedOLE_ getEmbeddedOle()
+RTFCharset_ charset()
+RTFString_ newline()
+RTFString_ subscript()
+RTFString_ superscript()
+RTFString_ strikethru()
+RTFString_ underline()
+void ::do (RichText&, RichTextParagraph, void)
+RichTextChunkInParDo
+void ::do (RichTextParagraph&, string, void)
+void ::do (RichText&, string, void)
+int charsetEastEurope
+int getCursorPosition(Module, bool& isHead)
+int getInPlaceColumnIndex(Module)
+getInPlaceEditColPosition
+bool highlightText(Object, int iStartSelect, int iStopSelect , int columnSelect , bool isHeading)
+Object getSearchObject(Module, int &)
+GetSearchObjectResult
+void clearSearchObject(Module)
+ClearSearchObjectInModule
+void clearSearchObject(Object)
+ClearSearchObjectResult
+void setSearchObject(Object,int)
+SetSearchObjectResult
+string getDefaultViewForUser(Module)
+getDefaultViewForUser
+string getDefaultViewForModule(Module)
+getDefaultViewForModule
+string clearDefaultViewForUser(Module)
+resetDefaultViewForUser
+string clearDefaultViewForModule(Module)
+resetDefaultViewForModule
+string setDefaultViewForUser(Module,string)
+setDefaultViewForUser
+string setDefaultViewForModule(Module,string)
+setDefaultViewForModule
+void showDeletedObjects(bool)
+setShowDeletedObjects
+bool showDeletedObjects(Module)
+getShowDeletedObjects2
+bool showDeletedObjects()
+getShowDeletedObjects1
+bool isVisibleAttribute(AttrDef)
+string attrName(Column)
+void dxl(Column,string)
+void color(Column,string)
+void colour(Column,string)
+void graphics(Column)
+void attribute(Column,string)
+void justify(Column, Justification)
+void width(Column,int)
+void title(Column,string)
+Column column(Module,int)
+Column insert(Column)
+Justification full()
+Justification center()
+Justification centre()
+Justification right()
+Justification left()
+void compress(Object, bool)
+bool compressed(Object)
+string color(Column)
+string colour(Column)
+string exportPicture(Column c, Object obj,string filename, int format)
+bool hasDXLCanvas(Column c)
+bool hasPicture(Column c)
+string htmlText(Buffer&, Column, Object, bool, bool, string, string, string, string)
+htmlColObjWithPictures
+string htmlText(Buffer&, Column, Object, bool, bool, string, string)
+bool containsUnregisteredOle(Column,Object)
+ColumnContainsUnregisteredOle
+string richText(Column,Object)
+RichTextColObjLegacy
+string richTextNoOle(Column,Object)
+string richTextWithOle(Column,Object)
+RichTextColObjWithOle
+string text(Column,Object)
+bool graphics(Column)
+Justification justify(Column)
+string justify(Column)
+string title(Column)
+void ::do (Column&, Module, void)
+bool isViewModified(Module)
+bool canWrite(Module, View)
+bool canRead(Module, View)
+string change(View, ViewDef, string)
+string change(View, ViewDef)
+string save(Module, View, ViewDef)
+string save(View, ViewDef)
+string save(Module, View)
+string delete(Module, View)
+void ::do (View&, View, void)
+void ::do (string&, ModName_, void)
+void ::do (string&, Views_, void)
+bool copyWindowSettings(Module, Module, View)
+bool load(Module, View, bool, bool)
+bool load(Module, View, bool)
+bool load(Module, View)
+string currentView(Module)
+View view(Item, string)
+Views_ views(Module)
+AttrDef mainColumnAttribute(Object)
+bool useDefaultTableAttribute(ViewDef)
+viewDefGetUseDefaultTableAttribute
+string canInheritView(ViewDef, View, bool&)
+string canInheritView(View, ControlledResource__, View, bool&)
+string canInheritView(View, View, bool&)
+bool invalidInheritedView(string, ViewDef)
+InvalidInheritedView3
+bool invalidInheritedView(string, ControlledResource__)
+InvalidInheritedView2
+bool clearInvalidInheritanceOf(string, ViewDef)
+ClearInvalidInheritance2
+bool clearInvalidInheritanceOf(string)
+ClearInvalidInheritance
+bool invalidInheritedView(string)
+InvalidInheritedView
+bool isInheritedView(string)
+string preloadedView(ViewDef)
+viewDefGetPreloadedView
+bool useWindows(ViewDef)
+viewDefGetUseWindows
+bool useGraphicsColumn(ViewDef)
+viewDefGetUseGraphicsColumn
+bool useTooltipColumn(ViewDef)
+viewDefGetUseTooltipColumn
+bool useColumns(ViewDef)
+viewDefGetUseColumns
+bool useLevel(ViewDef)
+bool useShowDeleted(ViewDef)
+viewDefGetUseShowDeleted
+bool useShowExplorer(ViewDef)
+viewDefGetUseShowExplorer
+bool useShowPictures(ViewDef)
+viewDefGetUseShowPictures
+bool useFilterTables(ViewDef)
+viewDefGetUseFilterTables
+bool useShowTables(ViewDef)
+viewDefGetUseShowTables
+bool useTooltips(ViewDef)
+viewDefGetUseTooltips
+int getAutoIndentation(int,int)
+bool useAutoIndentation(ViewDef)
+viewDefGetUseAutoIndentation
+bool useShowLinkIndicators(ViewDef)
+viewDefGetUseShowLinkIndicators
+bool useShowLinks(ViewDef)
+viewDefGetUseShowLinks
+bool useGraphics(ViewDef)
+viewDefGetUseGraphics
+bool useCompression(ViewDef)
+viewDefGetUseCompression
+bool useOutlining(ViewDef)
+viewDefGetUseOutlining
+bool useSorting(ViewDef)
+viewDefGetUseSorting
+bool useDescendants(ViewDef)
+viewDefGetUseDescendants
+bool useAncestors(ViewDef)
+viewDefGetUseAncestors
+bool useFiltering(ViewDef)
+viewDefGetUseFiltering
+bool useSelection(ViewDef)
+viewDefGetUseSelection
+bool useCurrent(ViewDef)
+viewDefGetUseCurrent
+void useDefaultTableAttribute(ViewDef, bool)
+viewDefUseDefaultTableAttribute
+bool setPreloadedView(ViewDef, string)
+viewDefSetPreloadedView
+void useWindows(ViewDef, bool)
+void useGraphicsColumn(ViewDef, bool)
+viewDefUseGraphicsColumn
+void useTooltipColumn(ViewDef, bool)
+viewDefUseTooltipColumn
+void useColumns(ViewDef, bool)
+void useLevel(ViewDef, bool)
+void useShowDeleted(ViewDef, bool)
+viewDefUseShowDeleted
+void useShowExplorer(ViewDef, bool)
+viewDefUseShowExplorer
+void useShowPictures(ViewDef, bool)
+viewDefUseShowPictures
+void useFilterTables(ViewDef, bool)
+viewDefUseFilterTables
+void useShowTables(ViewDef, bool)
+viewDefUseShowTables
+void useTooltips(ViewDef, bool)
+void useAutoIndentation(ViewDef, bool)
+viewDefSetUseAutoIndentation
+void useShowLinkIndicators(ViewDef, bool)
+viewDefUseShowLinkIndicators
+void useShowLinks(ViewDef, bool)
+void useGraphics(ViewDef, bool)
+void useCompression(ViewDef, bool)
+viewDefUseCompression
+void useOutlining(ViewDef, bool)
+void useSorting(ViewDef, bool)
+void useDescendants(ViewDef, bool)
+viewDefUseDescendants
+void useAncestors(ViewDef, bool)
+void useFiltering(ViewDef, bool)
+void useSelection(ViewDef, bool)
+void useCurrent(ViewDef, bool)
+ViewDef get(Module, View)
+void delete(ViewDef)
+ViewDef createPublic(Module, bool)
+CreatePublicViewDef2
+ViewDef createPublic()
+CreatePublicViewDef1
+ViewDef createPrivate(Module, bool)
+CreatePrivateViewDef2
+ViewDef createPrivate()
+CreatePrivateViewDef1
+ViewDef create(Module, bool)
+bool isDescending(Column)
+bool isAscending(Column)
+void destroySort(Module)
+void ::do (Sort&, Sort, void)
+bool isDescending(Module)
+bool isAscending(Module)
+string stringOf(Sort)
+void set(Module,Sort)
+Sort ::&&(Sort,Sort)
+Sort descending(string)
+Sort ascending(string)
+bool getColumnFilterSettings_(Module, Filter, string&, string&, bool&, bool&)
+GetColumnFilterSettings
+bool getObjectFilterSettings_(Module, Filter, int&)
+GetObjectFilterSettings
+bool getLinkFilterSettings_(Module, Filter, bool&, int&, string&)
+GetLinkFilterSettings
+bool getAttributeFilterSettings_(Module, Filter, string&, int&, string&, bool&, bool&)
+GetAttributeFilterSettings
+int getSimpleFilterType_(Filter)
+void delete(Filter&)
+Object previous(Object, Filter)
+Object next(Object, Filter)
+string stringOf(Module,Filter)
+void addFilter(Module,Filter, int&, int&)
+void addFilter(Module,Filter)
+void addFilter(Filter)
+void set(Module,Filter, int&, int&)
+void set(Module,Filter)
+Filter ::||(Filter,Filter)
+Filter ::&&(Filter,Filter)
+Filter column(string, string, bool, bool)
+Filter column(string, string, bool)
+Filter column(string, string)
+Filter contains(Fattr_,string)
+Filter contains(Fattr_,string,bool)
+Filter excludes(Fattr_,string)
+Filter includes(Fattr_,string)
+Filter notNull(Fattr_)
+Filter isNull(Fattr_)
+Filter ::>=(Fattr_,string)
+Filter ::>(Fattr_,string)
+Filter ::<=(Fattr_,string)
+Filter ::<(Fattr_,string)
+Filter ::!=(Fattr_,string)
+Filter ::==(Fattr_,string)
+Filter contents(string)
+Filter contents(string,bool)
+Filter excludeCurrent()
+Filter includeCurrent()
+Filter excludeLeaves()
+Filter includeLeaves()
+Fattr_ attribute(string)
+Filter hasNoLinks(LinkFilter,string)
+Filter hasLinks(LinkFilter,string)
+LinkFilter linkFilterBoth
+LinkFilter linkFilterOutgoing
+LinkFilter linkFilterIncoming
+bool downgradeLocked(Module)
+downgradeLockedModule
+bool downgradeShare(Module)
+downgradeModuleShare
+bool downgrade(Module)
+bool canUnlockAll(Module)
+bool canUnlock(Object)
+bool canLock(Object)
+bool unlockSaveAll(Module)
+bool unlockDiscardAll(Object)
+bool unlockSaveAll(Object)
+bool unlockDiscardSection(Object)
+unlockDiscardSection
+bool unlockSaveSection(Object)
+bool isLockedByUser(Object)
+d:\ccm\ccm_wa\ukedersdb\ERS_Salmon\salmon_win32_sqa\products\DOORS\src\generic\unlock_dxl.c
+@(#)DOORS %full_filespec: acl_dxl.c~21.1.3:csrc:ERS#1 % %date_created: Tue Sep 12 12:27:54 2006 %
+string unsetAll_(ControlledResource__)
+SetControlledResourceAllAgentAccessToDefault
+bool hasPermission_(ControlledResource__, Permission)
+hasControlledResourcePermission
+string set_(ControlledResource__,Permission,string)
+setControlledResourceAccess
+ControlledResource__ createDummy_()
+createControlledResource
+void ::do (AccessRec&, Dictionary, void)
+bool hasPermission(string, BaselineSetDefinition, Permission)
+hasUserBSDPermission
+bool hasPermission(BaselineSetDefinition, Permission)
+void ::do (AccessRec&, AllBaselineSetDefinition_, void)
+AllBaselineSetDefinitionDo
+void ::do (AccessRec&, BaselineSetDefinition, void)
+baselineSetDefinitionDo
+string unsetAll(BaselineSetDefinition)
+baselineSetDefinitionSetAllAgentAccessToDefault
+string unset(BaselineSetDefinition,string)
+baselineSetDefinitionSetAgentAccessToDefault
+string set(BaselineSetDefinition,Permission,string)
+baselineSetDefinitionSetAgentAccess
+string isAccessInherited(BaselineSetDefinition, bool&)
+baselineSetDefinitionIsAccessInherited
+string specific(BaselineSetDefinition)
+baselineSetDefinitionSetAccessToSpecific
+string inherited(BaselineSetDefinition)
+baselineSetDefinitionSetAccessToInherited
+AccessRec get(BaselineSetDefinition,string,string&)
+baselineSetDefinitionGetAgentAccess
+void ::do (AccessRec&, SignatureInfoSpecifier__, void)
+SignatureInfoSpecifierDo
+void ::do (AccessRec&, SignatureInfo, void)
+void ::do (AccessRec&, AllView_, void)
+void ::do (AccessRec&, AllAttrType_, void)
+void ::do (AccessRec&, AllAttrDef_, void)
+void ::do (AccessRec&, AllAttrDefVal__, void)
+void ::do (AccessRec&, View, void)
+void ::do (AccessRec&, AttrType, void)
+void ::do (AccessRec&, AttrDef, void)
+void ::do (AccessRec&, AttrDefVal__, void)
+void ::do (AccessRec&, AllItem_, void)
+void ::do (AccessRec&, AllProject_, void)
+void ::do (AccessRec&, AllFolder_, void)
+void ::do (AccessRec&, AllModule_, void)
+void ::do (AccessRec&, AllObject_, void)
+void ::do (AccessRec&, Group, void)
+void ::do (AccessRec&, Item, void)
+void ::do (AccessRec&, Project, void)
+void ::do (AccessRec&, Folder, void)
+void ::do (AccessRec&, Module, void)
+void ::do (AccessRec&, Object, void)
+string username(AccessRec)
+bool isDefault(AccessRec)
+string name(AccessRec)
+bool partition(AccessRec)
+bool change(AccessRec)
+bool write(AccessRec)
+bool control(AccessRec)
+bool delete(AccessRec)
+bool create(AccessRec)
+bool modify(AccessRec)
+bool read(AccessRec)
+bool hasValPermission(string, AttrDef, Permission)
+hasUserAttrDefValuePermission
+bool hasDefPermission(string, AttrDef, Permission)
+hasUserAttrDefDefinitionPermission
+bool hasPermission(string, Dictionary, Permission)
+hasUserDictionaryPermission
+bool hasPermission(string, AttrType, Permission)
+hasUserAttrTypePermission
+bool hasPermission(string, SignatureInfoSpecifier__, Permission)
+hasUserSignatureInfoSpecifierPermission
+bool hasPermission(string, SignatureInfo, Permission)
+hasUserSignatureInfoPermission
+bool hasPermission(string, Group, Permission)
+hasUserGroupPermission
+bool hasPermission(string, View, Permission)
+hasUserViewPermission
+bool hasPermission(string, Object, Permission)
+hasUserObjectPermission
+bool hasPermission(string, ModName_, Permission)
+hasUserModNamePermission
+bool hasPermission(string, Module, Permission)
+hasUserModulePermission
+bool hasPermission(string, Folder, Permission)
+hasUserFolderPermission
+bool hasPermission(string, Project, Permission)
+hasUserProjectPermission
+bool hasPermission(string, Item, Permission)
+hasUserItemPermission
+bool hasPermission(AttrType, Permission)
+hasAttrTypePermission
+bool hasValPermission(AttrDef, Permission)
+hasAttrDefValuePermission
+bool hasDefPermission(AttrDef, Permission)
+hasAttrDefDefinitionPermission
+bool hasPermission(Dictionary, Permission)
+hasDictionaryPermission
+bool hasPermission(SignatureInfoSpecifier__, Permission)
+hasSignatureInfoSpecifierPermission
+bool hasPermission(SignatureInfo, Permission)
+hasSignatureInfoPermission
+bool hasPermission(Group, Permission)
+bool hasPermission(Item, Permission)
+bool hasPermission(Project, Permission)
+hasProjectPermission
+bool hasPermission(Folder, Permission)
+bool hasPermission(View, Permission)
+bool hasPermission(ModName_, Permission)
+hasModNamePermission
+bool hasPermission(Module, Permission)
+bool hasPermission(Object, Permission)
+string refreshAllCachedAccessRights(void)
+refreshAllCachedAccessRights
+string refreshCachedAccessRights(Module)
+refreshModuleCachedAccessRights
+AccessRec get(Dictionary,string,string&)
+dictionaryGetAgentAccess
+AccessRec get(View,string,string&)
+AccessRec get(Module, AttrType,string,string&)
+attrtypeGetAgentAccess
+AccessRec getVal(Module, AttrDef,string,string&)
+attrdefValGetAgentAccess
+AccessRec getDef(Module, AttrDef,string,string&)
+attrdefDefGetAgentAccess
+AccessRec get(SignatureInfoSpecifier__,string,string&)
+SignatureInfoSpecifierGetAgentAccess
+AccessRec get(SignatureInfo,string,string&)
+SignatureInfoGetAgentAccess
+AccessRec get(Group,string,string&)
+AccessRec get(Item,string,string&)
+AccessRec get(Project,string,string&)
+AccessRec get(Folder,string,string&)
+folderGetAgentAccess
+AccessRec get(Module,string,string&)
+moduleGetAgentAccess
+AccessRec get(Object,string,string&)
+objectGetAgentAccess
+string setPartitionMask_(View, int)
+viewSetPartitionMask
+string setPartitionMask_(AttrType, int, Module)
+attrtypeSetPartitionMask
+string setPartitionMaskVal_(AttrDef, int, Module)
+attrdefValSetPartitionMask
+string setPartitionMaskDef_(AttrDef, int, Module)
+attrdefDefSetPartitionMask
+string setPartitionMask_(Item, int)
+itemSetPartitionMask
+string setPartitionMask_(Project, int)
+string setPartitionMask_(Folder, int)
+folderSetPartitionMask
+string setPartitionMask_(Module, int)
+moduleSetPartitionMask
+string setPartitionMask_(Object, int)
+objectSetPartitionMask
+string getPartitionMask(View, Permission&)
+viewGetPartitionMask
+string getPartitionMask(AttrType, Permission&)
+attrtypeGetPartitionMask
+string getPartitionMaskVal(AttrDef, Permission&)
+attrdefValGetPartitionMask
+string getPartitionMaskDef(AttrDef, Permission&)
+attrdefDefGetPartitionMask
+string getPartitionMask(Item, Permission&)
+itemGetPartitionMask
+string getPartitionMask(Project, Permission&)
+string getPartitionMask(Folder, Permission&)
+folderGetPartitionMask
+string getPartitionMask(Module, Permission&)
+moduleGetPartitionMask
+string getPartitionMask(Object, Permission&)
+objectGetPartitionMask
+string setPartitionedOut_(View, string, bool)
+viewSetPartitionedOut
+string setPartitionedOut_(AttrType, string, bool, Module)
+attrtypeSetPartitionedOut
+string setPartitionedOutVal_(AttrDef, string, bool, Module)
+attrdefValSetPartitionedOut
+string setPartitionedOutDef_(AttrDef, string, bool, Module)
+attrdefDefSetPartitionedOut
+string setPartitionedOut_(Item, string, bool)
+itemSetPartitionedOut
+string setPartitionedOut_(Project, string, bool)
+string setPartitionedOut_(Folder, string, bool)
+folderSetPartitionedOut
+string setPartitionedOut_(Module, string, bool)
+moduleSetPartitionedOut
+string setPartitionedOut_(Object, string, bool)
+objectSetPartitionedOut
+string isPartitionedOut(View, bool&)
+viewisPartitionedOut
+string isPartitionedOut(AttrType, bool&)
+attrtypeisPartitionedOut
+string isPartitionedOutVal(AttrDef, bool&)
+attrdefValisPartitionedOut
+string isPartitionedOutDef(AttrDef, bool&)
+attrdefDefisPartitionedOut
+string isPartitionedOut(Item, bool&)
+itemisPartitionedOut
+string isPartitionedOut(Project, bool&)
+string isPartitionedOut(Folder, bool&)
+folderisPartitionedOut
+string isPartitionedOut(Module, bool&)
+moduleisPartitionedOut
+string isPartitionedOut(Object, bool&)
+objectisPartitionedOut
+string isAccessInherited(View, bool&)
+viewIsAccessInherited
+string isAccessInherited(Module, AttrType, bool&)
+attrtypeIsAccessInherited
+string isAccessInheritedVal(Module, AttrDef, bool&)
+attrdefValIsAccessInherited
+string isAccessInheritedDef(Module, AttrDef, bool&)
+attrdefDefIsAccessInherited
+string isAccessInherited(Item, bool&)
+itemIsAccessInherited
+string isAccessInherited(Project, bool&)
+string isAccessInherited(Folder, bool&)
+folderIsAccessInherited
+string isAccessInherited(Module, bool&)
+moduleIsAccessInherited
+string isAccessInherited(Object, bool&)
+objectIsAccessInherited
+string specific(View)
+viewSetAccessToSpecific
+string specific(Module, AttrType)
+attrtypeSetAccessToSpecific
+string specificVal(Module, AttrDef)
+attrdefValSetAccessToSpecific
+string specificDef(Module, AttrDef)
+attrdefDefSetAccessToSpecific
+string specific(Item)
+itemSetAccessToSpecific
+string specific(Project)
+string specific(Folder)
+folderSetAccessToSpecific
+string specific(Module)
+moduleSetAccessToSpecific
+string specific(Object)
+objectSetAccessToSpecific
+string inherited(View)
+viewSetAccessToInherited
+string inherited(Module, AttrType)
+attrtypeSetAccessToInherited
+string inheritedVal(Module, AttrDef)
+attrdefValSetAccessToInherited
+string inheritedDef(Module, AttrDef)
+attrdefDefSetAccessToInherited
+string inherited(Item)
+itemSetAccessToInherited
+string inherited(Project)
+string inherited(Folder)
+folderSetAccessToInherited
+string inherited(Module)
+moduleSetAccessToInherited
+string inherited(Object)
+objectSetAccessToInherited
+string getImplied(Item, Permission&)
+itemGetImpliedAccess
+string getImplied(Project, Permission&)
+string getImplied(Folder, Permission&)
+folderGetImpliedAccess
+string getImplied(Module, Permission&)
+moduleGetImpliedAccess
+string getImplied(Object, Permission&)
+objectGetImpliedAccess
+string setImplied(Item,Permission)
+itemSetImpliedAccess
+string setImplied(Project,Permission)
+string setImplied(Folder,Permission)
+folderSetImpliedAccess
+string setImplied(Module,Permission)
+moduleSetImpliedAccess
+string setImplied(Object,Permission)
+objectSetImpliedAccess
+string unsetAll(View)
+viewSetAllAgentAccessToDefault
+string unsetAll(Module,AttrType)
+attrtypeSetAllAgentAccessToDefault
+string unsetAllVal(Module,AttrDef)
+attrdefValSetAllAgentAccessToDefault
+string unsetAllDef(Module,AttrDef)
+attrdefDefSetAllAgentAccessToDefault
+string unsetAll(SignatureInfoSpecifier__)
+SignatureInfoSpecifierSetAllAgentAccessToDefault
+string unsetAll(SignatureInfo)
+SignatureInfoSetAllAgentAccessToDefault
+string unsetAll(Group)
+groupSetAllAgentAccessToDefault
+string unsetAll(Item)
+itemSetAllAgentAccessToDefault
+string unsetAll(Project)
+string unsetAll(Folder)
+folderSetAllAgentAccessToDefault
+string unsetAll(Module)
+moduleSetAllAgentAccessToDefault
+string unsetAll(Object)
+objectSetAllAgentAccessToDefault
+string unset(Dictionary,string)
+dictionarySetAgentAccessToDefault
+string unset(View,string)
+viewSetAgentAccessToDefault
+string unset(Module,AttrType,string)
+attrtypeSetAgentAccessToDefault
+string unsetVal(Module,AttrDef,string)
+attrdefValSetAgentAccessToDefault
+string unsetDef(Module,AttrDef,string)
+attrdefDefSetAgentAccessToDefault
+string unset(SignatureInfoSpecifier__,string)
+SignatureInfoSpecifierSetAgentAccessToDefault
+string unset(SignatureInfo,string)
+SignatureInfoSetAgentAccessToDefault
+string unset(Group,string)
+groupSetAgentAccessToDefault
+string unset(Item,string)
+itemSetAgentAccessToDefault
+string unset(Project,string)
+string unset(Folder,string)
+folderSetAgentAccessToDefault
+string unset(Module,string)
+moduleSetAgentAccessToDefault
+string unset(Object,string)
+objectSetAgentAccessToDefault
+string set(Dictionary,Permission,string)
+dictionarySetAgentAccess
+string set(View,Permission,string)
+string set(Module,AttrType,Permission,string)
+attrtypeSetAgentAccess
+string setDef(Module,AttrDef,Permission,string)
+attrdefDefSetAgentAccess
+string setVal(Module,AttrDef,Permission,string)
+attrdefValSetAgentAccess
+string set(SignatureInfoSpecifier__,Permission,string)
+SignatureInfoSpecifierSetAgentAccess
+string set(SignatureInfo,Permission,string)
+SignatureInfoSetAgentAccess
+string set(Group,Permission,string)
+string set(Item,Permission,string)
+string set(Project,Permission,string)
+string set(Folder,Permission,string)
+folderSetAgentAccess
+string set(Module,Permission,string)
+moduleSetAgentAccess
+string set(Object,Permission,string)
+objectSetAgentAccess
+Permission ::==(Permission,Permission)
+Permission ::&(Permission,Permission)
+BitWiseAndPermissions
+Permission ::|(Permission,Permission)
+Permission control()
+SignatureInfoSpecifier__ specifier(SignatureInfo)
+AttrDefVal__ values(AttrDef)
+AllBaselineSetDefinition_ all(BaselineSetDefinition)
+AllAttrType_ all(AttrType)
+AllAttrDef_ all(AttrDef)
+AllAttrDefVal__ all(AttrDefVal__)
+AllModule_ all(Module)
+AllProject_ all(Project)
+AllObject_ all(Object)
+void set(DialogDefaults, string itemName, bool value)
+bool get(DialogDefaults, string itemName, bool defaultValue)
+void set(DialogDefaults, string itemName, real value)
+real get(DialogDefaults, string itemName, real defaultValue)
+void set(DialogDefaults, string itemName, int value)
+int get(DialogDefaults, string itemName, int defaultValue)
+void set(DialogDefaults, string itemName, string value)
+string get(DialogDefaults, string itemName, string defaultValue)
+void ::do (string&, DialogDefaults, void)
+void resetDefaults(DialogDefaults)
+bool saveDefaults(DialogDefaults)
+DialogDefaults loadDefaults(string)
+bool isBaselinePresent(BaselineSet,ModName_)
+isBaselinePresentinBS
+string getBaselineSetDefinitionName(BaselineSet)
+getBaselineSetDefinitionNameFromBaselineSet
+BaselineSetDefinition getBaselineSetDefinition(BaselineSet)
+getBaselineSetDefinitionFromBaselineSet
+string addBaselines(Skip, BaselineSet, DB)
+addBaselinesBSProgressBar
+string addBaselines(Skip, BaselineSet)
+string create(BaselineSetDefinition, bool, string, string, BaselineSet&)
+void ::do (BaselineSet&, BaselineSetDefinition, void)
+void ::do (ModuleVersion&, AllBaselineSet_, void)
+void ::do (ModuleVersion&, BaselineSet, void)
+void ::do (BaselineSet&, ModName_, void)
+BaselineSet baselineSet(ModuleVersion)
+string setAnnotation(BaselineSet, string)
+string close(BaselineSet)
+bool isOpen(BaselineSet)
+Date dateOf(BaselineSet)
+int minor(BaselineSet)
+int major(BaselineSet)
+string user(BaselineSet)
+string annotation(BaselineSet)
+string versionID(BaselineSet)
+string suffix(BaselineSet)
+AllBaselineSet_ all(BaselineSet)
+bool isEmpty(BaselineSetDefinition)
+isBaselineSetDefinitionEmpty
+bool isAnyBaselineSetOpen(BaselineSetDefinition)
+isAnyBaselineSetOpen
+string create(Folder, string, string, BaselineSetDefinition&)
+void ::do (ModName_&, BaselineSetDefinition, void)
+void ::do (BaselineSetDefinition&, Folder, void)
+void ::do (BaselineSetDefinition&, ModName_, void)
+string removeModule(ModName_, BaselineSetDefinition)
+string addModule(ModName_, BaselineSetDefinition)
+string read(BaselineSetDefinition)
+string save(BaselineSetDefinition)
+string unlock(BaselineSetDefinition)
+string lock(BaselineSetDefinition)
+string delete(BaselineSetDefinition)
+string description(BaselineSetDefinition)
+string name(BaselineSetDefinition)
+string setDescription(BaselineSetDefinition, string)
+string rename(BaselineSetDefinition, string)
+bool isBaselineSignatureConfigured(SignatureInfo)
+GetBaselineSignatureInfoIsConfigured
+bool getIsValid(SignatureEntry)
+bool getPasswordRequired(SignatureEntry)
+GetSignaturePasswordRequired
+bool allAttributesReadable(SignatureEntry)
+AllSignatureAttrReadable
+string getComment(SignatureEntry)
+string getLabelOptions(SignatureEntry)
+GetSignatureLabelOptions
+string getLabel(SignatureEntry)
+string getFormattedLocalDate(SignatureEntry)
+GetSignatureFormattedLocalDate
+Date getLocalDate(SignatureEntry)
+GetSignatureLocalDate
+Date getDate(SignatureEntry)
+string getEmail(SignatureEntry)
+string getUserFullName(SignatureEntry)
+string getUserName(SignatureEntry)
+GetSignatureUserName
+string save(SignatureInfo,int &code)
+string appendSignatureEntry(SignatureInfo, string sigLabel, string sigLabelOptins, string sigComment)
+AppendSignatureEntry
+void ::do (SignatureEntry&, SignatureInfo, void)
+string setLabelSpecifier(SignatureInfo, string)
+SetSignatureLabelSpecifier
+string getLabelSpecifier(SignatureInfo)
+GetSignatureLabelSpecifier
+string getSignatureInfo(SignatureInfo &sigInfo, ModName_ document, int major, int minor, string suffix)
+void ::do (DOM_Element_&, DOM_Element_, void)
+string getElementText_(DOM_Element_)
+string getElementName_(DOM_Element_)
+string setStringAttribute_(DOM_Element_, string, string)
+string getStringAttribute_(DOM_Element_, string)
+bool hasChildElements_(DOM_Element_)
+bool hasAttribute_(DOM_Element_, string)
+DOM_Element_ getDocumentElement_(DOM_Document_)
+DOM_Document_ getDocumentBuffer_(DOM_Document_, Buffer&)
+DOM_Document_ parseXMLBuffer_(Buffer)
+DOM_Document_ parseXMLString_(string)
+string importFolder(Folder parent, string xmlFileName)
+string getXML(ModName_, string fileName)
+GetXMLDocumentToFile
+string getXML(ModName_)
+string getXML(Folder)
+string getXML(Object)
+ScrollDest__ bottom(Module)
+ScrollDest__ top(Module)
+Scroll__ to(ScrollDest__)
+ScrollUpDown__ down(Module)
+ScrollUpDown__ up(Module)
+Scroll__ page(ScrollUpDown__)
+void scroll(ScrollUpDown__)
+void scroll(Scroll__)
+void skipWaits_(bool)
+Window__ editor(Attr__)
+Window__ editor(Module)
+Window__ page(Module)
+Window__ print(Module)
+Window__ sort(Module)
+Window__ filter(Module)
+Window__ attrdef(Module)
+bool discardingUnsavedChanges_()
+DiscardingUnsavedChanges
+void setDiscardingUnsavedChanges_(bool)
+SetDiscardingUnsavedChanges
+bool discardChangesOnBaseline_(Module)
+DiscardChangesOnBaseline
+void setDiscardChangesOnBaseline_(Module, bool)
+SetDiscardChangesOnBaseline
+string setBaselineDeletionEnabled(bool bSetting)
+SetDatabaseBaselineDeletion
+bool getBaselineDeletionEnabled()
+GetDatabaseBaselineDeletion
+void delete(ModuleVersion&)
+ModuleVersion ::= (ModuleVersion&, ModuleVersion)
+bool ::!=(ModuleVersion, ModuleVersion)
+ModuleVersionInequality
+bool ::==(ModuleVersion, ModuleVersion)
+ModuleVersionEquality
+ModuleVersion getSourceVersion(Linkset)
+LinksetSourceVersion
+Baseline baselineInfo(Module)
+Baseline baseline(ModuleVersion)
+bool isBaseline(ModuleVersion)
+bool isBaseline(Module)
+ModuleVersion moduleVersion(string, Baseline)
+VersionFromIndexBaseline
+ModuleVersion moduleVersion(string)
+ModuleVersion moduleVersion(ModName_, Baseline)
+VersionFromDocBaseline
+ModuleVersion moduleVersion(ModName_)
+ModuleVersion moduleVersion(Module)
+string versionString(ModuleVersion)
+bool baselineExists(ModuleVersion)
+string fullName(ModuleVersion)
+ModuleVersionFullName
+string name(ModuleVersion)
+Module data(ModuleVersion)
+ModName_ module(ModuleVersion)
+Module load(ModuleVersion,bool)
+string dateOf(ModuleVersion,Date&)
+string user(ModuleVersion,string&)
+Baseline getMostRecentBaseline(Module,bool)
+Baseline getMostRecentBaseline(Module)
+Date deletedOnDateTime(Baseline)
+BaseDeletedOnDateTime
+Date deletedOn(Baseline)
+string deletedBy(Baseline)
+bool deleted(Baseline)
+void ::do (Baseline&, AllModule_, void)
+void ::do (Baseline&, Module, void)
+Date dateTimeOf(Baseline)
+Date dateOf(Baseline)
+string user(Baseline)
+string annotation(Baseline)
+char getInvalidCharInSuffix(string)
+GetInvalidCharInSuffix
+string suffix(Baseline)
+void delete(Module,Baseline)
+void create(Module,Baseline,string,string&)
+CreateBaseline2Silent
+void create(Module,Baseline,string)
+Module load(Module,Baseline,bool)
+void delete(Baseline)
+void create(Baseline,string,string&)
+CreateBaselineSilent
+void create(Baseline,string)
+bool baselineExists(Module, Baseline)
+Module load(Baseline,bool)
+Baseline suffix(string suff)
+Baseline nextMinor(string suff)
+Baseline nextMinor()
+Baseline nextMajor(string suff)
+Baseline nextMajor()
+Baseline baseline(int major, minor, string suffix)
+string destroyOLEInHistory_(Module)
+string getDefaultValueIndicator()
+GetDefaultValueIndicator
+bool undo(History h, Module m)
+void addHistoryComment(Object, string)
+AddCommentToObjectHistory
+void addHistoryComment(Module, string)
+AddCommentToModuleHistory
+void ::do (History&, SessionModule_, void)
+SessionModule_ session(Module)
+void ::do (History&, SessionObject_, void)
+SessionObject_ session(Object)
+void ::do (History&, Object, void)
+void ::do (History&, Root__, void)
+void ::do (History&, Module, void)
+void ::do (HistorySession&, Module, void)
+HistorySession current(Module)
+Date when(HistorySession)
+int mode(HistorySession)
+int number(HistorySession)
+string baseline(HistorySession)
+string who(HistorySession)
+ModuleVersion ::. (History, HAValue_)
+Buffer ::. (History, HAValue_)
+Date ::. (History, HAValue_)
+int ::. (History, HAValue_)
+real ::. (History, HAValue_)
+bool ::. (History, HAValue_)
+string ::. (History, HAValue_)
+HAInt_ newTextOleCount()
+HAInt_ oldTextOleCount()
+HAValue_ linkVersion()
+HAValue_ targetVersion()
+HAValue_ linkInitialName()
+HAValue_ targetInitialName()
+HAInt_ targetAbsNo()
+HAInt_ sourceAbsNo()
+HAValue_ remoteUser()
+HAValue_ remoteChangeOccurredOn()
+HRemoteChangeOccurredOn
+HAValue_ remoteChangeAppliedOn()
+HRemoteChangeAppliedOn
+HAValue_ plainNewUnicodeValue()
+HPlainNewUnicodeValue
+HAValue_ plainOldUnicodeValue()
+HPlainOldUnicodeValue
+HAValue_ plainNewValue()
+HAValue_ plainOldValue()
+int ::. (History, HAInt_)
+HAInt_ numberOfObjects()
+bool ::. (History, HABool_)
+HABool_ readlocked()
+string ::. (History, HAString_)
+HAString_ newPosition()
+HAString_ position()
+HAString_ typeName()
+HAString_ attrName()
+Date ::. (History, HADate_)
+string goodStringOf(HistoryType)
+string stringOf(HistoryType)
+string ::.. (HistoryType, string)
+void print(HistoryType)
+HistoryType ::. (History, HAType_)
+AttrDef modify(AttrDef, AttrLocaleVal__, Locale)
+Locale ::. (AttrDef, AttrLocaleVal__)
+AttrDef__ ::..(AttrDef__,AttrLocaleVal__)
+AttrDef__ ::..(AttrLocaleVal__,AttrDef__)
+AttrLocaleVal__ locale(Locale)
+AttrLocaleVal__ setLocale()
+AttrLocaleVal__ locale()
+bool attributeValue(AttrDef, string, bool)
+IsAttributeValueLocale
+bool attributeValue(AttrDef, string)
+string delete(Module,AttrDef)
+string delete(AttrDef)
+bool exists(AttrDef__)
+AttrDef__ ::..(AttrDef__,AttrMultiVal__)
+AttrDef__ ::..(AttrMultiVal__,AttrDef__)
+AttrMultiVal__ multi (bool)
+AttrDef__ ::..(AttrDef__,AttrHideVal__)
+AttrDef__ ::..(AttrHideVal__,AttrDef__)
+AttrHideVal__ hidden (bool)
+AttrDef__ ::..(AttrDef__,AttrInhVal__)
+AttrDef__ ::..(AttrInhVal__,AttrDef__)
+AttrInhVal__ inherit (bool)
+AttrDef__ ::..(AttrDef__,AttrDateVal__)
+AttrDef__ ::..(AttrDateVal__,AttrDef__)
+AttrDateVal__ date (bool)
+AttrDef__ ::..(AttrDef__,AttrBarsVal__)
+AttrDef__ ::..(AttrBarsVal__,AttrDef__)
+AttrBarsVal__ changeBars (bool)
+AttrDef__ ::..(AttrDef__,AttrHistVal__)
+AttrDef__ ::..(AttrHistVal__,AttrDef__)
+AttrHistVal__ history (bool)
+AttrDef__ ::..(AttrDef__,AttrDxlVal__)
+AttrDef__ ::..(AttrDxlVal__,AttrDef__)
+AttrDxlVal__ dxl (string)
+AttrDef__ ::..(AttrDef__,AttrDefVal__)
+AttrDef__ ::..(AttrDefVal__,AttrDef__)
+AttrDefVal__ ::default (string)
+AttrDef__ ::..(AttrType__,AttrDef__)
+AttrDef__ ::..(AttrDef__,AttrType__)
+AttrType__ type(string)
+AttrDef__ object(AttrDef__)
+AttrDef__ module(AttrDef__)
+AttrDef create(AttrDef__)
+AttrDef__ attribute(string)
+AttrDef modify(AttrDef, ADMABool_, bool)
+AttrDef modify(AttrDef, ADMAString_, string)
+AttrDef modify(AttrDef, AttrDef__)
+ADMABool_ setHidden()
+ADMABool_ setMulti()
+ADMABool_ setDates()
+ADMABool_ setHistory()
+ADMABool_ setInherit()
+ADMABool_ setModule()
+ADMABool_ setObject()
+ADMAString_ setDefault()
+ADMAString_ setDXL()
+ADMAString_ setName()
+void ::do (string&, ModuleProperties, void)
+void ::do (string&, Module, void)
+void ::do (string&, AttrTop__, void)
+AttrTop__ attributes(Module)
+Date ::. (AttrDef, ADADefault_)
+real ::. (AttrDef, ADADefault_)
+int ::. (AttrDef, ADADefault_)
+string ::. (AttrDef, ADADefault_)
+ADADefault_ defval()
+AttrType ::. (AttrDef, ADAType_)
+bool ::. (AttrDef, ADABool_)
+ADABool_ useraccess()
+ADABool_ nochanges()
+ADABool_ nohistory()
+string ::. (AttrDef, ADAString_)
+ADAString_ typeName()
+AttrDef find(ModuleProperties, string)
+AttrDef find(Module, string)
+void ::do (AttrDef&, Module, void)
+void setRealColourOptionForTypes(bool)
+void setRealColorOptionForTypes(bool)
+setRealColorOptionFlag
+bool getRealColourOptionForTypes()
+bool getRealColorOptionForTypes()
+isRealColorOptionSet
+bool isUsed(AttrType)
+AttrType modify(AttrType, string, Array, string&)
+ChangeEnumTypeWithMap2
+AttrType modify(AttrType, string, string&)
+AttrType modify(AttrType, AttrBaseType, string&)
+AttrType modify(AttrType, string, string[], int[], int[], string&)
+AttrType modify(AttrType, string, string[], int[], int[], int[], string&)
+ChangeEnumTypeWithMap
+bool delete(AttrType, string&)
+AttrType create(string, Array, string&)
+AttrType create(string, string[], int[], int[], string&)
+AttrType create(string, string[], int[], string&)
+AttrType create(string, string[], string&)
+AttrType create(string, Date, Date, string&)
+AttrType create(string, real, real, string&)
+AttrType create(string, int, int, string&)
+AttrType create(string, AttrBaseType, string&)
+int ::. (AttrType, ATAEnumColour_)
+ATAEnumColour_ ::[] (ATAEnumColours_, int)
+ATAEnumColours_ colors()
+ATAEnumColours_ colours()
+int ::. (AttrType, ATAEnumValue_)
+ATAEnumValue_ ::[] (ATAEnumValues_, int)
+ATAEnumValues_ values()
+string ::. (AttrType, ATAEnumString_)
+ATAEnumString_ ::[] (ATAEnumStrings_, int)
+ATAEnumStrings_ strings()
+int ::. (AttrType, ATAEnumSize_)
+bool ::. (AttrType, ATABool_)
+Date ::. (AttrType, ATARangeValue_)
+real ::. (AttrType, ATARangeValue_)
+int ::. (AttrType, ATARangeValue_)
+bool ::. (AttrType, ATARangeValue_)
+bool setMinValue(AttrType,Date,bool)
+bool setMinValue(AttrType,real,bool)
+bool setMinValue(AttrType,int,bool)
+bool setMaxValue(AttrType,Date,bool)
+bool setMaxValue(AttrType,real,bool)
+bool setMaxValue(AttrType,int,bool)
+bool isRanged(AttrType)
+ATARangeValue_ maxValue()
+ATARangeValue_ minValue()
+void print(AttrBaseType)
+string stringOf(AttrBaseType)
+string ::..(AttrBaseType, string)
+AttrBaseType ::.(AttrType, ATABaseType_)
+string ::. (AttrType, ATAName_)
+AttrType find(Module, string)
+void ::do (AttrType&, ModuleProperties, void)
+void ::do (AttrType&, Module, void)
+int& grFlattenBelowVert
+int (&grCurrentSel)[]
+int (&grDataSonSepUpX)[]
+int (&grDataSonSepX)[]
+int (&grSonUpSideX)[]
+int (&grSonSonSepUpA)[]
+int (&grSonSonSepA)[]
+int (&grDataSonSepUpA)[]
+int (&grDataSonSepA)[]
+int& grMinDataRowRowSep
+int (&grFontSizes)[]
+Object side2(Module)
+Object side1(Module)
+void draw(Module,int,int,int,int,int,int,int,int)
+void draw(Module,int,int,int,int,int,int)
+int direction(Module)
+void grSetCurrent(Module, Object)
+int height(Window__)
+void clear(Window__)
+Window__ window (Module)
+string removeLinkModuleDescriptor(Folder,string,string)
+RemoveLinkModuleDescriptor
+string addLinkModuleDescriptor(Folder folder,string source,string target,bool overridable,bool mandatory, string name,string description)
+AddLinkModuleDescriptor2
+string addLinkModuleDescriptor(Folder folder,string source,string target,bool overridable,string name,string description)
+AddLinkModuleDescriptor
+string setLinkModuleDescriptorsExclusive(Folder,ModName_,bool)
+bool getLinkModuleDescriptorsExclusive(Folder,ModName_)
+string setMandatory(LinkModuleDescriptor,bool)
+bool getMandatory(LinkModuleDescriptor)
+string setOverridable(LinkModuleDescriptor,bool)
+bool getOverridable(LinkModuleDescriptor)
+string getDescription(LinkModuleDescriptor)
+string getName(LinkModuleDescriptor)
+string name(LinkModuleDescriptor)
+string getSourceName(LinkModuleDescriptor)
+string getTargetName(LinkModuleDescriptor)
+void setDefaultLinkModule(string)
+string getDefaultLinkModule(ModName_,ModName_)
+getDefaultLinkModViaDescriptor
+string getDefaultLinkModule(void)
+string getTarget(Linkset, Object&)
+string getSource(Linkset, Object&)
+string setTarget(Linkset, Object)
+string setSource(Linkset, Object)
+Linkset create(string,string)
+Linkset create(Module,string,string)
+string delete(Linkset)
+void unload(Linkset)
+string load(Linkset)
+Linkset linkset(Object)
+struct LinkModuleDescriptor {};
+void createCombo(MA_StdCombo__)
+void callStdItem_ (MA_StdItem__)
+void createItem (MA_StdItem__)
+void createMenu (MA_StdMenu__)
+void createButtonBar()
+void createItem(int mappingFunction(), void dxlCallback(), string label, char mnemonic, char accelerator, int modifierKeyFlags, IconID icon_id, string tooltip, string helptext, string inactiveHelp)
+void createItem(MA_StdItem__ standardItem, string label, char mnemonic, char accelerator, IconID icon_id, string tooltip, string helptext, string inactiveHelp, string dxlFile)
+void createItem(int mappingFunction(), string label, char mnemonic, char accelerator, int modifierKeyFlags, IconID icon_id, string tooltip, string helptext, string inactiveHelp, string dxlFile)
+void createMenu(MA_StdMenu__ standardMenu, string label, char mnemonic, string dxlFile)
+void createMenu(int mappingFunction(), string label, char mnemonic, string dxlFile)
+void end (MA_End__)
+MA_End__ popup ()
+MA_End__ buttonbar()
+MA_End__ menu ()
+int menuUnavailable_
+int menuAvailableChecked_
+struct MA_StdItem__ {};struct MA_StdMenu__ {};struct MA_StdCombo__ {};struct MA_End__ {};
+logicalTitleBackgroundColorSelected
+logicalPrintPreviewShadeColor
+logicalPrintPreviewTextColor
+logicalPrintPreviewPageColor
+logicalPrintPreviewBackgroundColor
+logical100IndicatorColor
+logical88IndicatorColor
+logical77IndicatorColor
+logical66IndicatorColor
+logical55IndicatorColor
+logical44IndicatorColor
+logical33IndicatorColor
+logical22IndicatorColor
+logical11IndicatorColor
+logical0IndicatorColor
+logicalGraphicsBoxEdgeColor
+logicalGraphicsSelectedColor
+logicalGraphicsCurrentColor
+logicalGraphicsLinkColor
+logicalGraphicsBoxColor
+logicalGraphicsTextColor
+logicalGraphicsElideBoxColor
+logicalGraphicsShadeColor
+logicalGraphicsBackgroundColor
+logicalLinksStartIndicatorColor
+logicalLinksInIndicatorColor
+logicalLinksOutIndicatorColor
+logicalLowIndicatorColor
+logicalMediumIndicatorColor
+logicalHighIndicatorColor
+logicalPartitionInWriteTextColor
+logicalPartitionInReadTextColor
+logicalPartitionOutTextColor
+logicalInPlaceBackgroundColor
+logicalInPlaceTextColor
+logicalLinkDataTextColor
+logicalLinkTitleBackgroundColor
+logicalLinkCurrentBackgroundColor
+logicalLinkTextBackgroundColor
+logicalLinkPageBackgroundColor
+logicalCurrentCellBackgroundColor
+logicalCurrentObjectOutline
+logicalDeletedTextColor
+logicalReadOnlyTextColor
+logicalSelectedTextColor
+logicalTitleTextColor
+logicalDataTextColor
+logicalUnlockedTextBackgroundColor
+logicalReadOnlyTextBackgroundColor
+logicalTitleBackgroundColor
+logicalCurrentBackgroundColor
+logicalTextBackgroundColor
+logicalPageBackgroundFilterSortColor
+logicalPageBackgroundSortColor
+logicalPageBackgroundFilterColor
+logicalPageBackgroundColor
+logicalGUIDefaultColor
+@(#)DOORS %full_filespec: colours_dxl.c~7:csrc:ERS#1 % %date_created: Fri May 27 17:03:58 2005 %
+Icon getRealColorIcon(int realColorIndex)
+Icon getRealColourIcon(int realColourIndex)
+string getRealColorName(int realColorIndex)
+string getRealColourName(int realColourIndex)
+int getRealColor(int logicalColor)
+int getRealColour(int logicalColour)
+void setRealColor(int logicalColor, int realColor)
+void setRealColour(int logicalColour, int realColour)
+string getLogicalColorName(int logicalColor)
+string getLogicalColourName(int logicalColour)
+GetLogicalColourName
+bool setDefaultColorScheme(int scheme)
+bool setDefaultColourScheme(int scheme)
+SetDefaultColourScheme
+int getDefaultColorScheme()
+int getDefaultColourScheme()
+GetDefaultColourScheme
+void resetColor(int, int)
+void resetColor(int)
+void resetColors(int)
+int internationalOriginalDOORSColourScheme
+int internationalModernDOORSColourScheme
+int modernDOORSColourScheme
+int originalDOORSColourScheme
+int internationalOriginalDOORSColorScheme
+int internationalModernDOORSColorScheme
+int modernDOORSColorScheme
+int originalDOORSColorScheme
+int logicalHighlightURLColor
+bool getLAExclusive_(void)
+int getLAAbsNo_(void)
+Date getLAdateTime_(void)
+string getLAUniqueID_(void)
+string setLRLockAvailAlert_(bool)
+string setLRLockRequestMessage_(string)
+setLRLockRequestMessage
+bool getLRExclusiveMode_(void)
+bool getLRLockedExclusive_(void)
+getLRLockedExclusive
+string getLRUniqueID_()
+string getLRLockMessage_(void)
+void setLockAvailableCallback_(void lockAvailableCallback(void))
+setLockAvailableCallback
+string requestLock(Module,Object,bool,string,bool)
+void setOpenModuleCallback_(int openModuleCallback(void))
+setOpenModuleCallback
+void ::do (ModuleVersion &, RecentModule__, void)
+RecentModuleModVerDo
+void ::do (string &, RecentModule__, void)
+void eraseRecentlyOpenModules_ (void)
+eraseRecentOpenModuleList
+string removeRecentlyOpenModule (ModuleVersion mVer)
+removeRecentOpenModule
+string addRecentlyOpenModule (string DocVerString)
+addRecentOpenModuleFromStr
+string addRecentlyOpenModule (ModuleVersion mVer)
+void ::do (Module &, Database__, void)
+Module module (Item)
+int refcount_ (Module m)
+void detach_ (Module m)
+void attach_ (Module m)
+RecentModule__ recentModules
+bool partitionLongMessages_(bool)
+partitionLongMessages
+string rejoinReport(PartitionFile, string)
+string acceptReport(PartitionFile, string)
+OutPartString_ folderName()
+OutPartString_ rejoinedBy()
+OutPartString_ rejoinedDate()
+OutPartString_ applyDate()
+OutPartString_ author()
+OutPartString_ definitionName()
+outPartDefinitionName
+OutPartString_ description()
+OutPartString_ name()
+string ::. (OutPartition, OutPartString_)
+getOutPartStringValue
+struct OutPartString_ {};
+void ::do (OutPartition&, Project, void)
+string removePartition(Project,string)
+string rejoinPartition(Project, PartitionFile)
+struct OutPartition {};
+InPartString_ folderName()
+InPartString_ returnedBy()
+InPartString_ returnedDate()
+InPartString_ acceptDate()
+InPartString_ applyDate()
+InPartString_ author()
+InPartString_ type()
+InPartString_ definitionName()
+inPartDefinitionName
+InPartString_ description()
+InPartString_ name()
+string ::. (InPartition, InPartString_)
+getInPartStringValue
+struct InPartString_ {};
+void ::do (InPartition&, Project, void)
+string returnPartition(Project,string,string,string,bool,bool,bool)
+returnPartFileOverwrite
+string returnPartition(Project,string,string,string,bool,bool)
+string acceptPartition(Project, PartitionFile, Folder)
+string saveModified(Project, string, PartitionDefinition)
+PartitionDefinition loadInPartitionDef(Project, string)
+struct InPartition {};
+PartFileString_ timestamp()
+PartFileString_ date()
+PartFileString_ author()
+PartFileString_ subtype()
+PartFileString_ type()
+PartFileString_ definitionName()
+partFileDefinitionName
+PartFileString_ description()
+PartFileString_ name()
+string ::. (PartitionFile, PartFileString_)
+getPartFileStringValue
+struct PartFileString_ {};
+string close(PartitionFile)
+PartitionFile open(string)
+struct PartitionFile {};
+PartAttrString_ name()
+string ::. (PartitionAttribute, PartAttrString_)
+getPartAttrStringValue
+struct PartAttrString_ {};
+bool allowsAccess(PartitionAttribute, PartitionPermission)
+void setAccess(PartitionAttribute, PartitionPermission)
+string removeAttribute(PartitionModule, string)
+removePartAttrFromPartMod
+PartitionAttribute findAttribute(PartitionModule, string)
+findPartAttrInPartMod
+string addAwayAttribute(PartitionModule, string)
+createPartAttrInAwayPartMod
+string addAttribute(PartitionModule, string)
+createPartAttrInPartMod
+void ::do (PartitionAttribute&, PartitionModule, void)
+struct PartitionAttribute {};
+PartitionLinkset removeLinkset(PartitionModule, string, string)
+removePartLinksetFromPartMod
+PartitionLinkset findLinkset(PartitionModule, string, string)
+findPartLinksetInPartMod
+string addAwayLinkset(PartitionModule, string, string)
+createPartLinksetInAwayPartMod
+string addLinkset(PartitionModule, string, string)
+createPartLinksetInPartMod
+struct PartitionLinkset {};
+PartViewString_ name()
+string ::. (PartitionView, PartViewString_)
+getPartViewStringValue
+struct PartViewString_ {};
+bool allowsAccess(PartitionView, PartitionPermission)
+void setAccess(PartitionView, PartitionPermission)
+string removeView(PartitionModule, string)
+removePartViewFromPartMod
+PartitionView findView(PartitionModule, string)
+findPartViewInPartMod
+string addAwayView(PartitionModule, string)
+createPartViewInAwayPartMod
+string addView(PartitionModule, string)
+createPartViewInPartMod
+void ::do (PartitionView&, PartitionModule, void)
+struct PartitionView {};
+PartModString_ type()
+PartModString_ name()
+string ::. (PartitionModule, PartModString_)
+getPartModStringValue
+struct PartModString_ {};
+bool allowsAccess(PartitionModule, PartitionPermission)
+void setAccess(PartitionModule, PartitionPermission)
+string removeModule(PartitionDefinition, string)
+removePartModFromPartDef
+PartitionModule findModule(PartitionDefinition, string)
+findPartModInPartDef
+string addAwayLinkModule(PartitionDefinition, string)
+createPartLinkModInAwayPartDef
+string addLinkModule(PartitionDefinition, string)
+createPartLinkModInPartDef
+string addAwayModule(PartitionDefinition, string)
+createPartModInAwayPartDef
+string addModule(PartitionDefinition, string)
+createPartModInPartDef
+void ::do (PartitionModule&, PartitionDefinition, void)
+struct PartitionModule {};
+PartDefString_ description()
+PartDefString_ name()
+string ::. (PartitionDefinition, PartDefString_)
+getPartDefStringValue
+struct PartDefString_ {};
+void ::do (PartitionDefinition&, Project, void)
+string apply(Project,string,string,string,string,bool)
+applyPartDefOverwrite
+string apply(Project,string,string,string,string)
+string save(PartitionDefinition)
+string setDescription(PartitionDefinition, string)
+string copy(PartitionDefinition, string, string)
+string rename(PartitionDefinition, string)
+string dispose(PartitionDefinition)
+string delete(PartitionDefinition)
+PartitionDefinition load(Project, string)
+PartitionDefinition create(Project, string, string, bool)
+PartitionDefinition create(Project, string, string)
+struct PartitionDefinition {};
+PartitionPermission ::|(PartitionPermission,PartitionPermission)
+partPermissionLogicalOr
+PartitionPermission delete()
+PartitionPermission create()
+PartitionPermission modify()
+PartitionPermission read()
+void copyPictureObject(Object WhereToInsert, Object Source)
+void ::do (string&, Picture__, void)
+string exportPicture(Object,string,int)
+bool setDragPicture(Trigger, string, int, int)
+bool setDragPicture(Trigger, Object, int, int)
+bool saveDroppedPicture(Trigger, string, int, int)
+SaveDroppedPictureFmt2
+bool saveDroppedPicture(Trigger, string, int)
+SaveDroppedPictureFmt
+bool insertDroppedPicture(Object, Trigger, int, int)
+InsertDroppedPictureFmt2
+bool insertDroppedPicture(Object, Trigger, int)
+InsertDroppedPictureFmt
+bool pictureCopy(Object)
+Bitmap oleLoadBitmap(DBE, Attr__, int, int&, int&)
+Bitmap oleLoadBitmap(DBE, Object, bool, int&, int&)
+bool supportedPictureFormat(int format)
+bool pictureCompatible(string fileName, int format)
+bool insertPictureFileBelow(string FileName, int Format, Object WhereToInsert)
+insertPictureFileBelow
+bool insertPictureFileAfter(string FileName, int Format, Object WhereToInsert)
+insertPictureFileAfter
+bool insertPictureFile(string FileName, int Format, Object WhereToInsert)
+bool insertBitmapFromClipboard(Object WhereToInsert)
+insertBitmapFromClipboard
+bool saveClipboardBitmapToFile(string FileName)
+saveClipboardBitmapToFile
+bool insertPictureBelow(string, Object)
+bool insertPictureAfter(string, Object)
+bool deletePicture(Object)
+bool deletePicture(string)
+bool changePicture(string, string)
+bool reimportPicture(string)
+bool importPicture(string, string, string)
+string getPictName(Object)
+int getPictFormat(Object)
+string getPictFormat(Object)
+Stream openPictFile(Object)
+Stream openpictfile(Object)
+string getPictWidthHeight(Object, int&, int&)
+GetPictWidthHeightPerm
+void getPictBB(Object, int&, int&, int&, int&)
+void getpictbb(Object, int&, int&, int&, int&)
+Picture__ pictures(Project)
+void printPreviewTest_()
+bool showPrintDialogs()
+void showPrintDialogs(bool)
+void printModule(Module)
+string pageExpandHF(string, string, string)
+bool pageHeaderFooter(PageLayout, int, string)
+bool pageHeaderFooter(int, string)
+string pageHeaderFooter(PageLayout, int)
+string pageHeaderFooter(int)
+bool pageTOCLevel(PageLayout, int)
+bool pageTOCLevel(int)
+int pageTOCLevel(PageLayout)
+bool pageBreakLevel(PageLayout, int)
+bool pageBreakLevel(int)
+int pageBreakLevel(PageLayout)
+int pageBreakLevel()
+real realPageRightMargin(PageLayout)
+RealPageRightMargin2
+real realPageRightMargin()
+real realPageLeftMargin(PageLayout)
+real realPageLeftMargin()
+real realPageBottomMargin(PageLayout)
+RealPageBottomMargin2
+real realPageBottomMargin()
+RealPageBottomMargin
+real realPageTopMargin(PageLayout)
+real realPageTopMargin()
+real realPageHeight(PageLayout)
+real realPageHeight()
+real realPageWidth(PageLayout)
+real realPageWidth()
+bool pageRightMargin(PageLayout, real)
+RealPageRightMargin4
+bool pageRightMargin(PageLayout, int)
+bool pageRightMargin(real)
+RealPageRightMargin3
+bool pageRightMargin(int)
+int pageRightMargin(PageLayout)
+int pageRightMargin()
+bool pageLeftMargin(PageLayout, real)
+bool pageLeftMargin(PageLayout, int)
+bool pageLeftMargin(real)
+bool pageLeftMargin(int)
+int pageLeftMargin(PageLayout)
+int pageLeftMargin()
+bool pageBottomMargin(PageLayout, real)
+RealPageBottomMargin4
+bool pageBottomMargin(PageLayout, int)
+bool pageBottomMargin(real)
+RealPageBottomMargin3
+bool pageBottomMargin(int)
+int pageBottomMargin(PageLayout)
+int pageBottomMargin()
+bool pageTopMargin(PageLayout, real)
+bool pageTopMargin(PageLayout, int)
+bool pageTopMargin(real)
+bool pageTopMargin(int)
+int pageTopMargin(PageLayout)
+bool pageHeight(PageLayout, real)
+bool pageHeight(PageLayout, int)
+bool pageHeight(real)
+bool pageHeight(int)
+int pageHeight(PageLayout)
+bool pageWidth(PageLayout, real)
+bool pageWidth(PageLayout, int)
+bool pageWidth(real)
+int pageWidth(PageLayout)
+bool pageSize(PageLayout, int)
+int pageSize(PageLayout)
+bool pageChangeBars(PageLayout, bool)
+bool pageChangeBars(bool)
+bool pageChangeBars(PageLayout)
+bool pageChangeBars()
+bool pageIncludeSort(PageLayout, bool)
+bool pageIncludeSort(bool)
+bool pageIncludeSort(PageLayout)
+bool pageIncludeSort()
+bool pageIncludeFilters(PageLayout, bool)
+bool pageIncludeFilters(bool)
+bool pageIncludeFilters(PageLayout)
+bool pageIncludeFilters()
+bool pageSignaturePage(PageLayout, bool)
+bool pageSignaturePage(bool)
+bool pageSignaturePage(PageLayout)
+bool pageSignaturePage()
+bool pageTitlePage(PageLayout, bool)
+bool pageTitlePage(bool)
+bool pageTitlePage(PageLayout)
+bool pageTitlePage()
+bool pageIgnoreNullAttributes(PageLayout, bool)
+PageIgnoreNullAttributes4
+bool pageIgnoreNullAttributes(bool)
+PageIgnoreNullAttributes3
+bool pageIgnoreNullAttributes(PageLayout)
+PageIgnoreNullAttributes2
+bool pageIgnoreNullAttributes()
+PageIgnoreNullAttributes1
+bool pageRepeatTitles(PageLayout, bool)
+bool pageRepeatTitles(bool)
+bool pageRepeatTitles(PageLayout)
+bool pageRepeatTitles()
+bool pageFormat(PageLayout, int)
+bool pageFormat(int)
+int pageFormat(PageLayout)
+bool pageColumns(PageLayout, int)
+bool pageColumns(int)
+int pageColumns(PageLayout)
+bool pagePortrait(PageLayout, bool)
+bool pagePortrait(bool)
+bool pagePortrait(PageLayout)
+string pageName(PageLayout)
+void ::=(ModuleRef__, PageLayout)
+void ::do(string&, PageLayouts_, void)
+bool delete(PageLayout)
+bool save(PageLayout)
+PageLayout pageLayout(string)
+PageLayout current()
+PageLayout create(string)
+PageLayouts_ pageSetups(Database__)
+PageLayouts_ pagelayouts(Project)
+bool wildcard(string pattern)
+bool anagram(string word, int minLength)
+string remove(Dictionary, string word)
+string insert(Dictionary, string word, string alternativeWord)
+string insert(Dictionary, string word)
+Buffer getAlternative(AlternativeWord, Buffer)
+Buffer getWord(AlternativeWord, Buffer)
+void ::do (AlternativeWord&, Dictionary, void)
+void ::do (Buffer&, Dictionary, void)
+bool isDatabaseDictionary(Dictionary)
+string close(Dictionary&, bool saveDictionary, bool saveACL)
+closeDictionaryWithACL
+string close(Dictionary&, bool saveDictionary)
+string open(Dictionary&, int dictionaryType)
+string open(Dictionary&, int languageId, int dictionaryType)
+struct AlternativeWord{};
+struct Dictionary{};
+Buffer getDescription(GrammarRules, int, Buffer)
+Buffer getName(GrammarRules, int, Buffer)
+int getGrammarRules(SpellingOptions, GrammarRules&)
+struct GrammarRules {};
+int getDoorsLangIdFromLocaleId(Locale)
+getDoorsLangIdFromLocaleId
+bool getSupported(Language)
+getLanguageSupported
+string getName(Language)
+Language getLanguage(int)
+void ::do (Language&, Languages__, void)
+Languages__ languages()
+getAvailableLanguages
+struct Languages__ {};
+string setGermanOptions(SpellingOptions, bool scharfes, bool postReform)
+string getGermanOptions(SpellingOptions, bool& scharfes, bool& postReform)
+string setUseSelectedLanguage(SpellingOptions, bool)
+setUseSelectedLanguage
+bool getUseSelectedLanguage(SpellingOptions)
+getUseSelectedLanguage
+string setGermanOptions(SpellingOptions, bool scharfes)
+string getGermanOptions(SpellingOptions, bool& scharfes)
+string setFrenchOptions(SpellingOptions, bool openLigature, bool accentedUpperCase)
+string getFrenchOptions(SpellingOptions, bool& openLigature, bool& accentedUpperCase)
+string setRussianOptions(SpellingOptions, bool joMode)
+string getRussianOptions(SpellingOptions, bool& joMode)
+string setCatalanOptions(SpellingOptions, bool periodMode)
+string getCatalanOptions(SpellingOptions, bool& periodMode)
+string setSpanishOptions(SpellingOptions, bool accentedUpperCase)
+string getSpanishOptions(SpellingOptions, bool& accentedUpperCase)
+string setGreekOptions(SpellingOptions, bool accentedUpperCase)
+string getGreekOptions(SpellingOptions, bool& accentedUpperCase)
+string setUKOptions(SpellingOptions, bool izeEndings)
+string getUKOptions(SpellingOptions, bool& izeEndings)
+string setEnglishOptions(SpellingOptions, bool legalLexicon, bool financialLexicon)
+string getEnglishOptions(SpellingOptions, bool& legalLexicon, bool& financialLexicon)
+string setCheckMode(SpellingOptions, int)
+int getCheckMode(SpellingOptions)
+string setGrammarLevel(SpellingOptions, int)
+int getGrammarLevel(SpellingOptions)
+string setIgnoreReadOnly(SpellingOptions, bool)
+bool getIgnoreReadOnly(SpellingOptions)
+string setSpellingFirst(SpellingOptions, bool)
+bool getSpellingFirst(SpellingOptions)
+string setLanguage(SpellingOptions, int)
+int getLanguage(SpellingOptions)
+string saveOptions(SpellingOptions)
+string getOptions(SpellingOptions&, int)
+struct SpellingOptions {};
+void resetSpellingState()
+void ::do (string&, SpellingAlternatives__, void)
+void ::do (Buffer&, SpellingAlternatives__, void)
+void ignoreWord (string)
+SpellingAlternatives__ alternatives()
+noOfAlternativeWords
+string alternative(int)
+Buffer alternative(Buffer, int)
+alternativeWordBuffer
+bool getDeletionError(SpellingError)
+int getRuleType(SpellingError)
+bool getCorrectionComplete(SpellingError)
+getCorrectionComplete
+int getSentenceStopPos(SpellingError)
+int getSentenceStartPos(SpellingError)
+int getErrorStopPos(SpellingError)
+int getErrorStartPos(SpellingError)
+Buffer getErrorString(Buffer, SpellingError)
+bool getNextError (Buffer, int&, int&, int&, int&, bool&, bool, int&, bool&)
+void ::do (SpellingError&, SpellingErrors__, void)
+SpellingErrors__ spellingErrors()
+string spellFixRTF(Object, string, int&, int&, string)
+spellAttributeFixRTF
+string spellFix(Object, string, int&, int&, string)
+bool spell(Buffer, Object, string, int&, int&, int&, int&, int&,bool,bool&,int)
+spellAttributeUsingLanguage
+string spell(Object, string, int&, int&)
+bool spell(Buffer, Object, string, int&, int&, int&, int&, int&, bool, bool&)
+string spell(string)
+Buffer spell(Buffer, Buffer)
+struct SpellingError {};
+struct SpellingErrors__ {};
+struct SpellingAlternatives__ {};
+int clientDictionary
+int databaseDictionary
+int userSpellingOptions
+int databaseSpellingOptions
+int PortugueseBrazil
+int PortugueseEurope
+int NorwegianNynorsk
+TableBorderStyle getCellBorder(Object tableCell, TableBorderPosition edge)
+bool getShowTableAcrossModule(Object tableCell)
+void setShowTableAcrossModule(Object tableCell, bool onoff)
+void setAllCellsBorder(Object tableObject, TableBorderPosition edge, TableBorderStyle style)
+void setAllCellsAlignment(Object tableObject, Justification just)
+void setAllCellsShowChangeBars(Object tableObject, bool showThem)
+void setAllCellsShowLinkArrows(Object tableObject, bool showThem)
+void setAllCellsWidth(Object tableObject, int width)
+bool getCellShowChangeBars(Object tableObject)
+Justification getCellAlignment(Object tableObject)
+bool getCellShowLinkArrows(Object tableCell)
+int getCellWidth(Object tableCell)
+void setCellBorder(Object tableCell, TableBorderPosition edge, TableBorderStyle style)
+void setCellShowChangeBars(Object tableCell, bool showThem)
+void setCellAlignment(Object tableCell, Justification just)
+void setCellShowLinkArrows(Object tableCell, bool showThem)
+void setCellWidth(Object tableCell, int width)
+Object getColumnBottom(Object tableCell)
+Object getColumnTop(Object tableCell)
+Object getRow(Object tableCell)
+Object getTable(Object tableCell)
+void setRowWidth(Object tableCell, int width)
+void setColumnBorder(Object tableCell, TableBorderPosition edge, TableBorderStyle style)
+tableSetColumnBorder
+void setColumnAlignment(Object tableCell, Justification alignement)
+void setColumnShowChangeBars(Object tableCell, bool show)
+tableSetColumnChangeBar
+void setColumnShowLinkArrows(Object tableCell, bool show)
+tableSetColumnLinkInd
+void setColumnWidth(Object tableCell, int width)
+string undeleteCell(Object tableCell)
+string deleteCell(Object tableCell)
+Object appendCell(Object tableCell, int)
+tableAppendCellAbsno
+Object appendCell(Object tableCell)
+string undeleteColumn(Object tableCell)
+string deleteColumn(Object tableCell)
+Object appendColumn(Object tableCell)
+string undeleteRow(Object tableCell)
+string deleteRow(Object tableCell)
+Object appendRow(Object tableCell, int)
+Object appendRow(Object tableCell)
+string undeleteTable(Object tableObject)
+string deleteTable(Object tableObject)
+bool tableContents(Module)
+void tableContents(bool)
+Object insertColumn(Object)
+Object insertRow(Object,int)
+insertRowBeforeAbsno
+Object insertCell(Object,int)
+insertCellBeforeAbsno
+Object insertRow(Object)
+Object insertCell(Object)
+void toTable(Object)
+void ::do (Object&, AllRoot__, void)
+void ::do (Object&, Entire__, void)
+void ::do (Object&, AllObj__, void)
+void ::do (Object&, AllModule_, void)
+void ::do (Object&, Document__, void)
+void ::do (Object&, RowRef__, void)
+void ::do (Object&, TableRef__, void)
+AllRoot__ all(Root__)
+AllObj__ all(Object)
+Entire__ entire(Module)
+Document__ document(Module)
+RowRef__ row(Object)
+TableRef__ table(Object)
+Object table(Last__,int,int)
+Object table(Below__,int,int)
+Object table(Before__,int,int)
+Object table(Object,int,int)
+Object table(Module,int,int)
+TableBorderPosition bottom()
+TableBorderPosition top()
+TableBorderPosition right()
+TableBorderPosition left()
+TableBorderStyle dottedBorder()
+TableBorderStyle solidBorder()
+TableBorderStyle noBorder()
+void ::do (Group&, FilteredLdapUserRef__ ,void)
+filteredGroupsForUserDo
+FilteredLdapUserRef__ ldapGroupsForUser(User, string)
+filteredGroupsForUserRef
+FilteredLdapUserRef__ ldapGroupsForUser(User)
+void ::do (Group&, FilteredLdapGroupListRef__, void)
+FilteredLdapGroupListRef__ groupList(string)
+void ::do (User&, FilteredLdapUserListRef__, void)
+FilteredLdapUserListRef__ userList(string)
+string addTDGroupMember_(Group, User)
+string addTDGroup_(Group, bool& matchedUser)
+string addTDUser_(User, bool checkSystemLogin, bool& matchedUser)
+string checkTDConnect()
+string setTDBindPasswordDB(DB)
+string setTDBindPassword(string)
+string setTDBindNameDN(string)
+string getTDBindNameDN()
+string setTDPortNo(int)
+string setTDServerName(string)
+string getTDServerName()
+string setUseTelelogicDirectory(bool)
+SetUseTelelogicDirectory
+bool getUseTelelogicDirectory()
+GetUseTelelogicDirectory
+string ::. (LdapItem, LdapItemString_)
+void ::do (LdapItem&, LdapItemList, void)
+LdapItemString_ dn()
+LdapItemString_ uid()
+LdapItemString_ name()
+LdapItemList ldapGroupList
+LdapItemList ldapUserList
+string findUserInfoFromDN(string, string& name, string& uid)
+string findGroupRDNFromName(string, bool&)
+FindGroupRDNFromName
+string findUserRDNFromLoginName(string, bool&, string&)
+FindUserRDNFromLoginName
+string findUserRDNFromName(string, bool&, string&)
+string checkDN(string)
+string checkConnect()
+string updateGroupList()
+string updateUserList()
+string setGroupNameAttribute(string)
+SetGroupNameAttribute
+string getGroupNameAttribute()
+GetGroupNameAttribute
+string setGroupMemberAttribute(string)
+SetGroupMemberAttribute
+string getGroupMemberAttribute()
+GetGroupMemberAttribute
+string setGroupObjectClass(string)
+string getGroupObjectClass()
+string setTelephoneAttribute(string)
+SetTelephoneAttribute
+string getTelephoneAttribute()
+GetTelephoneAttribute
+string setDescriptionAttribute(string)
+SetDescriptionAttribute
+string getDescriptionAttribute()
+GetDescriptionAttribute
+string setAddressAttribute(string)
+string getAddressAttribute()
+string setEmailAttribute(string)
+string getEmailAttribute()
+string setLoginNameAttribute(string)
+SetLoginNameAttribute
+string getLoginNameAttribute()
+GetLoginNameAttribute
+string setDoorsUsernameAttribute(string)
+SetDoorsUsernameAttribute
+string getDoorsUsernameAttribute()
+GetDoorsUsernameAttribute
+string setDoorsGroupGroupDN(string)
+SetDoorsGroupGroupDN
+string getDoorsGroupGroupDN()
+GetDoorsGroupGroupDN
+string setDoorsUserGroupDN(string)
+string getDoorsUserGroupDN()
+string setDoorsGroupRoot(string)
+string getDoorsGroupRoot()
+string setDoorsUserRoot(string)
+string getDoorsUserRoot()
+string setDoorsBindPasswordDB(DB)
+SetDoorsBindPasswordDB
+string setDoorsBindPassword(string)
+SetDoorsBindPassword
+string setDoorsBindNameDN(string)
+string getDoorsBindNameDN()
+string setPortNo(int)
+string setLdapServerName(string)
+string getLdapServerName()
+string setUseLdap(bool)
+string loadLdapConfig()
+string saveLdapConfig()
+UserElement_ dateformat()
+AgentDateFormatValueReference
+string getOneTimeKey()
+string getMaxClientVersion (void)
+string getMinClientVersion (void)
+string setMaxClientVersion (string)
+string setMinClientVersion (string)
+bool confirmPasswordDialog(DB,bool&)
+string createPasswordDialog(DB,bool&)
+string changePasswordDialog(DB,User,bool,bool&)
+bool copyPassword(void)
+string copyPassword(void)
+string setDatabaseMaximumLifetime(int)
+int getDatabaseMaximumLifetime(void)
+string setMinPasswordAgeInDays(int)
+SetMinPasswordAgeInDays
+int getMinPasswordAgeInDays(void)
+GetMinPasswordAgeInDays
+string setMinPasswordGeneration(int)
+SetMinPasswordGeneration
+int getMinPasswordGeneration(void)
+GetMinPasswordGeneration
+int getMaxPasswordAgeLimit(void)
+GetMaxPasswordAgeLimit
+int getMaxPasswordGenerationLimit(void)
+GetMaxPasswordGenerationLimit
+string setRequireSymbolInPassword(bool)
+SetRequireSymbolInPassword
+string setRequireNumberInPassword(bool)
+SetRequireNumberInPassword
+string setRequireLettersInPassword(bool)
+SetRequireAlphaInPassword
+bool getRequireSymbolInPassword(void)
+GetRequireSymbolInPassword
+bool getRequireNumberInPassword(void)
+GetRequireNumberInPassword
+bool getRequireLettersInPassword(void)
+GetRequireAlphaInPassword
+void setReconfirmPasswordTimeout(int timeout)
+SetReconfirmPasswordTimeout
+int getReconfirmPasswordTimeout()
+GetReconfirmPasswordTimeout
+void setReconfirmPasswordRequired(bool required)
+SetReconfirmPasswordRequired
+bool getReconfirmPasswordRequired()
+GetReconfirmPasswordRequired
+void setLoginLoggingPolicy(bool,bool)
+bool getLoginLoggingPolicy(bool)
+void setFailedLoginThreshold(int)
+SetFailedLoginThreshold
+int getFailedLoginThreshold()
+GetFailedLoginThreshold
+void setDisableLoginThreshold(int)
+SetDisableLoginThreshold
+int getDisableLoginThreshold()
+GetDisableLoginThreshold
+void setAccountsDisabled(bool)
+bool getAccountsDisabled()
+void setDatabasePasswordRequired(bool)
+bool getDatabasePasswordRequired()
+void setLoginPolicy(LoginPolicy)
+LoginPolicy getLoginPolicy()
+string setLoginFailureText(string)
+string getLoginFailureText(void)
+string setDatabaseMailPrefixText(string)
+SetDatabaseMailPrefixText
+string getDatabaseMailPrefixText(void)
+GetDatabaseMailPrefixText
+void setDatabaseMailServerAccount(string)
+SetDatabaseMailServerAccount
+string getDatabaseMailServerAccount(void)
+GetDatabaseMailServerAccount
+void setDatabaseMailServer(string)
+SetDatabaseMailServer
+string getDatabaseMailServer(void)
+GetDatabaseMailServer
+void setDatabaseMinimumPasswordLength(int)
+SetDatabaseMinimumPasswordLength
+int getDatabaseMinimumPasswordLength(void)
+GetDatabaseMinimumPasswordLength
+string forceLoadDirectory()
+string loadDirectory(bool)
+LoadDirectoryReinstate
+string loadDirectory()
+string saveDirectory()
+string deleteGroup(Group&)
+string addGroup(string)
+string deleteUser(User&)
+string addUser(string,string,string,bool)
+string addUser(string, string)
+string addUser(string, string, string)
+string login(string, string)
+string saveUserRecord(User)
+string loadUserRecord_(User, bool)
+string loadUserRecord(User)
+string ensureUserRecordLoaded(User)
+bool existsGroup(string)
+bool existsUser(string)
+Group findByID(string)
+Group find(string)
+User findByID(string)
+User find(string)
+string getAdministratorName()
+GetAdministratorName
+void deleteAllMembers(Group)
+GroupMemberDeleteAllUsers
+bool deleteMember(Group,User)
+GroupMemberDeleteUser
+void addMember(Group,User)
+bool member(Group,User)
+void delete(User, string)
+void set(User, string, string)
+string get(User, string)
+bool isAttribute(User, string)
+void ::do (string&, User, void)
+string setGroup(Group,AgentElement_,bool)
+string setGroup(Group,GroupElement_,bool)
+GroupSetBooleanAttr2
+string setGroup(Group,AgentElement_,string)
+string setGroup(Group,GroupElement_,string)
+string setUser(User,AgentElement_,bool)
+string setUser(User,UserElement_,bool)
+string setUser(User,AgentElement_,int)
+string setUser(User,UserElement_,int)
+string setUser(User,AgentElement_,string)
+string setUser(User,UserElement_,UserClass)
+string setUser(User,UserElement_,string)
+UserElement_ mayEditDXL()
+AgentEditDXLValueReference
+UserElement_ mayManage()
+AgentManageValueReference
+UserElement_ mayArchive()
+AgentArchiveValueReference
+UserElement_ mayPartition()
+AgentPartitionValueReference
+UserElement_ mayCreateTopLevelFolders()
+AgentCreateTopLevelFoldersValueReference
+UserElement_ mayEditGroupList()
+AgentEditGroupListValueReference
+UserElement_ mayEditUserList()
+AgentEditUserListValueReference
+UserElement_ surname()
+SurnameValueReference
+UserElement_ forename()
+ForenameValueReference
+UserElement_ synergyUsername()
+SynergyUsernameValueReference
+UserElement_ passwordChanged()
+AgentPasswordChangedValueReference
+UserElement_ passwordLastChanged()
+UserElement_ passwordLastChange()
+AgentPasswordLastChangeValueReference
+UserElement_ emailCPUpdates()
+AgentEmailUpdatesToChangeProposalsValueReference
+UserElement_ passwordMayChange()
+AgentPasswordMayChangeValueReference
+UserElement_ passwordLifetime()
+AgentPasswordLifetimeValueReference
+UserElement_ passwordMinimumLength()
+AgentPasswordMinLengthValueReference
+UserElement_ class()
+AgentClassValueReference
+UserElement_ password()
+AgentPasswordValueReference
+UserElement_ telephone()
+AgentTelephoneValueReference
+UserElement_ address()
+AgentAddressValueReference
+UserElement_ email()
+AgentEmailValueReference
+UserElement_ fullName()
+FullNameValueReference
+UserElement_ description()
+AgentDescriptionValueReference
+UserElement_ systemLoginName()
+AgentLoginNameValueReference
+AgentElement_ ldapRDN()
+AgentLdapRDNValueReference
+AgentElement_ disabled()
+AgentIsDisabledValueReference
+AgentElement_ identifier()
+AgentIdentifierValueReference
+AgentElement_ name()
+AgentNameValueReference
+GroupRef__ ::. (Group, GroupElement_)
+GroupRef__ ::. (Group, AgentElement_)
+UserRef__ ::. (User, UserElement_)
+UserRef__ ::. (User, AgentElement_)
+UserRef__ ::. (User, string)
+void deleteNotifyUser(User)
+void addNotifyUser(User)
+void ::do (User&, UserNotifyList, void)
+void ::do (User&, Group, void)
+void ::do (Group&, GroupList, void)
+void ::do (User&, UserList, void)
+string stringOf(UserClass)
+LoginPolicy viaSystemLogin
+LoginPolicy viaDOORSLogin
+UserClass projectManager
+UserClass databaseManager
+UserClass administrator
+UserNotifyList userNotifyList
+string removeDXLLock(string)
+string createDXLLock(string)
+string testEncryption_(int)
+bool isASCII(string)
+string convertMIFToUnicode_(string, int codePage)
+ConvertMultiByteToUnicode
+string convertUnicodeToMIF_(string, int codePage, int mifEncoding)
+ConvertUnicodeToMultiByte
+void sleep_(int nMilliseconds)
+string sendEMailNotification(string sFromDescription, Skip skpTo, Skip skpCc, Skip skpBcc, string sSubject, string sMessage)
+string sendEMailNotification(string sFromDescription, Skip skpTo, Skip ckpCc, string sSubject, string sMessage)
+string sendEMailNotification(string sFromDescription, Skip skpTo, string sSubject, string sMessage)
+string sendEMailNotification(string sFromDescription, string sTo, string sSubject, string sMessage)
+string sendEMailMessage(string sFromDescription, Skip skpTo, Skip skpCc, Skip skpBcc, string sSubject, string sMessage)
+string sendEMailMessage(string sFromDescription, Skip skpTo, Skip skpCc, string sSubject, string sMessage)
+string sendEMailMessage(string sFromDescription, Skip skpTo, string sSubject, string sMessage)
+string sendEMailMessage(string sFromDescription, string sTo, string sSubject, string sMessage)
+bool sendEMailNotification(string sFromDescription, string sTo, string sSubject, string sMessage)
+bool sendEMailMessage(string sFromDescription, string sTo, string sSubject, string sMessage)
+Buffer getDOSstring (Buffer)
+string soundex(string)
+errors in eval_ string
+isValidReal qss_string
+isValidInt qss_string
+int ::>? (int,int)
+int ::<? (int,int)
+void print (int)
+int random (int)
+bool ::>= (int, int)
+bool ::<= (int, int)
+bool ::> (int, int)
+bool ::< (int, int)
+int ::_-- (int&)
+int ::-- (int&)
+int ::_++ (int&)
+int ::++ (int&)
+int ::&= (int&, int)
+int ::|= (int&, int)
+int ::%= (int&, int)
+int ::/= (int&, int)
+int ::*= (int&, int)
+int ::-= (int&, int)
+int ::+= (int&, int)
+int ::- (int)
+int ::~ (int)
+int ::& (int, int)
+int ::| (int, int)
+int ::% (int, int)
+int ::/ (int, int)
+int ::* (int, int)
+int ::- (int, int)
+int ::+ (int, int)
+void print (real)
+real pow (real,real)
+real tan (real)
+real cos (real)
+real sin (real)
+real sqrt (real)
+real log (real)
+real exp (real)
+bool ::>= (real, real)
+bool ::<= (real, real)
+bool ::> (real, real)
+bool ::< (real, real)
+bool ::!= (real, real)
+bool ::== (real, real)
+real ::/= (real&, real)
+real ::*= (real&, real)
+real ::-= (real&, real)
+real ::+= (real&, real)
+real ::= (real&, real)
+real ::^ (real,real)
+real ::- (real)
+real ::/ (real, real)
+real ::* (real, real)
+real ::- (real, real)
+real ::+ (real, real)
+real realOf (string)
+real realOf (int)
+int codepointOf(char)
+char wcharOf(int)
+char charOf (int)
+Date dateOf (int)
+int intOf (Date)
+int intOf (char)
+int intOf (string)
+int intOf (real)
+void unixerror(string)
+void return_(string)
+string evalTop_(string)
+string eval_(string)
+string ::.. (Date, string)
+bool ::!= (Date, Date)
+bool ::== (Date, Date)
+bool ::>= (Date, Date)
+bool ::<= (Date, Date)
+bool ::> (Date, Date)
+bool ::< (Date, Date)
+bool ::>= (string, string)
+bool ::<= (string, string)
+bool ::> (string, string)
+bool ::< (string, string)
+bool ::!= (string, string)
+bool ::== (string, string)
+string ::.. (char,string)
+string ::.. (real,string)
+string ::.. (bool,string)
+string ::.. (_*,string)
+string ::.. (int,string)
+string ::.. (string,string)
+bool isValidReal(string)
+bool isValidInt(string)
+bool isgraph(char)
+bool isascii(char)
+bool iscntrl(char)
+bool isprint(char)
+bool ispunct(char)
+bool isspace(char)
+bool isalnum(char)
+bool isxdigit(char)
+bool isdigit(char)
+bool islower(char)
+bool isupper(char)
+bool isalpha(char)
+string ::[](string,Range_)
+char ::[](string,int)
+string upper (string)
+string lower (string)
+int length (string)
+void print (string)
+bool ::>= (char, char)
+bool ::<= (char, char)
+bool ::> (char, char)
+bool ::< (char, char)
+void print (bool)
+bool ::== (char,char)
+bool ::!= (char,char)
+bool ::== (bool,bool)
+bool ::!= (bool,bool)
+bool ::== (int,int)
+bool ::!= (int,int)
+bool ::== (_xx,_xx)
+bool ::!= (_xx,_xx)
+bool ::! (bool)
+bool ::|| (bool, bool)
+bool ::&& (bool, bool)
+_xr ::do (int&, Range_, _xr)
+Range_ ::by (_x,_x,int)
+_f ::for (void, bool, void, _f)
+_w ::while (bool, _w)
+_d ::if (bool, _d, _d)
+_c ::? (bool, _c, _c)
+int ::sizeof(_b[])
+_b& ::[] (_b[],int)
+_a ::[] (_a[],int)
+string null()
+_k* ::(&) (_k&)
+string ::= (string&, string)
+_k ::= (_k&, _k)
+Buffer ::=(Buffer&, string)
+Date ::= (Date&, string)
+real ::= (real&, int)
+struct Range_ {int from, to, step;};
+pragma date,"XTC perms <Mon Mar 8 16:47:56 1999>";
+void setIgnoreExceptions_(bool)
+doSetIgnoreExceptions
+string stopDXLProfiling_()
+string startDXLProfiling_(string)
+string resumeDXLTracing_()
+string suspendDXLTracing_()
+string stopDXLTracing_()
+string startDXLTracing_(string)
+void setDebugCallback_(void debugCB(string, int))
+string setDebugging_(bool onoff)
+void printProfile_(string)
+const int StackStat_ 
+const int HeapPrint_ 
+const int SrcPrint_ 
+const int TypePrint_ 
+const int AutoDeclare_
+const int CodePrint_ 
+const int StackPrint_ 
+const int AssCheck_ 
+const int Dates_ 
+const int Diag_ 
+const int ShowPerming_
+const int Interactive_
+bool verifyIsEnabled_()
+bool exControlsAvail_()
+void format(Stream,string,int)
+string copyFile(string, string)
+string renameFile(string, string)
+string deleteFile(string)
+string currentDirectory()
+string tempFileName()
+string goodFileName(string)
+int cistrcmp(string,string)
+void ::do (_y&, ArraySect__, void)
+ArraySect__ array(Array,int,int,int,int)
+string get(Array,int,int,int)
+_x get(Array,int,int)
+void zeroArray(Array)
+void printCharArray(Array,Stream,int,int,int,int)
+void putString(Array,string,int,int)
+void put(Array,_x,int,int)
+Array create(int,int)
+void ::do (_y&, Skip, void)
+bool delete(Skip,_x)
+bool find(Skip,_x,_y&)
+bool put(Skip,_x,_y,bool)
+bool put(Skip,_x,_y)
+void disconnect(IPC)
+bool recv(IPC,Buffer&,int)
+bool recv(IPC,Buffer&)
+bool recv(IPC,string&,int)
+bool recv(IPC,string&)
+bool send(IPC,Buffer)
+bool send(IPC,string)
+string ipcAddress(string)
+string ipcHostname(string)
+IPC client(int,string)
+void setenv(string variable, string value)
+string getenv(string)
+bool isValidString(string, int)
+bool isValidChar(char, int)
+string readFile(string, int)
+string readFile(string)
+bool canAppendFile(string)
+bool canOpenFile(string, bool)
+Stream append(string, int)
+Stream write(string, int)
+Stream read(string, int)
+Stream append(Binary__)
+Stream write(Binary__)
+Stream read(Binary__)
+Stream append(string)
+Stream write(string)
+Binary__ binary(string)
+int read(Stream, Buffer, int)
+Stream ::>>(Stream,int&)
+Stream ::>>(Stream,real&)
+Stream ::>>(Stream,char&)
+Stream ::>>(Stream,string&)
+Stream ::<<(Stream,char)
+Stream ::<<(Stream,string)
+bool directory(Stat)
+Stat create (Symbolic__)
+Symbolic__ symbolic(string)
+Stat create (string)
+Stat create (Stream)
+Directory__ directory(string)
+void ::do (string&, Directory__, void)
+const int CP_UTF16_BE
+const int CP_UTF16_LE
+const int CP_UNICODE
+void mkdir (string,string)
+bool matches (string,string)
+bool ::.. (Regexp, string)
+Regexp regexp (string)
+applyDocumentCommands
+queryWriteTokenAnswer
+exchangeServerStatusAnswer
+exchangeServerStatus
+informLossWritetokenLinksetAnswer
+informLossWritetokenLinkset
+informLossWritetokenDocumentAnswer
+informLossWritetokenDocument
+requestReturnWritetokenLinksetAnswer
+requestReturnWritetokenLinkset
+requestReturnWritetokenDocumentAnswer
+requestReturnWritetokenDocument
+putWriteTokenLinksetAnswer
+putWriteTokenLinkset
+modifyLinksetAclAnswer
+modifyDocumentAclAnswer
+modifyFolderAclAnswer
+modifyPageSetupAnswer
+modifyViewDefinitionAnswer
+modifyViewDefinition
+modifyAttributeSpecialisationAnswer
+modifyAttributeSpecialisation
+modifyAttributeDefinitionAnswer
+modifyAttributeDefinition
+modifyLinkKindSpecialisationAnswer
+modifyLinkKindSpecialisation
+modifyLinkKindAnswer
+modifyObjectKindSpecialisationAnswer
+modifyObjectKindSpecialisation
+modifyObjectKindAnswer
+modifyLinksetAttributesAnswer
+modifyLinksetAttributes
+modifyDocumentAttributesAnswer
+modifyDocumentAttributes
+modifyFolderAttributesAnswer
+modifyFolderAttributes
+hardDeletePageSetupAnswer
+hardDeleteViewDefinitionAnswer
+hardDeleteViewDefinition
+hardDeleteAttributeSpecialisationAnswer
+hardDeleteAttributeSpecialisation
+hardDeleteAttributeDefinitionAnswer
+hardDeleteAttributeDefinition
+hardDeleteLinkKindSpecialisationAnswer
+hardDeleteLinkKindSpecialisation
+hardDeleteLinkKindAnswer
+hardDeleteObjectKindSpecialisationAnswer
+hardDeleteObjectKindSpecialisation
+hardDeleteObjectKindAnswer
+hardDeleteObjectKind
+undeleteLinksetAnswer
+undeleteDocumentAnswer
+undeleteFolderAnswer
+softDeleteLinksetAnswer
+softDeleteDocumentAnswer
+softDeleteFolderAnswer
+createAttributeSpecialisationAnswer
+createAttributeSpecialisation
+createLinkKindSpecialisationAnswer
+createLinkKindSpecialisation
+createObjectKindSpecialisationAnswer
+createObjectKindSpecialisation
+createPageSetupAnswer
+createViewDefinitionAnswer
+createViewDefinition
+createAttributeDefinitionAnswer
+createAttributeDefinition
+createLinkKindAnswer
+createObjectKindAnswer
+createDocumentAnswer
+getViewDefinitionAnswer
+getAttributeDefinitionSpecialisationAnswer
+getAttributeDefinitionSpecialisation
+getLinkKindSpecialisationAnswer
+getLinkKindSpecialisation
+getObjectKindSpecialisationAnswer
+getObjectKindSpecialisation
+getAttributeTypeDefinitionAnswer
+getAttributeTypeDefinition
+getAttributeDefinitionAnswer
+getAttributeDefinition
+getContainerHierarchyAnswer
+getContainerHierarchy
+getServerBaseInformationAnswer
+getServerBaseInformation
+string createLinkset_(string &returnString, string sourceGUIDString, string targetGUIDString)
+string getTomcatHost_()
+string setTomcatHost_(string host)
+string getClassPath_(string &path)
+string applyDocumentCommands_(string documentID, string xml)
+ApplyDocumentCommands
+string getContainers_(bool outdatedOnly, string &xml)
+string getServerBaseInformation_()
+GetServerBaseInformation
+string getXT_TypeSystem_()
+string getView_(string guid, string viewGUID, bool includeWriteToken, string &xml)
+string sendWriteTokenHome_(string guid)
+string getLinkset_(string guid, bool includeWriteToken, string &xml)
+string getDocument_(string guid, bool includeWriteToken, string &xml)
+string getContainerHierarchy_(Folder container, int level, string &hierarchy)
+GetContainerHierarchy
+int getType_(string XT_GUID)
+int getCreateID_(string XT_GUID)
+int getHomeID_(string XT_GUID)
+string getIndex_(string XT_GUID)
+string getAttrDefName_(Module mod, int absNum)
+int getAbsno_(string XT_GUID)
+string getVersion_(string XT_GUID)
+string addGUIDMapping_(Item item, string externalGUID, string internalGUID)
+string lookupGUID_(Item item, string externalGUID)
+string saveGUIDMap_(Item item)
+string setGUID_(Link l, bool& set)
+string setGUID_(AttrDef ad)
+string getGUID_(Link l)
+string getGUID_(AttrDef ad)
+string getGUID_(Object o)
+string getGUID_(View view)
+string getGUID_(Item item)
+string getPlainInteropValue_(Object object, string attrName)
+GetPlainInteropValue
+string getRichInteropValue_(Object object, string attrName)
+string checkInteropServerStatus_(string hostName, int portNumber, int localDatabaseID, int timeout, string& response)
+CheckInteropServerStatus
+string saveProperties_()
+string loadProperties_()
+string getPropertiesPath_()
+string getServerPort_(int &portNumber)
+string getServerHost_(string &hostName)
+string setPropertiesPath_(string host)
+string setServerPort_(int port)
+string setServerHost_(string host)
+string fromCompressedBase64_(string toDecode, string &decoded)
+string toCompressedBase64_(string toEncode, string &encoded)
+string fromBase64_(string toDecode, string &decoded)
+string toBase64_(string toEncode, string &encoded)
+User getInteropUser_()
+string setInteropUser_(User user)
+int getInteropLocalDatabaseID_()
+GetInteropLocalDatabaseID
+string setInteropLocalDatabaseID_(int newID)
+SetInteropLocalDatabaseID
+string getRemoteWebservicePath_()
+GetRemoteWebservicePath
+int getRemotePort_()
+string getRemoteHost_()
+string setRemoteWebservicePath_(string path)
+SetRemoteWebservicePath
+string setRemotePort_(int port)
+string setRemoteHost_(string host)
+string stopConfiguringMenus(DBE element)
+void startConfiguringMenus(DBE element)
+void startConfiguringMenus(DB box)
+void setDefault(DBE)
+void setFocus(Module module)
+void startPrintJob(string)
+void print(DBE, real, real)
+void export(DBE, string, string)
+void updateToolBars(Module)
+void closeLabel(DB,string)
+bool progressCancelled()
+void progressRange(string,int,int)
+void progressMessage(string)
+void progressStep(int)
+void progressStart(DB,string,string,int)
+void helpOnEx(DB, string, int)
+void helpOnEx(DB, int)
+void helpOnEx(DB, string)
+void helpOn(DB, string, int)
+void helpOn(DB, int)
+void helpOn(DB, string)
+void gluedHelp(DB, int)
+void gluedHelp(DB, string)
+void help(DB, string, int)
+void help(DB, string)
+int messageBox(string, string[], int)
+int query(string, string[])
+bool confirm(string, int)
+bool confirm(string)
+void errorBox(string)
+void warningBox( string)
+void infoBox( string)
+void acknowledge(string)
+int messageBox(DB, string, string[], int)
+int query(DB, string, string[])
+bool confirm(DB, string, int)
+bool confirm(DB, string)
+void errorBox(DB, string)
+void warningBox(DB, string)
+void infoBox(DB, string)
+void acknowledge(DB, string)
+void ack(DB, string)
+int styleStandardSize
+int styleAllowMinimize
+int styleAllowMinimise
+int styleAllowMinimize_
+int styleAllowMinimise_
+string getRightClicked(DBE treeView)
+int height(DBE,string)
+int width(DBE,string)
+void destroyBitmap(DBE,Bitmap)
+void drawBitmap(DBE,Bitmap,int,int)
+Bitmap loadBitmap(DBE,string,bool,int&,int&)
+void bitmap(DBE,string,int,int)
+void polygon(DBE,int[], int)
+void polygon(DBE,int[])
+void drawAngle(DBE,int,int,string,real)
+void draw(DBE,int,int,string)
+void ellipse(DBE,int,int,int,int)
+void polarLine(DBE,int,int,int,int)
+void line(DBE,int,int,int,int)
+void box(DBE,int,int,int,int)
+void rectangle(DBE,int,int,int,int)
+void background(DBE,int)
+void realBackground(DBE,int)
+RealColourBackground
+void characterSet(DBE,int,int,int)
+void font(DBE,int,int)
+void colour(DBE,int)
+void realColour(DBE,int)
+void realColor(DBE,int)
+void setParent(DB child, Module parent)
+void setParent(DB child, DB parent)
+void setParent(DBE child, DBE parent)
+void setLimits(DBE, AttrType)
+void setLimits(DBE, Date, Date)
+void set(DBE, int, bool)
+void set(DBE, Buffer)
+void setFromBuffer(DBE, Buffer)
+void set(DBE, string)
+bool get(DBE,int&,int&)
+Buffer getBuffer(DBE)
+void leftAligned(DB)
+void ::do (int&, DBE, void)
+void ::do (string&, DBE, void)
+void delete(DBE,string)
+void delete(DBE,int)
+void insert(DBE,int,string)
+bool selected(DBE,string)
+bool selected(DBE,int)
+DBE tab(DB, string[], int, int, int, void(DBE))
+CreateTabWidthHeightCounted
+DBE tab(DB, string[], int, int, void(DBE))
+CreateTabWidthHeight
+DBE tab(DB, string[], int, void(DBE))
+DBE tab(DB, string[], void(DBE))
+DBE splitter(DB, DBE, DBE, int)
+DBE multiList(DB,string,int,int,string[],int)
+CreateMultiCountWidth
+DBE multiList(DB,string,int,string[],int)
+DBE multiList(DB,string,int,int,string[])
+CreateMultiListWidth
+DBE multiList(DB,string,int,string[])
+DBE list(DB,string,int,int,string[],int)
+CreateCountedListWidth
+DBE list(DB,string,int,string[],int)
+DBE list(DB,string,int,int,string[])
+DBE list(DB,string,int,string[])
+DBE verticalRadioBox(DB,string,string[],int)
+DBE radioBox(DB,string,string[],int)
+DBE verticalCheckBox(DB,string,string[],int)
+DBE checkBox(DB,string,string[],int)
+DBE toggle(DB,string,bool)
+DBE choice(DB,string,string[],int, int, int, bool,bool)
+CreateCountedChoiceWidth
+DBE choice(DB,string,string[],int, int, int, bool)
+DBE choice(DB,string,string[],int,int)
+CreateCountedStaticChoice
+DBE choice(DB,string,string[],int, int, bool)
+DBE choice(DB,string,string[],int)
+DBE canvas(DB,int,int,void(DBE))
+DBE button(DB,Arrow__,void(DBE))
+DBE button(DB,string,void(DBE), int, int)
+CreateFunctionOptsButton4
+DBE button(DB,string,void(DBE), bool, int)
+CreateFunctionOptsButton3
+DBE button(DB,string,void(DBE), int)
+CreateFunctionOptsButton2
+DBE button(DB,string,void(DBE), bool)
+CreateFunctionOptsButton
+DBE button(DB,string,void(DBE))
+CreateFunctionButton
+bool getTimerRunning(int)
+int getTimerInterval(int)
+string getTimerName(int)
+bool startTimer(int)
+bool startTimer(DBE)
+DBE timer(DB,real,void(DBE),string)
+DBE timer(DB,int,void(DBE),string)
+DBE slider(DB,string,int,int,int)
+void useRTFColour(DBE, bool)
+void select(DBE, int, int)
+DBE richText(DB,string,RTF_string__,int,int,bool)
+DBE richText(DB,string,string,int,int,bool)
+DBE richText(DB,string,RTF_string__,int,bool)
+DBE richText(DB,string,string,int,bool)
+DBE richField(DB,RTF_string__,string,int)
+DBE richField(DB,string,string,int)
+CreateEditRichTextField
+DBE richField(DB,string,RTF_string__,int,bool)
+DBE richField(DB,string,string, int,bool)
+DBE text(DB,string,string,int,int,bool)
+DBE text(DB,string,string,int,bool)
+DBE field(DB,string,string,int)
+DBE field(DB,string,string,int,bool)
+DBE fileName(DB box,string label, string initial ,string spec ,string description, bool )
+CreateFileSelectorLabelInitialSpecOpenSave
+DBE fileName(DB,string,string,string,bool)
+CreateFileSelectorInitialSpecOpenSave
+DBE fileName(DB,string,string,string)
+CreateFileSelectorInitialSpec
+DBE fileName(DB,string label, string init)
+CreateFileSelectorLabelInitial
+DBE fileName(DB,string)
+CreateFileSelectorInitial
+DBE date(DB,int,Date,bool)
+void set(DBE,string,string)
+SetFileSelectorTemplate
+void set(DBE,string[],int)
+void set(DBE,string[])
+void set(DBE,void(DBE,int,bool,int,int))
+void set(DBE,void(DBE,char,bool,int,int))
+void close(DB,bool,void(DB))
+void set(DBE,void(DBE),void(DBE))
+void set(DBE,void(DBE))
+DBE apply(DB,Arrow__,void(DB))
+DBE apply(DB,string,void(DB))
+DBE apply(DB,void(DB))
+DBE ok(DB,Arrow__,void(DB))
+DBE ok(DB,string,void(DB))
+BaseWinAndShowOtherDDB
+void allowNetworkMonitor()
+void setBaseWindowContext()
+SetBaseWindowContext
+DBE label(DB,string)
+DB topMostTop_(string)
+DB topMostFixed(string)
+DB createTop_(string, int)
+DB createTop_(string)
+DB centredTop_(string)
+void destroy(DB box)
+DB create(Module parent, string title, int options)
+CreateModParentedDDBOptions
+DB create(DB parent, string title, int options)
+CreateParentedDDBOptions
+DB create(string, int)
+DB create(Module parent, string)
+CreateModParentedDDB
+DB create(DB parent, string)
+Arrow__ leftRightArrow
+Arrow__ bottomRightArrow
+Arrow__ bottomLeftArrow
+Arrow__ allWaysArrow
+Arrow__ topRightArrow
+Arrow__ topLeftArrow
+string getDXLFileHelp(DBE)
+string getDXLFileName(DBE)
+string setExtraHeightShare(DBE control, real share)
+string setExtraWidthShare(DBE control, real share)
+int selectedElems(DBE listView)
+ListViewSelectedCount
+int ::. (DropEvent, DropEventInt_)
+DropEventInt_ targetIndex()
+DropEventInt_ sourceIndex()
+string ::. (DropEvent, DropEventString_)
+DropEventString_ targetPath()
+DropEventString_ sourcePath()
+DBE ::. (DropEvent, DropEventDBE_)
+DropEventDBE_ target()
+DropEventDBE_ source()
+bool ::. (DropEvent, DropEventBool_)
+DropEventBool_ hasControlDown()
+DropEventBool_ targetIsListView()
+DropEventBool_ targetIsTreeView()
+DropEventBool_ sourceIsListView()
+DropEventBool_ sourceIsTreeView()
+void set(DBE,bool(DBE,string))
+string getTemplateFileName(DBE)
+void layoutDXL(DBE treeView)
+TreeViewFillWithLayoutDXL
+void attributeDXL(DBE treeView)
+TreeViewFillWithAttributeDXL
+void templates(DBE treeView)
+TreeViewFillWithTemplates
+void insert(DBE,string,Icon,Icon)
+bool exists(DBE, string)
+DBE treeView(DB,void(DropEvent), int, int, int)
+DBE treeView(DB, int, int, int)
+int treeViewOptionNoIcons
+int treeViewOptionSorted
+void setLostFocus(DBE, void(DBE))
+SetLostFocusCallback
+void setGotFocus(DBE, void(DBE))
+void set(DBE,void(DBE,int), void(DBE, int), void(DBE, int))
+SetListviewCallbacks
+void set(DBE,void(DBE,int))
+bool getCheck(DBE, int)
+void setCheck(DBE, int, bool)
+void deleteColumn(DBE,int)
+void insertColumn(DBE,int,string,int,Icon)
+string getColumnValue(DBE,int,int)
+GetValueStringMatrix
+void set(DBE,int,int,string)
+SetValueStringMatrix
+int getSortColumn(DBE listView)
+void setSortColumn(DBE, int)
+void set(DBE, int, int dxlSortFn(_x, _x))
+_x getClientData(DBE listView, int row)
+void insert(DBE listView, int row, string value, _x clientData , Icon index)
+ListViewInsertWithIconAndClientData
+void insert(DBE listView, int row, string value, Icon index)
+ListViewInsertWithIcon
+DBE listView(DB,void(DropEvent), int, int, int, string[], int)
+CreateCountedListViewWidthCb
+DBE listView(DB,void(DropEvent), int, int, int, string[])
+CreateListViewWidthCb
+DBE listView(DB, int, int, int, string[], int)
+CreateCountedListViewWidth
+DBE listView(DB, int, int, int, string[])
+void set(DBE, int, int, Icon)
+void set(DBE, int, Icon)
+DBE frame(DB, string, int, int)
+CreateFrameWidthHeight
+DBE frame(DB, string)
+int listViewOptionSortText
+int listViewOptionMultiselect
+int listViewOptionCheckboxes
+Icon iconProjectOpenDeleted
+Icon iconFolderOpenDeleted
+Icon iconGroupDisabled
+Icon iconUserDisabled
+Icon iconProjectOpen
+Icon iconFolderDeleted
+Icon iconDescriptiveDeleted
+Icon iconLinkDeleted
+Icon iconFormalDeleted
+Icon iconProjectDeleted
+Icon iconDescriptiveCut
+Icon iconDescriptive
+Icon iconExternalLinkOut
+Icon iconExternalLinkIn
+void clearToolTips(DBE da)
+void addToolTip(DBE, int, int, int, int, _x, string(DBE, _))
+void scrollSet(DBE, ScrollSide, int, int, int)
+void hasScrollbars(DBE da, void cb(DBE, ScrollEvent, ScrollSide, int, int))
+ScrollSide horizontal
+ScrollEvent scrollToPos
+ScrollEvent scrollDown
+ScrollEvent scrollUp
+ScrollEvent scrollPageDown
+ScrollEvent scrollPageUp
+ScrollEvent scrollToHome
+ScrollEvent scrollToEnd
+void headerChange(DBE da, int index, string title, int width)
+void headerRemoveColumn(DBE da, int index)
+void headerAddColumn(DBE da, string title, int width)
+void headerSelect(DBE da, int index)
+void headerSetHighlight(DBE da, int index, int which)
+void headerReset(DBE da)
+void headerShow(DBE da, bool onOff)
+void hasHeader(DBE da, void cb(DBE, HeaderEvent, int, int))
+HeaderEvent headerReorder
+HeaderEvent headerSelect
+HeaderEvent headerEdit
+HeaderEvent headerResize
+bool pasteToEditbox()
+void inPlaceChoiceAdd(DBE da, string item)
+int inPlaceTextHeight(DBE da)
+void inPlacePaste(DBE da, InPlaceBox__ which)
+void inPlaceCopy (DBE da, InPlaceBox__ which)
+void inPlaceCut (DBE da, InPlaceBox__ which)
+void inPlaceReset(DBE da, InPlaceBox__ which)
+int inPlaceGet (DBE da, InPlaceBox__ which)
+string inPlaceGet (DBE da, InPlaceBox__ which)
+void inPlaceSet (DBE da, InPlaceBox__ which, int i)
+void inPlaceSet (DBE da, InPlaceBox__ which, string s)
+void inPlaceMove (DBE da, InPlaceBox__ which, int x, int y, int w, int h)
+void inPlaceShow (DBE da, InPlaceBox__ which, bool showing)
+void hasInPlace(DBE da, void cb(DBE, InPlaceEditEvent, int))
+void hasInPlace(DBE da, void cb(DBE, InPlaceEditEvent))
+InPlaceEditEvent inPlaceTextChange
+InPlaceEditEvent inPlaceTextFilled
+InPlaceBox__ inPlaceChoice
+InPlaceBox__ inPlaceText
+InPlaceBox__ inPlaceString
+void updateToolBars(DB)
+void toolBarComboAdd(DBE tb, int index, string item)
+void toolBarComboEmpty(DBE tb, int index)
+int toolBarComboCount(DBE tb, int index)
+void toolBarComboSelect(DBE tb, int index, string item)
+string toolBarComboGetItem(DBE tb, int cIndex, int iIndex)
+string toolBarComboGetSelection(DBE tb, int index)
+tbcGetStringSelection
+int toolBarComboGetSelection(DBE tb, int index)
+DBE toolBar(DB box, ToolType types[], int param[], string toolTip[], string help[], string inactiveHelp[], int noOfTools, Sensitivity sensitive(int), void callback(int))
+CreateCountedToolBar
+DBE toolBar(DB box, ToolType types[], int param[], string toolTip[], string help[], string inactiveHelp[], Sensitivity sensitive(int), void callback(int))
+void menuStatus(Module)
+void menuStatus(Module,string)
+void formalStatus(Module,string)
+void status(Module,string)
+void set(DBE sb, int section, string message)
+DBE statusBar(DB box, string intial, int sectionSizes[], noOfSections)
+CreateCountedStatusBar
+DBE statusBar(DB box, string intial, int sectionSizes[])
+Sensitivity ddbChecked
+Sensitivity ddbAvailable
+Sensitivity ddbUnavailable
+void addMenu(DBE menuBar, string title, char mnemonic, string entries[], char mnemonics[], char hots[], string help[], string inactiveHelp[],int noOfEntries, Sensitivity sensitive(int), void callback(int))
+CreateCountedDDBMenu
+void addMenu(DBE menuBar, string title, char mnemonic, string entries[], char mnemonics[], char hots[], string help[], string inactiveHelp[], Sensitivity sensitive(int), void callback(int))
+void realize(DB, int, int)
+int getCaptionHeight(DB)
+int getBorderSize(DB)
+void setCenteredSize(DB,int,int)
+void setCentredSize(DB,int,int)
+void setSize(DB,int,int)
+void getSize(DB,int&,int& )
+void setPos(DB,int,int)
+void getPos(DB,int&,int&)
+void setTitle(DB,string)
+void ::->(glueOn2__,DBE)
+glueOn2__ ::->(glueOn1__,string)
+glueOn1__ ::->(DBE,string)
+void setDblClicks_(void historyCallback(), void propertiesCallback(), void columnCallback(int))
+bool inplaceEditing(Module)
+bool inplaceEnabled(Module)
+void inplaceEnable(Module)
+bool inplaceDisable(Module, bool)
+bool inplaceEditOff(Module, bool)
+int getSelectedCol(Module)
+void refreshExplorer(Module)
+void synchExplorer(Module)
+bool showingExplorer(Module)
+void showExplorer(Module)
+void hideExplorer(Module)
+string canUseServerArchive()
+string canWriteServerArchiveFile(string)
+canWriteServerArchiveFile
+string canReadServerArchiveFile(string)
+canReadServerArchiveFile
+bool canRestoreServerArchive()
+canRestoreServerArchive
+bool canCreateServerArchive()
+canCreateServerArchive
+string getArchiveType(string, ZipType&, bool)
+GetZipArchiveTypeServer
+string getArchiveType(string, ZipType&)
+string restoreProject(string, string, string, bool)
+RestoreRenamedProjectServer
+string restoreProject(string, string, string)
+RestoreRenamedProject
+string restoreProject(string, bool)
+string restoreProject(string)
+string restoreModule(string, string, bool)
+RestoreRenamedModuleServer
+string restoreModule(string, string)
+RestoreRenamedModule
+string restoreModule(string, bool)
+string restoreModule(string)
+string getProjectDetails(string, string&, string&, Date&, bool)
+string getProjectDetails(string, string&, string&, Date&)
+string getModuleDetails(string, string&, string&, Date&, bool)
+string getModuleDetails(string, string&, string&, Date&)
+string archive(string, string, string, string, bool)
+ArchiveProjectLegacyCodeCompatability
+string archive(string, string, bool, bool, ArchiveInclusionDescriptor, bool)
+ArchiveProjectServer
+string archive(string, string, bool, bool, ArchiveInclusionDescriptor)
+string archive(string, string, bool)
+string archive(ModName_, string, bool, bool, ArchiveInclusionDescriptor, bool)
+string archive(ModName_, string, bool, bool, ArchiveInclusionDescriptor)
+string archive(ModName_, string, bool)
+string restoreFiles(string, string)
+string archiveFiles(string, string, bool)
+void setProgressParent(ArchiveData, DB)
+string getDatabaseIdentifier()
+string restore(ArchiveData)
+RestoreFromArchiveData
+string restore(ArchiveData, string, bool)
+RestoreFromServerArchiveDataWithDest
+string restore(ArchiveData, string)
+RestoreFromArchiveDataWithDest
+string get(string, ArchiveData&, bool)
+GetServerArchiveData
+string get(string, ArchiveData&)
+string getProjectDetails(string,string&,string&,string&,string&,Date&, bool, ZipType&)
+GetProjectServerSummary
+string getProjectDetails(string,string&,string&,string&,string&,Date&)
+string getModuleDetails(string,string&,string&,string&,string&,Date&, bool, ZipType& )
+GetModuleServerSummary
+string getModuleDetails(string,string&,string&,string&,string&,Date&)
+string getUserlistDetails(string archiveName,string& databaseID,string& databaseName,Date& date,bool&security)
+string getUserlistDetails(string,string&,string&,Date&)
+string restoreUserlist(string)
+string archive(string, bool)
+bool rename(ArchiveItem,string)
+bool deselect(ArchiveItem)
+bool select(ArchiveItem)
+ZipType zipUserListArchive
+ZipType zipUserList7Archive
+ZipType zipUserList6aArchive
+ZipType zipUserList6Archive
+ZipType zipUserList5Archive
+ZipType zipPre5ProjectArchive
+ZipType zipPre5ModuleArchive
+ZipType zipPre3ModuleArchive
+ZipType zipPre3ProjectArchive
+ZipType zipModule5Archive
+ZipType zipModule6Archive
+ZipType zipModule6aArchive
+ZipType zipModule7Archive
+ZipType zipModuleArchive
+ZipType zipProject5Archive
+ZipType zipProject6Archive
+ZipType zipProject6aArchive
+ZipType zipProject7Archive
+ZipType zipProjectArchive
+ZipType zipNotArchive
+string ::. (ArchiveItem, ArchiveItemElementS_)
+GetArchiveItemStringValue
+string ::. (ArchiveItem, ArchiveItemElementZ_)
+GetArchiveItemTypeValue
+bool ::. (ArchiveItem, ArchiveItemElementB_)
+GetArchiveItemBooleanValue
+ArchiveItemElementS_ archiveItemDatabaseName()
+ArchiveItemDatabaseNameValueReference
+ArchiveItemElementB_ archiveItemSoftDeleted()
+ArchiveItemSoftdeletedValueReference
+ArchiveItemElementB_ archiveItemSelected()
+ArchiveItemSelectedValueReference
+ArchiveItemElementZ_ archiveItemType()
+ArchiveItemTypeValueReference
+ArchiveItemElementS_ archiveItemDescription()
+ArchiveItemDescriptionValueReference
+ArchiveItemElementS_ archiveItemName()
+ArchiveItemNameValueReference
+ArchiveInclusionDescriptor noBaselines()
+ArchiveInclusionDescriptor allBaselines()
+void ::do (ArchiveItem&, ArchiveData, void)
+Locale getLegacyLocale()
+string setLegacyLocale(Locale)
+void resetFonts(int scheme)
+void setServerMonitor(bool onoff)
+bool serverMonitorIsOn()
+void ::do(string&, Fonts__, void)
+void ::do(string&, DisplaySchemes, void)
+void deleteOptions(string schemeName)
+bool optionsExist(string schemeName)
+void loadOptions(string schemeName)
+void saveOptions(string schemeName)
+int getFontIndex_(string fontName)
+int getSizeIndex_(string sizeName)
+string getFontName_(int fontIndex)
+string getSizeName_(int sizeIndex)
+void setFontSettings(int level, int usedIn, int size, int family, bool bold, bool italics)
+SetFontSettingsLegacy
+void getFontSettings(int level, int usedIn, int &size, int &family, bool &bold, bool &italic)
+GetFontSettingsLegacy
+void drawExampleFont_(DBE canvas, int currentSize, int currentFamily, bool currentBold, bool currentItalic, int size, int family, bool bold, bool italic)
+DrawFontExampleLegacy
+void setFontSettings(int level, int usedIn, int size, string family, bool bold, bool italics, Locale locale)
+SetFontSettingsLocale
+void setFontSettings(int level, int usedIn, int size, string family, bool bold, bool italics)
+void getFontSettings(int level, int usedIn, int &size, string &family, bool &bold, bool &italic, Locale locale)
+GetFontSettingsLocale
+void getFontSettings(int level, int usedIn, int &size, string &family, bool &bold, bool &italic)
+void drawExampleFont_(DBE canvas, int currentSize, string currentFamily, bool currentBold, bool currentItalic, int size, string family, bool bold, bool italic)
+real getLineSpacing(Locale locale)
+GetLocaleLineSpacing
+void setLineSpacing(Locale locale, real lineSpacing)
+SetLocaleLineSpacing
+int getDefaultLineSpacing(void)
+GetDefaultLineSpacing
+int getLineSpacing(void)
+void setLineSpacing(int lineSpacing)
+Fonts__ availableFonts
+void clearRightsCache_()
+string modifyPublishRights_(User user, Project project, bool setRight)
+string modifyConfigRights_(User user, bool setRight)
+string userHasPublishRights_(User user, Project project, bool &hasRight)
+UserHasPublishRights
+string userHasConfigRights_(User user, bool &hasRight)
+string fullHostname(void)
+bool writePublishFile__(Skip &skpProjects, Skip &skpIsPublished, bool saveAsLegacy)
+string readPublishFile__(Skip &skpProjects, Skip &skpIsPublished, bool &canWrite, bool legacyMode)
+Buffer decryptBuffer__(Buffer src, Buffer dest)
+Buffer encryptBuffer__(Buffer src, Buffer dest)
