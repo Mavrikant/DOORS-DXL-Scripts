@@ -13,6 +13,10 @@ A collection of useful DOORS DXL Scripts independent from the project.
 
 ## Scripts
 
+### Copy Baseline number (Ctrl + 1)
+
+Its copies the last baseline number ```Doors baseline X.X``` into the clipboard.
+
 ### Copy Module Path (Ctrl + 2)
 
 Its copies the full path of the current module into the clipboard.

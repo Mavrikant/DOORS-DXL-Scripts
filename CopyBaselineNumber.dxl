@@ -1,0 +1,22 @@
+// This script copies baseline number to clipboard.
+/*
+  This script copies baseline number to clipboard.
+  Author: M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2022-07-21  Initial version
+
+
+// Turn baseline in to string
+string getBaselineStr(Baseline bLine)
+{
+  if (bLine != null) return major (bLine) "" "." minor (bLine) ""
+  else               return "current"
+}
+
+Module currMod = current()
+Baseline bLine
+
+for bLine in currMod do {} // get last baseline
+copyToClipboard("Doors baseline " getBaselineStr(bLine))
