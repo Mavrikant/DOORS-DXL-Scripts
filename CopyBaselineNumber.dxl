@@ -1,6 +1,6 @@
-// This script copies baseline number to clipboard.
+// This script copies last baseline number to clipboard.
 /*
-  This script copies baseline number to clipboard.
+  This script copies last baseline number to clipboard.
   Author: M. Serdar Karaman
 */
 
@@ -16,7 +16,6 @@ string getBaselineStr(Baseline bLine)
 }
 
 Module currMod = current()
-Baseline bLine
+Baseline bLine = getMostRecentBaseline(currMod)
 
-for bLine in currMod do {} // get last baseline
 copyToClipboard("Doors baseline " getBaselineStr(bLine))

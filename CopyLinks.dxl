@@ -2,7 +2,7 @@
 /*
   This script copies links in source object to destination object.
 
-  In order to use this script, files containing linked objects should be opened
+  In order to use this script, folder containing linked objects should be opened
 */
 
 //**********************************  History  ******************************
@@ -29,7 +29,6 @@ void CopyLinks(DB db)
   for linkModDes in currFolder do
   {
     string linkMod = getName(linkModDes)
-    print linkMod "\n"
     Link myLink = null
     for myLink in srcObj -> linkMod do
     {

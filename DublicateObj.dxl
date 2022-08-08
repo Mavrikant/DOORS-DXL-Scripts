@@ -1,0 +1,42 @@
+// This script dublicates object with its all attributes.
+/*
+  This script dublicates object with its all attributes.
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman       2022-08-05  Initial version
+
+//***********************************  TODO  ********************************
+
+Module currMod = current Module
+Folder currFolder = current Folder
+//currMod = edit(fullName currMod, true)
+
+
+void CopyLinks(Object srcObj, Object dstObj)
+{
+
+  LinkModuleDescriptor linkModDes = null
+  for linkModDes in currFolder do
+  {
+    string linkMod = getName(linkModDes)
+    Link myLink = null
+    for myLink in srcObj -> linkMod do
+    {
+      ModName_ targetMod = target(myLink)
+      read(fullName(targetMod), false)
+      Object targetObj = target(myLink)
+      dstObj -> linkMod -> targetObj 
+    }
+  }
+}
+
+Object currobj = current Object
+Object newObj = create(after(Object currobj))
+
+newObj."Object Text" = richText(richTextWithOle currobj."Object Text")
+newObj."Req" = richText(richTextWithOle currobj."Req")
+newObj."Means Of Verification" = richText(richTextWithOle currobj."Means Of Verification")
+newObj."Safety Requirement" = richText(richTextWithOle currobj."Safety Requirement")
+
+CopyLinks(currobj, newObj)

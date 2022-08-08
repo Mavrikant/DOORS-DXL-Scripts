@@ -14,6 +14,9 @@
 
 //************************************  TODO  ********************************
 // Add button WinMerge
+// Scale GUI
+// Baseline date and author
+// superscript, bullet point support
 
 pragma runLim,0 // disable timeout limit
 Module m = current      // check calling context
