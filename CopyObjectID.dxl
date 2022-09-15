@@ -17,7 +17,7 @@ if (!null startObj) //if range has been selected, otherwise do nothing
 {
   while (!null startObj && isSelected startObj) 
   {
-    b += identifier(startObj) "\n"
+    b += "* " identifier(startObj) "\n"
     startObj = next(startObj) 
   }
   copyToClipboard b""
