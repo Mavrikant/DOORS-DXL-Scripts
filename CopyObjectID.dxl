@@ -6,6 +6,7 @@
 
 //**********************************  History  ******************************
 // M. Serdar Karaman  2022-05-10  Initial version
+// M. Serdar Karaman  2023-01-25  If one object is selected dont add star as prefix
 
 Module currMod = current
 Object startObj, endObj
@@ -13,11 +14,22 @@ Object startObj, endObj
 Buffer b = create
 getSelection(currMod,startObj, endObj)
  
-if (!null startObj) //if range has been selected, otherwise do nothing
+if (startObj != null) // Check if range is selected
 {
-  while (!null startObj && isSelected startObj) 
+  int objectCount = 0
+
+  while (startObj != null && isSelected(startObj))
   {
-    b += "* " identifier(startObj) "\n"
+    objectCount++
+    if((next(startObj) == null || !isSelected(next(startObj))) && (objectCount == 1))
+    {
+      b += identifier(startObj) "\n"
+    }
+    else
+    {
+      b += "* " identifier(startObj) "\n"
+    }
+
     startObj = next(startObj) 
   }
   copyToClipboard b""
@@ -25,10 +37,9 @@ if (!null startObj) //if range has been selected, otherwise do nothing
 else
 {
   DB dbMain = create(currMod, "Copy object ID", styleCentered|styleFixed)
-  DBE  dbeLabel = label(dbMain, "No object is selected!                       ")
+  DBE dbeLabel = label(dbMain, "No object is selected!                       ")
   realize(dbMain)
-  show dbMain
+  show(dbMain)
   block(dbMain)
   destroy(dbMain)
 }
-
