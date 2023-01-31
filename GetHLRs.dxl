@@ -1,0 +1,162 @@
+// Get HLRs of selected LLR objects and copy it to the clipboard
+/*
+*	Get HLRs of selected LLR objects and copy it to the clipboard
+   Author: Bugra Erbas, M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// Bugra Erbas        2023-01-31  Initial version of this script
+// M. Serdar Karaman  2023-02-01  Refactoring, get ID of LLR from selection. Copy to clipboard
+
+
+Module currModule = current
+string currentModuleName = name(currModule);
+int previndex = 0;
+string UpperModulePartName
+string sourceIDList = ""
+
+string getIUpperlinks(Object obj, string prevString)
+{
+    Object tempTargetObj;
+    int offset = null
+    int Length = null
+    bool matchCase = true
+    bool reverse = true
+    string sensitivity;
+    string temp;
+    string returnStr = "";
+    Link outLink;
+    string srcModName
+    string targetModname
+    ModName_ targetModule
+    tempOutlinkTargetName = "HLR_" "*"
+
+    for outLink in obj -> "*" do 
+    {
+        targetModule = target outLink;
+        if(!open(targetModule))
+        {
+            read(fullName(targetModule), false)
+        }
+        // get the ouutlinked module name
+        targetModname = target outLink;
+        if(findPlainText(targetModname, UpperModulePartName, offset, Length, matchCase, reverse))
+        {
+            // make sure only specific outlink objects reached
+            tempTargetObj = target outLink;
+            if(tempTargetObj != null) 
+            {
+                // if not null get the outlinked objects from the object o
+                temp = identifier tempTargetObj;
+                if(!findPlainText(prevString, temp, offset, Length, matchCase, reverse))
+                {
+                    returnStr = returnStr ", " temp
+                }
+            }
+        }
+    }
+    return returnStr;
+}
+
+void CopyLinks()
+{
+    string reqnames = "";
+    string linkedreqnames = "";
+    bool isAvailable = false;
+    Module Module2;
+    int moduleNameSize = length(currentModuleName);
+    string modulePartName
+    int index = 0;
+    int offset = null
+    int Length = null
+    bool matchCase = true
+    bool reverse = true
+
+    previndex = 0;
+    // get the current module name, parse the name of the module without "LLR" so that it can be used for HLR req. names
+    for(index = 0; index < moduleNameSize; index++)
+    {
+        string tempChar = currentModuleName[index:index];
+        if(cistrcmp(tempChar, "_") == 0)
+        {
+            previndex = index + 1; // save index for future use
+        }
+        else if(index == moduleNameSize-1)
+        {
+            modulePartName = currentModuleName[previndex : index];
+        }
+    }
+
+    // HLR module name to check links
+    UpperModulePartName = "SW_HLR_" modulePartName; // HLR module name
+
+    // get starting and ending index of the text copy operation
+    // get string from input
+    string strInput = sourceIDList // this is the input string - i.e : 141,123,452
+
+    int i = 0;
+    int IDValue = 0;
+    previndex = 0;
+    int strSize = length(strInput);
+    for(i = 0; i< strSize; i++)
+    {
+        string tempChar = strInput[i:i];
+        if(cistrcmp(tempChar, ",") == 0) // parse the input string and get the req. ID values only
+        {
+            string tempStr = strInput[previndex : i-1];
+            IDValue = intOf(tempStr);
+            tempStr = currentModuleName "_" tempStr ", ";
+
+            comperator = getIUpperlinks(object(IDValue), linkedreqnames)
+            linkedreqnames = linkedreqnames comperator;
+            if(!findPlainText(reqnames, tempStr, offset, Length, matchCase, reverse))
+            {
+                reqnames = reqnames tempStr;
+            }
+
+            previndex = i + 1;
+        }
+        else if(i == strSize-1)
+        {
+            // last id
+            string tempStr = strInput[previndex : i];
+            IDValue = intOf(tempStr);
+            tempStr = currentModuleName "_" tempStr;
+
+            comperator = getIUpperlinks(object(IDValue), linkedreqnames)
+            linkedreqnames = linkedreqnames comperator;
+            if(!findPlainText(reqnames, tempStr, offset, Length, matchCase, reverse))
+            {
+                reqnames = reqnames tempStr;
+            }
+        }
+    }
+    string totalLinkString = reqnames linkedreqnames;
+    copyToClipboard totalLinkString
+}
+
+//////////////////////// MAIN PROGRAM ////////////////////////
+Module currMod = current
+Object startObj, endObj
+getSelection(currMod,startObj, endObj)
+
+if (startObj != null) // Check if range is selected
+{
+    while (startObj != null && isSelected(startObj))
+    {
+        sourceIDList = sourceIDList  startObj."Absolute Number" ","
+        startObj = next(startObj)
+    }
+    int strSize = length(sourceIDList);
+    sourceIDList = sourceIDList[0:strSize-2];
+    CopyLinks()
+}
+else
+{
+    DB dbMain = create(currMod, "Get object's HLRs", styleCentered|styleFixed)
+    DBE dbeLabel = label(dbMain, "No object is selected!                       ")
+    realize(dbMain)
+    show(dbMain)
+    block(dbMain)
+    destroy(dbMain)
+}

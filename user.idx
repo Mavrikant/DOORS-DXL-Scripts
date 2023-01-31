@@ -2,5 +2,6 @@ CopyBaselineNumber _1 Copy baseline number
 CopyModulePath _2 Copy module path
 CopyObjectID _3 Copy object ID
 CompareBaselines _4 Enhanced Baseline Comparison
+GetHLRs _5 Get HLRs of selected LLR objects
 FilterMagicNumbers __ Filter objects that contains a magic number
 CopyLinks __ Copy links from one to object to another
