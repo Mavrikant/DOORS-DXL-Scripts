@@ -81,7 +81,7 @@ void CopyLinks()
     }
 
     // HLR module name to check links
-    UpperModulePartName = "SW_HLR_" modulePartName; // HLR module name
+    UpperModulePartName = "HLR_"; // HLR module name
 
     // get starting and ending index of the text copy operation
     // get string from input
