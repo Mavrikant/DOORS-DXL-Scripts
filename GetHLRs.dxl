@@ -17,37 +17,30 @@ string sourceIDList = ""
 
 string getIUpperlinks(Object obj, string prevString)
 {
-    Object tempTargetObj;
-    int offset = null
-    int Length = null
-    bool matchCase = true
-    bool reverse = true
-    string sensitivity;
-    string temp;
     string returnStr = "";
     Link outLink;
-    string srcModName
-    string targetModname
-    ModName_ targetModule
-    tempOutlinkTargetName = "HLR_" "*"
 
-    for outLink in obj -> "*" do 
+    for outLink in obj -> "*" do
     {
-        targetModule = target outLink;
+        ModName_ targetModule = target outLink;
         if(!open(targetModule))
         {
             read(fullName(targetModule), false)
         }
-        // get the ouutlinked module name
-        targetModname = target outLink;
+        // get the outlinked module name
+        string targetModname = target outLink;
+        int offset = null
+        int Length = null
+        bool matchCase = true
+        bool reverse = true
         if(findPlainText(targetModname, UpperModulePartName, offset, Length, matchCase, reverse))
         {
             // make sure only specific outlink objects reached
-            tempTargetObj = target outLink;
-            if(tempTargetObj != null) 
+            Object tempTargetObj = target outLink;
+            if(tempTargetObj != null)
             {
                 // if not null get the outlinked objects from the object o
-                temp = identifier tempTargetObj;
+                string temp = identifier tempTargetObj;
                 if(!findPlainText(prevString, temp, offset, Length, matchCase, reverse))
                 {
                     returnStr = returnStr ", " temp
@@ -148,7 +141,7 @@ if (startObj != null) // Check if range is selected
         startObj = next(startObj)
     }
     int strSize = length(sourceIDList);
-    sourceIDList = sourceIDList[0:strSize-2];
+    sourceIDList = sourceIDList[0:strSize-2]; //Delete last comma
     CopyLinks()
 }
 else
