@@ -26,6 +26,8 @@ string fileBase = getenv("USERPROFILE")
 fileBase = fileBase "\\.DoorsExport"
 Stat sta = create fileBase
 Stream linkStream
+string tabSpace = "    "
+
 if (null sta || !directory sta)
 {
   mkdir(fileBase)
@@ -66,7 +68,7 @@ bool compare(int absno, Object o1, o2, string attr)
 
   if (s1!=s2)
   {
-    print (NLS_("object #")) absno (NLS_(" has differing ")) attr (NLS_("\n<\t")) s1 (NLS_("\n>\t")) s2 (NLS_("\n"))
+    print (NLS_("object #")) absno (NLS_(" has differing ")) attr (NLS_("\n<" tabSpace)) s1 (NLS_("\n>" tabSpace)) s2 (NLS_("\n"))
     accept o1 // set filter
     accept o2 // on both objects
     return false
@@ -195,7 +197,7 @@ void writeLinks(Object o)
 
   string linkModName = "*"
   int count = 0
-  linkStream << "\tLinks: \n"
+  linkStream << tabSpace "Links: \n"
 
   for l in all(o->linkModName) do
   {
@@ -237,15 +239,15 @@ void writeLinks(Object o)
         if (isDeleted othero) continue
 
         outLinkedId = (identifier othero)
-        linkStream << "\t\t" outLinkedId "\n"
+        linkStream << tabSpace tabSpace outLinkedId "\n"
       */
     }
-    //linkStream << "\t\t" count "\n"
+    //linkStream << tabSpace tabSpace count "\n"
 
     sort headings
     for (i = 0; i < count; i++)
     {
-      linkStream << "\t\t" headings[i] "\n"
+      linkStream << tabSpace tabSpace headings[i] "\n"
     }
   } // links > 0
 }
@@ -257,12 +259,12 @@ void printObjectInfo(Object obj, Skip skipAttrs)
 
   if (isDeleted(obj))
   {
-    linkStream << "Deleted Object: " obj."Absolute Number" "\n"
+    linkStream << "# ~~" identifier(obj) "~~ # \n"
   }
   else
   {
-    linkStream << "Object: " obj."Absolute Number" "\n"
-    linkStream << "\tHeading/Text: "
+    linkStream << "# " identifier(obj) " # \n"
+    linkStream << tabSpace "Heading/Text: "
     if("" != obj."Object Heading" "")
     {
       linkStream << obj."Object Heading" ""
@@ -273,12 +275,12 @@ void printObjectInfo(Object obj, Skip skipAttrs)
     }
     linkStream << "\n"
 
-    linkStream << "\tParent: "
+    linkStream << tabSpace "Parent: "
 
     Object parentObject = parent(obj)
     if(null != parentObject)
     {
-      linkStream << parentObject."Absolute Number" ""
+      linkStream << identifier(parentObject) ""
     }
     else
     {
@@ -289,7 +291,7 @@ void printObjectInfo(Object obj, Skip skipAttrs)
     // changes to other attributes
     for aName in skipAttrs do
     {
-      linkStream << "\t" aName ": "
+      linkStream << tabSpace aName ": "
       strBuff = probeAttr_(obj, aName)
       linkStream << tempStringOf(strBuff)
       linkStream << "\n"
@@ -359,7 +361,7 @@ void writeBaselineToFile(Module mod, Baseline bLine)
   linkStream << "Module     : " fullName(foundMod) "\n"
   linkStream << "Baseline   : " getBaselineStr(bLine) "\n"
   linkStream << "Suffix     : " suffixStr "\n"
-  linkStream << "Description: " descriptionStr "\n"
+  linkStream << "Description: " descriptionStr "\n\n\n"
   listLinks(foundMod)
   flush linkStream
   close linkStream
