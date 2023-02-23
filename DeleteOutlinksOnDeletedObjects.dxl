@@ -1,0 +1,35 @@
+
+// This script deletes outlinks on deleted objects.
+/*
+  This script copies full path of module to clipboard.
+  Author: M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2023-02-22  Initial version
+
+pragma runLim, 0
+
+Module currMod = current
+Module mod = edit(fullName(currMod), false)
+filtering off
+showDeletedObjects(true)
+Filter f1 = hasLinks(linkFilterOutgoing, "*")
+set f1
+filtering on
+
+Object o = null
+for o in mod do 
+{
+    reject o
+    if(isDeleted(o)) 
+    {
+        accept (o)
+        Link outLink = null // used to get Outlinks
+        for outLink in (o)->"*" do
+        {
+            delete(outLink )
+            flushDeletions
+        }
+    }
+}
