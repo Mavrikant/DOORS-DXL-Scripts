@@ -1,0 +1,45 @@
+// This script renames deleted objects to "deleted" and purge them
+/*
+  This script renames deleted objects to "deleted" and purge them
+  Author: M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2023-02-23  Initial version
+
+pragma runLim, 0
+
+Module currMod = current
+//Module mod = edit(fullName(currMod), false) //Commented out in order to prevent accidental runs 
+filtering off
+showDeletedObjects(true)
+
+void deleteObject(Object obj)
+{
+    undelete(obj)
+    accept (obj)
+    obj."Object Heading" = ""
+    obj."Object text" = "deleted"
+    
+    Object co 
+    for co in obj do 
+    {   reject co
+        print (identifier(co) " is a child of " identifier(obj) "\n") 
+        deleteObject(co)
+    }
+    
+    print("deleting " identifier(obj) "\n")
+    delete(obj)
+}
+
+//**************************  Program starts here  ***************************
+Object o = null
+for o in currMod do 
+{
+    reject o
+    if(isDeleted(o)) 
+    {
+        print(identifier(o) "\n")
+        deleteObject(o)
+    }
+}
