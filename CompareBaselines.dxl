@@ -11,6 +11,7 @@
 // M. Serdar Karaman  2022-05-10  Example in Doors's itself (baseline.dxl) merged with this script
 // M. Serdar Karaman  2022-05-11  Cleaning, Refactoring, and Documentation
 // M. Serdar Karaman  2022-05-17  Script is able to compare current version of module with previous baseline, Refactoring
+// M. Serdar Karaman  2023-02-23  File extension is customized for Beyond Compare
 
 //************************************  TODO  ********************************
 // Add button WinMerge
@@ -356,7 +357,7 @@ void writeBaselineToFile(Module mod, Baseline bLine)
     descriptionStr = annotation(bLine)
   }
 
-  outFileName = fileBase "\\" name(mod) "_Baseline_" getBaselineStr(bLine) ".txt"
+  outFileName = fileBase "\\" name(mod) "_Baseline_" getBaselineStr(bLine) ".baselineExport"
   linkStream = write outFileName
   linkStream << "Module     : " fullName(foundMod) "\n"
   linkStream << "Baseline   : " getBaselineStr(bLine) "\n"
@@ -391,8 +392,8 @@ void compareBC4 (DBE dbe)
   writeBaselineToFile(currentModule, sel1)
   writeBaselineToFile(currentModule, sel2)
 
-  string leftBaselinePath  = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel1) ".txt"
-  string rightBaselinePath = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel2) ".txt"
+  string leftBaselinePath  = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel1) ".baselineExport"
+  string rightBaselinePath = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel2) ".baselineExport"
   system "C:\\Program Files\\Beyond Compare 4\\BCompare.exe " leftBaselinePath " " rightBaselinePath
 }
 
