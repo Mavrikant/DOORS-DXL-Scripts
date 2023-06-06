@@ -444,7 +444,13 @@ realize db                            // we realize so that the lists can be pop
 
 for b in m do // fill up the baselines skip list with current baselines
 {
-  string str = getBaselineStr(b) (NLS_(": ")) (suffix b)
+  string CR =  (suffix b)
+  if(CR == "")
+  {
+    CR = (annotation b)
+  }
+  
+  string str = getBaselineStr(b) (NLS_(": ")) CR
   put(baselines, b, str)
   insert(list1, 0, str)
   insert(list2, 0, str)
