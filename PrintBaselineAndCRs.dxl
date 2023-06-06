@@ -1,0 +1,27 @@
+// This script print baseline number and CR number for each baseline in the module
+/*
+  This script print baseline number and CR number for each baseline in the module
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2023-06-06  Initial version
+
+string getBaselineStr(Baseline bLine)
+{
+  if (bLine != null) return major (bLine) "" "." minor (bLine) ""
+  else               return "current"
+}
+
+
+Module m = current
+Baseline b
+for b in m do // fill up the baselines skip list with current baselines
+{
+  string CR =  (suffix b)
+  if(CR == "")
+  {
+    CR = (annotation b)
+  }
+  
+  print getBaselineStr(b) (NLS_(": ")) CR "\n"
+}
