@@ -385,7 +385,12 @@ void compareBC4 (DBE dbe)
   for str in baselines do // find each baseline
   {
     Baseline b = key baselines     // the baseline is the key
-    string str = getBaselineStr(b) (NLS_(": ")) (suffix b)
+    string CR =  (suffix b)
+    if(CR == "")
+    {
+      CR = (annotation b)
+    }
+    string str = getBaselineStr(b) (NLS_(": ")) CR
     if (name1==str) sel1 = b
     if (name2==str) sel2 = b
   }

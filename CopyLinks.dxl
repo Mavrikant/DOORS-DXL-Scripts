@@ -9,24 +9,37 @@
 // Caner Bayram       2022-05-01  Initial version
 // M. Serdar Karaman  2022-05-13  Script turned into GUI
 // M. Serdar Karaman  2022-05-31  Refactoring, Null problem is solved. 
-
+// M. Serdar Karaman  2023-06-14  Missing current module parameter is added.
+// 
 //***********************************  TODO  ********************************
-// Memory leak analysis
 // Copy in-links
 // Link selection GUI for copy
 
-Folder currFolder = current
-DBE sourceIDField = null
-DBE destinationIDField = null
-DB db = null
+DBE sourceIDField
+DBE destinationIDField
 
 void CopyLinks(DB db)
 {
-  Object srcObj = object(intOf(get(sourceIDField)))
-  Object dstObj = object(intOf(get(destinationIDField)))
+  string sourceID = get(sourceIDField)
+  string destinationID = get(destinationIDField)
+
+  Object srcObj = object(intOf(sourceID),(current Module))
+  Object dstObj = object(intOf(destinationID),(current Module))
+
+  if (srcObj == null)
+  {
+    print("Source object is not found")
+    return
+  }
+
+  if ( dstObj == null)
+  {
+    print("Destination object is not found")
+    return
+  }
 
   LinkModuleDescriptor linkModDes = null
-  for linkModDes in currFolder do
+  for linkModDes in (current Folder) do
   {
     string linkMod = getName(linkModDes)
     Link myLink = null
@@ -42,7 +55,7 @@ void CopyLinks(DB db)
 
 //////////////////////// GUI PROGRAM ////////////////////////
 string moduleName = (current Module).(NLS_("Name"))
-db = create (moduleName " - Copy Links",  styleCentered | styleThemed | styleAutoparent)
+DB db = create (moduleName " - Copy Links",  styleCentered | styleThemed | styleAutoparent)
 
 sourceIDField = field(db, "Source: " moduleName "_", "", 50) 
 destinationIDField = field(db, "Destination: " moduleName "_", "", 50) 
