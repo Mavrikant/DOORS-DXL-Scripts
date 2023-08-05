@@ -1,0 +1,42 @@
+//  Print stats of current module
+
+/*
+  Print stats of current module
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman       2023-08-05  Initial version.
+
+
+int  getChildCount(Object obj)
+{
+    int childCount = 0
+    Object oChild;
+    for oChild in obj do 
+    { 
+        childCount += 1 + getChildCount(oChild)
+    }
+    return childCount
+}
+
+
+Module m = current
+print ("MODULE NAME: " fullName(m) "\n\n")
+Object obj
+for obj in m do 
+{
+
+  if (level(obj) == 1)
+  {
+    string objheading = obj."Object Heading"
+    print(objheading "\n")
+  }
+  else if (level(obj) == 2)
+  {
+    string objheading = obj."Object Heading"
+    if(objheading != "")
+    {
+      print("   " objheading " (" getChildCount(obj) ")\n")
+    }
+  }
+}
