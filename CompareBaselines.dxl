@@ -403,6 +403,40 @@ void compareBC4 (DBE dbe)
   system "C:\\Program Files\\Beyond Compare 4\\BCompare.exe " leftBaselinePath " " rightBaselinePath
 }
 
+void compareBC5 (DBE dbe)
+{
+  int idx1 = get list1              // position in list
+  int idx2 = get list2
+  string name1 = get list1          // baseline name
+  string name2 = get list2
+  Module currentModule = current Module
+  Baseline sel1 = null
+  Baseline sel2 = null
+
+  if (isSelectedIdxAreInValid()) return
+
+  string str
+  for str in baselines do // find each baseline
+  {
+    Baseline b = key baselines     // the baseline is the key
+    string CR =  (suffix b)
+    if(CR == "")
+    {
+      CR = (annotation b)
+    }
+    string str = getBaselineStr(b) (NLS_(": ")) CR
+    if (name1==str) sel1 = b
+    if (name2==str) sel2 = b
+  }
+
+  writeBaselineToFile(currentModule, sel1)
+  writeBaselineToFile(currentModule, sel2)
+
+  string leftBaselinePath  = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel1) ".baselineExport"
+  string rightBaselinePath = fileBase "\\" name(currentModule) "_Baseline_" getBaselineStr(sel2) ".baselineExport"
+  system "C:\\Program Files\\Beyond Compare 5\\BCompare.exe " leftBaselinePath " " rightBaselinePath
+}
+
 //////////////////////// GUI PROGRAM ////////////////////////
 if (null m)
 {
@@ -439,12 +473,16 @@ list2->(NLS_("top"))->(NLS_("aligned"))->list1
 list2->(NLS_("right"))->(NLS_("unattached"))
 
 DBE button1 = button(db, (NLS_("Compare on Doors")), compareFn)
-DBE button2 = button(db, (NLS_("Compare on Beyond Compare 4")), compareBC4)
+DBE button2 = button(db, (NLS_("Compare on BC4")), compareBC4)
+DBE button3 = button(db, (NLS_("Compare on BC5")), compareBC5)
 
 button1->(NLS_("right"))->(NLS_("unattached"))          // make buttons side by side
 button2->(NLS_("left"))->(NLS_("flush"))->button1
 button2->(NLS_("top"))->(NLS_("aligned"))->button1
 button2->(NLS_("right"))->(NLS_("unattached"))
+button3->(NLS_("left"))->(NLS_("flush"))->button2
+button3->(NLS_("top"))->(NLS_("aligned"))->button2
+button3->(NLS_("right"))->(NLS_("unattached"))
 
 realize db                            // we realize so that the lists can be populated using insert
 

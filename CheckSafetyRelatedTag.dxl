@@ -1,0 +1,67 @@
+
+// This script check safety related tag on requirements against its upper requirement.
+/*
+  This script check safety related tag on requirements against its upper requirement.
+  Author: M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2024-07-18  Initial version
+
+pragma runLim, 0
+
+Module currMod = current
+filtering off
+
+Object o = null
+for o in currMod do 
+{
+    if ((o."Req" "" == "N") || (o."Req" "" == ""))
+    {
+        continue
+    }
+    
+    Link outLink = null // used to get Outlinks
+
+    bool isSafetyRelated = false
+    bool isPIDSLinkFound = false
+
+    for outLink in (o)->"*" do
+    {
+        ModName_ targetMod = target(outLink)
+        int start = 0
+        int end = 0
+        bool caseSensitive = false
+        bool found = findPlainText(name(targetMod), "PIDS", start, end, caseSensitive)
+        if (found)
+        {
+            isPIDSLinkFound = true
+            read(fullName(targetMod), false)
+            
+            Object targetObj = target(outLink)
+            if (targetObj."Safety Related" "" == "Yes")
+            {
+                isSafetyRelated = true
+                break
+            }
+        }   
+    }
+
+    if (isPIDSLinkFound == true)
+    {
+        if ((isSafetyRelated == true) and (o."Safety Requirement" "" == "No"))
+        {
+            print identifier(o) " marked as No but traced PIDS links are safety Yes\n"
+        }
+
+        if ((isSafetyRelated == false) and (o."Safety Requirement" "" == "Yes"))
+        {
+            print identifier(o) " marked as Yes but traced PIDS links are safety No\n"
+        }
+    }
+    else
+    {
+        print identifier(o) " marked as " o."Safety Requirement" " without PIDS link\n"
+    }
+
+}
