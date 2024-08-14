@@ -7,13 +7,16 @@
 //**********************************  History  ******************************
 // M. Serdar Karaman       2022-05-25  Initial version. It exports as txt file.
 // M. Serdar Karaman       2022-06-07  Export into html format with css and js. 
-// M. Serdar Karaman       2022-06-10  Works with batch mode of Doors . 
+// M. Serdar Karaman       2022-06-10  Works with batch mode of Doors. 
+// M. Serdar Karaman       2024-08-14  Add modulename and baseline information to the footer. 
 
 #include <utils\openModulesMemoryManagement.inc>
 #include <utils\doctools/itfutil.inc>
 
 pragma runLim,0 // disable timeout limit
 pragma encoding, "utf-8"
+
+string ScriptVersion = "1.1"
 
 Module m = current      // check calling context
 string fileBase = getenv("USERPROFILE")
@@ -407,10 +410,21 @@ void addHTMLHeader(string modName)
 
 /************************************************************************/
 
+string getBaselineStr(Baseline bLine)
+{
+  if (bLine != null) return major (bLine) "" "." minor (bLine) ""
+  else               return "current"
+}
+
 void addHTMLFooter() {
-  ob += (NLS_("<p><DIV align=\"center\">"))
-  ob += "Export time: " dateOf(intOf(today())) "\n</br>"
-  ob += (NLS_("Produced with <a href = \"https://github.com/Mavrikant/DOORS-DXL-Scripts\">Mavrikant/DOORS-DXL-Scripts</a>"))
+  Module currMod = current()
+  Baseline bLine = getMostRecentBaseline(currMod)
+  ob += (NLS_("<p><DIV align=\"center\" style=\"color: grey;font-size: small;\">"))
+  ob += (NLS_("Module: "fullName(currMod) " (Baseline " getBaselineStr(bLine) ")\n</br>"))
+  ob += (NLS_("Export time: " stringOf(dateAndTime(today) , "yyyy-MM-dd" ) "\n</br></br></br>"))
+  ob += (NLS_("Generator: </br>"))
+  ob += (NLS_("Version: " ScriptVersion "</br>"))
+  ob += (NLS_("<a href = \"https://github.com/Mavrikant/DOORS-DXL-Scripts\">Mavrikant/DOORS-DXL-Scripts</a>"))
   ob += (NLS_("</DIV></p>"))
   writeHTMLtoFile()
 }
