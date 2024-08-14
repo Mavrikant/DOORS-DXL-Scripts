@@ -8,6 +8,11 @@
 //**********************************  History  ******************************
 // M. Serdar Karaman  2024-07-18  Initial version
 
+
+// TODO
+// 1. Check ICD traces too.
+
+
 pragma runLim, 0
 
 Module currMod = current
@@ -46,15 +51,15 @@ for o in currMod do
             }
         }   
     }
-
+    
     if (isPIDSLinkFound == true)
     {
-        if ((isSafetyRelated == true) and (o."Safety Requirement" "" == "No"))
+        if ((isSafetyRelated == true) and ((o."Safety Requirement" "" == "No") or (o."Safety Requirement" "" == "False")))
         {
             print identifier(o) " marked as No but traced PIDS links are safety Yes\n"
         }
 
-        if ((isSafetyRelated == false) and (o."Safety Requirement" "" == "Yes"))
+        if ((isSafetyRelated == false) and ((o."Safety Requirement" "" == "Yes") or (o."Safety Requirement" "" == "True")))
         {
             print identifier(o) " marked as Yes but traced PIDS links are safety No\n"
         }
