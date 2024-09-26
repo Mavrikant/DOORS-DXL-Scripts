@@ -205,6 +205,7 @@ void writeLinks(Object o)
   {
     count++
   }
+
   if (count > 0)
   {
     string headings[count]
@@ -218,40 +219,14 @@ void writeLinks(Object o)
 
       iTarget= targetAbsNo(l)
       headings[i++] = name(otherMod) "_" iTarget ""
-
-    /* TODO: This section will be corrected!!!
-        // ensure module is open
-        print name(otherMod) "Opening linked module\n"
-        if (null data(otherVersion))
-        {
-          load(otherVersion, false)
-        }
-        othero = target l
-
-        if (null othero)
-        {
-            load(otherVersion,false)
-            othero = target l
-
-            print "Link dest null\n"
-        }
-
-        if (null othero) continue
-
-        if (isDeleted othero) continue
-
-        outLinkedId = (identifier othero)
-        linkStream << tabSpace tabSpace outLinkedId "\n"
-      */
     }
-    //linkStream << tabSpace tabSpace count "\n"
 
     sort headings
     for (i = 0; i < count; i++)
     {
       linkStream << tabSpace tabSpace headings[i] "\n"
     }
-  } // links > 0
+  }
 }
 
 void printObjectInfo(Object obj, Skip skipAttrs)
@@ -312,7 +287,7 @@ void getAttrs(Module newMod, Skip attrs)
     {
       if (ad.object) // only interested in object attributes
       {
-        if (ad.system && (ad.name != "Last Modified On")) continue // exclude system attributes
+        if (ad.system) continue // exclude system attributes
 
         // exclude DXL attributes
         string adDxl = ad.dxl
