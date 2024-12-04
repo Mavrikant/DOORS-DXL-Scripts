@@ -3,7 +3,8 @@
 
 # DOORS-DXL-Scripts
 
-A collection of useful DOORS DXL Scripts independent from the project.
+A collection of useful DOORS DXL scripts that are independent of any specific project.
+
 ![User Tab](images/User_tab.png)
 
 ## How to install
@@ -19,7 +20,7 @@ Its copies the last baseline number ```Doors baseline X.X``` into the clipboard.
 
 ### Copy Module Path (Ctrl + 2)
 
-Its copies the full path of the current module into the clipboard.
+It copies the full path of the current module to the clipboard.
 
 ### Copy Object ID (Ctrl + 3)
 
@@ -39,17 +40,17 @@ All numbers (except 0 and 1) not located inside of square brackets ```[]``` assu
 
 ![Copy Links Tool](images/Copy_links.png)
 
-Its copies links on the source object to the destination object.
+It copies the links from the source object to the destination object.
 
 ### Export all modules into HTML
 
 These scripts recursively export all items under the project to a folder as a fancy-styled useful HTML report.
 
-Following batch command can be used with **Task Scheduler** to periodically export modules.
+The following batch command can be used with **Task Scheduler** to periodically export modules.
 
 ```"C:\Program Files (x86)\IBM\Rational\DOORS\9.5\bin\doors.exe" -u "USERNAME" -P "PASSWORD" -p "PROJECT_NAME" -b "addins\user\ExportAllModulesIntoHTML.dxl" -W```
 
-HTML reports can be served with python's simple http server command ```python -m http.server 1111```  
+HTML reports can be served using Python's simple HTTP server command: ```python -m http.server 1111```.
 
 ## License
 
