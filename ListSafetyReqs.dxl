@@ -1,0 +1,68 @@
+//  List all safety req in the folder
+
+/*
+  List all safety req in the folder
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman       2024-12-17  Initial version. 
+
+pragma runLim,0 // disable timeout limit
+pragma encoding, "utf-8"
+
+void ListDerivedObjs(string inModName) 
+{
+  ModName_ ModRef = module inModName
+  expMod = read(fullName ModRef, false)
+ 
+  AttrDef ad = find(expMod, "Safety Requirement") // Search for attribute definition named "Req" in the module
+  if (ad != null) 
+  {
+    Object o = null
+    for o in expMod do 
+    {
+      if ((o."Safety Requirement" "" == "True"))
+      {
+          print identifier(o) "\n"
+      }
+    }
+  } 
+}
+
+void processFormal(string modName)
+{
+  ListDerivedObjs(modName)
+}
+
+// This function scans all items in the given folder, recursing through sub-projects and folders. 
+void scanFolder(Folder f)
+{
+  if (null f)
+  {
+    print("NULL Folder parameter passed")
+    return
+  }
+
+  Item itm
+  for itm in f do
+  {
+    if (null itm) continue
+    if (isDeleted(itm)) continue
+
+    //print(fullName(itm) "\n")
+
+    if (type (itm) == "Folder")
+    {
+      scanFolder(folder(itm))
+    }
+    else if (type (itm) == "Formal")
+    {
+      processFormal(fullName(itm))
+    }
+  }
+}
+
+///////// MAIN /////////
+print dateOf(intOf(today()))
+scanFolder(current Folder)
+print dateOf(intOf(today()))
