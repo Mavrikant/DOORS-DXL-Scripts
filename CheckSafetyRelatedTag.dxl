@@ -7,11 +7,7 @@
 
 //**********************************  History  ******************************
 // M. Serdar Karaman  2024-07-18  Initial version
-
-
-// TODO
-// 1. Check ICD traces too.
-
+// M. Serdar Karaman  2025-01-14  Initial version
 
 pragma runLim, 0
 
@@ -29,7 +25,7 @@ for o in currMod do
     Link outLink = null // used to get Outlinks
 
     bool isSafetyRelated = false
-    bool isPIDSLinkFound = false
+    bool isPIDS_ICDLinkFound = false
 
     for outLink in (o)->"*" do
     {
@@ -37,10 +33,11 @@ for o in currMod do
         int start = 0
         int end = 0
         bool caseSensitive = false
-        bool found = findPlainText(name(targetMod), "PIDS", start, end, caseSensitive)
-        if (found)
+
+        bool found1 = findPlainText(name(targetMod), "PIDS", start, end, caseSensitive)
+        if (found1)
         {
-            isPIDSLinkFound = true
+            isPIDS_ICDLinkFound = true
             read(fullName(targetMod), false)
             
             Object targetObj = target(outLink)
@@ -49,24 +46,40 @@ for o in currMod do
                 isSafetyRelated = true
                 break
             }
-        }   
+        }
+
+        bool found2 = findPlainText(name(targetMod), "ICD", start, end, caseSensitive)
+        if (found2)
+        {
+            isPIDS_ICDLinkFound = true
+            read(fullName(targetMod), false)
+            
+            Object targetObj = target(outLink)
+            if (targetObj."Safety Related" "" == "Yes")
+            {
+                isSafetyRelated = true
+                break
+            }
+        }
+
+
     }
     
-    if (isPIDSLinkFound == true)
+    if (isPIDS_ICDLinkFound == true)
     {
         if ((isSafetyRelated == true) and ((o."Safety Requirement" "" == "No") or (o."Safety Requirement" "" == "False")))
         {
-            print identifier(o) " marked as No but traced PIDS links are safety Yes\n"
+            print identifier(o) " marked as No but traced PIDS/ICD links are safety Yes\n"
         }
 
         if ((isSafetyRelated == false) and ((o."Safety Requirement" "" == "Yes") or (o."Safety Requirement" "" == "True")))
         {
-            print identifier(o) " marked as Yes but traced PIDS links are safety No\n"
+            print identifier(o) " marked as Yes but traced PIDS/ICD links are safety No\n"
         }
     }
     else
     {
-        print identifier(o) " marked as " o."Safety Requirement" " without PIDS link\n"
+        print identifier(o) " marked as " o."Safety Requirement" " without PIDS/ICD  link\n"
     }
 
 }
