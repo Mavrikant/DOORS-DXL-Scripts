@@ -1,0 +1,132 @@
+// Export current module to JSON file
+/*
+*	Export current module to JSON file
+   Author: M. Serdar Karaman
+*/
+
+//**********************************  History  ******************************
+// M. Serdar Karaman  2025-02-05  Initial version of this script
+
+pragma runLim, 0 // disable timeout limit
+pragma encoding, "utf-8" 
+
+string myEscape(string str) {
+    int str_index;
+    Buffer escaped = create;
+    escaped = "";
+
+    for (str_index = 0; str_index < length(str); str_index++) {
+        char c = str[str_index];
+        if (c == '\n') {
+            escaped += "\\n";
+        } else if (c == '\t') {
+            escaped += "\\t";
+        } else if (c == '"') {
+            escaped += "\\\"";
+        } else if (c == '\\') {
+            escaped += "\\\\";
+        } else if (c == '\b') {
+            escaped += "\\b";
+        } else if (c == '\f') {
+            escaped += "\\f";
+        } else if (c == '\r') {
+            escaped += "\\r";
+        } else {
+            escaped += c;
+        }
+    }
+
+    return stringOf(escaped);
+}
+
+string urlEscape(string str) {
+    int str_index;
+    Buffer escaped = create;
+    escaped = "";
+
+    for (str_index = 0; str_index < length(str); str_index++) {
+        char c = str[str_index];
+        if (c == ' ') {
+            escaped += "%20";
+        } else if (c == '�') {
+            escaped += "%C3%84";
+        } else if (c == '�') {
+            escaped += "%C3%96";
+        } else if (c == '�') {
+            escaped += "%C3%9C";
+        } else if (c == '�') {
+            escaped += "%C3%A4";
+        } else if (c == '�') {
+            escaped += "%C3%B6";
+        } else if (c == '�') {
+            escaped += "%C3%BC";
+        } else if (c == '�') {
+            escaped += "%C3%9F";
+        } else {
+            escaped += c;
+        }
+    }
+
+    return stringOf(escaped);
+}
+
+string getFileName(string moduleName) {
+    DB fileNameBox = create(current, "Select Destination to Export", styleCentered|styleFixed);
+    label(fileNameBox , "Please enter the file path");
+    DBE fn = fileName(fileNameBox , "Output-File", moduleName, "*.json", "JSON", false);
+    block fileNameBox;
+    string fileName = get(fn);
+    return fileName;
+}
+
+string getFileName() {
+    return getFileName("fileName");
+}
+
+
+//////////////////////// MAIN PROGRAM ////////////////////////
+
+Object o;
+Module m;
+m = current Module;
+
+string proj = name(getParentFolder(m));
+proj = urlEscape(proj);
+string mod = name(m);
+mod = urlEscape(mod);
+
+Buffer buf = create;
+
+buf += "[";
+int count = 0;
+for o in m do 
+{
+    int lvl = level(o);
+    string txt = o.(NLS_("Object Text"));
+    txt = myEscape(txt);
+    string heading = o."Object Heading";
+    heading = myEscape(heading);
+    string objId = identifier(o);
+    string meansOfVerification = myEscape(o."Means of Verification" "");
+    string safetyRequirement = myEscape(o."Safety Requirement" "");
+    
+    if (count > 0) {
+        buf += ",";
+    }
+    buf += "{\"Req ID\":\"" objId "\",\"heading\":\"" heading "\",\"text\":\"" txt "\",\"level\":" lvl ",\"Means Of Verification\":\"" meansOfVerification "\",\"Safety Requirement\":\"" safetyRequirement "\"}";
+    count += 1;
+}
+buf += "]";
+
+
+
+string tmpName;
+tmpName = "export_" name(m);
+string fname = getFileName(tmpName);
+Stream out = write(fname, CP_UTF8);
+out << buf;
+close out;
+
+delete(buf);
+
+print "Successfully exported " count " requirements to " fname;
