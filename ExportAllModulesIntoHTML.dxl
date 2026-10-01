@@ -9,6 +9,11 @@
 // M. Serdar Karaman       2022-06-07  Export into html format with css and js. 
 // M. Serdar Karaman       2022-06-10  Works with batch mode of Doors. 
 // M. Serdar Karaman       2024-08-14  Add modulename and baseline information to the footer. 
+// M. Serdar Karaman       2026-09-25  Folders are created in the right order and only when needed, sub-projects
+//                                     are exported, link texts are short plain text, linked modules stay open
+//                                     between modules, progress bar with cancel, errors are logged instead of
+//                                     shown in dialogs, "Export" view is used when a module has one.
+// M. Serdar Karaman       2026-09-28  Large pictures are shown at a medium size and open enlarged on click.
 
 #include <utils\openModulesMemoryManagement.inc>
 #include <utils\doctools/itfutil.inc>
@@ -16,29 +21,33 @@
 pragma runLim,0 // disable timeout limit
 pragma encoding, "utf-8"
 
-string ScriptVersion = "1.1"
+string ScriptVersion = "1.3"
+
+// Modules that have a view with this name are exported with it, other modules with their default view
+const string EXPORT_VIEW_NAME = "Export"
+// Maximum number of characters shown for a linked object in the Links column
+const int LINK_TEXT_MAX = 40
+// The HTML output is collected in a buffer and written to the file when it grows beyond this size
+const int FLUSH_SIZE = 65536
+// Pictures larger than this are shown smaller in the table and open enlarged when clicked
+const int IMAGE_MAX_WIDTH  = 600
+const int IMAGE_MAX_HEIGHT = 400
 
 Module m = current      // check calling context
-string fileBase = getenv("USERPROFILE")
-fileBase = fileBase "\\Desktop\\DoorsExport"
-Stat sta = create fileBase
-Stream linkStream
-if (null sta || !directory sta)
-{
-  mkdir(fileBase)
-}
-delete sta
+// Built in two statements: DXL would parse getenv("USERPROFILE") "\\..." as getenv("USERPROFILE\\...")
+string exportRoot = getenv("USERPROFILE")
+exportRoot = exportRoot "\\Desktop\\DoorsExport"
+
+DB   progressDB      = null   // progress window, null in batch mode
+bool exportCancelled = false
 
 int uniqueOleNumber = 0
-Regexp reRTFUpperASCII = regexp (NLS_("\'[0-9a-fA-F][0-9a-fA-F]")) //'xy, where x and y are hex numbers
 
 Module expMod             = null
 bool   usePictures        = false
 bool useChangeMeter = false
 bool includeEmptyAttributes = false
-Skip   nameList           = null
-Skip   skpOpenMods        = null
-string exportDir
+string moduleDir         // directory of the HTML file being written, ends with a backslash
 Stream expFP
 
 int    soAbsoluteNumber   = 0
@@ -49,10 +58,8 @@ bool   isFormal           = false
 string webDocumentPrefix
 Object lastCellTable        = null
 
-bool reported               = false
 bool reportedColumnError    = false
 
-Skip skpLinkFiles           = null
 Skip skpLinkInfo            = null
 
 const string QT                 = NLS_("\"")
@@ -88,12 +95,9 @@ const string paramNoChanges     = NLS_("noChanges")
 const string dateAppend         = NLS_(" 00:00:00 GMT")
 const string noBreakSpace       = NLS_("&nbsp")
 
-Buffer rtb = null
 Buffer htmlBuf = null
 Buffer ob = null // outBuffer
 Buffer tb = null // tempBuffer
-Buffer tb2 = null
-Buffer tb3 = null
 
 // Temp buffers used in addLinkToSkip
 Buffer link1Buffer = null
@@ -103,15 +107,81 @@ Buffer link2Buffer = null
 Buffer searchBuffer = null
 
 
-void truncateBuffer(Buffer& b, int& len, int max) {
-  if (null len || null max) return
-  int maxAllowed = max - len
-  len += length b
-  if (len <= max) return
-  if (maxAllowed <= 0)
-    setempty b
-  else
-    length(b, maxAllowed)
+void logError(string msg)
+// DESCRIPTION : Errors are printed instead of shown in a dialog box. A dialog stops the export until
+//               someone clicks it, and nobody can click it in batch mode.
+{
+  print "ERROR: " msg "\n"
+}
+
+bool progressCheck(string msg)
+// DESCRIPTION : Shows msg in the progress window. Updating the window also keeps DOORS responsive.
+// RETURNS : true if the user has clicked Cancel
+{
+  if (null progressDB) return false
+  progressMessage(msg)
+  if (progressCancelled()) exportCancelled = true
+  return exportCancelled
+}
+
+string exportPathOf(string doorsPath)
+// DESCRIPTION : Converts a DOORS path such as "/Project/Folder" into the matching directory below exportRoot.
+{
+  Buffer b = create
+  b = exportRoot
+  int i
+  for (i = 0; i < length(doorsPath); i++)
+  {
+    char c = doorsPath[i]
+    if (c == '/')
+    {
+      if (i < length(doorsPath) - 1) b += '\\'
+    }
+    else
+    {
+      b += c
+    }
+  }
+  string s = stringOf(b)
+  delete b
+  return s
+}
+
+bool dirExists(string dirPath)
+{
+  Stat st = create dirPath
+  if (null st) return false
+  bool isDir = directory st
+  delete st
+  return isDir
+}
+
+void createDir(string dirPath)
+// DESCRIPTION : mkdir halts the script when it fails, so its error is trapped and logged instead.
+{
+  noError()
+  mkdir(dirPath)
+  string err = lastError()
+  if (!null err) logError("Cannot create folder " dirPath ": " err)
+}
+
+bool makeDirs(string dirPath)
+// DESCRIPTION : Creates dirPath and its missing parent directories, from the top down.
+// RETURNS : true if dirPath exists afterwards
+{
+  if (null dirPath) return false
+  int i
+  for (i = 1; i < length(dirPath); i++)
+  {
+    // "C:\" is a drive, not a directory
+    if ((dirPath[i] == '\\') && (dirPath[i-1] != ':'))
+    {
+      string parentDir = dirPath[0:i-1]
+      if (!dirExists(parentDir)) createDir(parentDir)
+    }
+  }
+  if (!dirExists(dirPath)) createDir(dirPath)
+  return dirExists(dirPath)
 }
 
 void initPictureNames() {
@@ -131,247 +201,6 @@ string preURL() {
 }
 
 
-
-/*****************************************************************************/
-int hexToDecimal(char digit)
-// DESCRIPTION : Returns decimal interger equivalent of passed hexadecimal
-//   digit character.
-// RETURNS : decimal integer equivalent or -1 if digit is outside the hex
-//   range '0' to 'f' or 'F'.
-{
-    if ('0' == digit)
-    {
-        return 0
-    }
-    if ('1' == digit)
-    {
-        return 1
-    }
-    if ('2' == digit)
-    {
-        return 2
-    }
-    if ('3' == digit)
-    {
-        return 3
-    }
-    if ('4' == digit)
-    {
-        return 4
-    }
-    if ('5' == digit)
-    {
-        return 5
-    }
-    if ('6' == digit)
-    {
-        return 6
-    }
-    if ('7' == digit)
-    {
-        return 7
-    }
-    if ('8' == digit)
-    {
-        return 8
-    }
-    if ('9' == digit)
-    {
-        return 9
-    }
-    if ('a' == digit || 'A' == digit)
-    {
-        return 10
-    }
-    if ('b' == digit || 'B' == digit)
-    {
-        return 11
-    }
-    if ('c' == digit || 'C' == digit)
-    {
-        return 12
-    }
-    if ('d' == digit || 'D' == digit)
-    {
-        return 13
-    }
-    if ('e' == digit || 'E' == digit)
-    {
-        return 14
-    }
-    if ('f' == digit || 'F' == digit)
-    {
-        return 15
-    }
-    return -1
-}
-
-/*****************************************************************************/
-Buffer upperASCIIToWideChar(Buffer upperASCII, int max)
-// DESCRIPTION : Converts any upper ASCII characters in the passed plain text to
-//   the corresponding upper ASCII character.  Upper ASCII chars
-//   (ASCII code > 127 and < 256) are represented in RTF in the form (NLS_("\'xy"))
-//   (excluding the double quotes) where xy is the ASCII code in hexadecimal.
-//   This function replaces the RTF representation with the corresponding
-//   upper ASCII char.
-//   For e.g., upper ASCII character (NLS_("'c4")) is replaced by (NLS_("¢)).
-//   NOTE: The function uses the 'max' parameter passed to restrict converting
-//   any upper ASCII characters beyond max length; it does not truncate the
-//   passed string.
-// RETURNS : converted text
-{
-    Buffer wideChar = create
-    int from = 0, to = 0, upperASCIIMSN = 0, upperASCIILSN = 0, upperASCIICode = 0
-    char digit = null, wide = null
-    while (search(reRTFUpperASCII, upperASCII, from))
-    {
-        digit = upperASCII[from + start 0 + 1] //MSN (Most Significant Nibble) hex number
-        upperASCIIMSN = hexToDecimal(digit)
-        if (-1 != upperASCIIMSN)
-        {
-            digit = upperASCII[from + start 0 + 2] //LSN (Least Significant Nibble) hex number
-            upperASCIILSN = hexToDecimal(digit)
-            if (-1 != upperASCIILSN)
-            {
-                upperASCIICode = (upperASCIIMSN * 16) + upperASCIILSN //upperASCIICode = (x * 16) + y
-                wide = charOf(upperASCIICode)
-                //Append the string between the previous and current
-                // matches to the wide char string.
-                if (start 0 > 1)
-                {
-                    wideChar += upperASCII[from : from + start 0 - 2]
-                }
-                wideChar += wide
-                if (length wideChar >= max)
-                {
-                    break
-                }
-            }
-        }
-        from += end 0 + 1
-    }
-    //Append any string after the last match
-    if (0 == from)
-    {
-        //No upper ASCII characters found.
-        delete wideChar
-        wideChar = null
-    }
-    else if ((from < length(upperASCII)) && (length wideChar < max))
-    {
-        //Append the string following the last match
-        wideChar += upperASCII[from :]
-    }
-    return wideChar
-}
-
-void convertRichText(Buffer& b, string s, int& len, int max)
-// DESCRIPTION : Converts passed rich text in NLS_("s") to HTML.  Restricts the
-//   HTML string length to 'max' or less.
-//   Any upper ASCII characters in the RTF string are converted to the
-//   corresponding wide characters.
-// RETURNS : nothing
-{
-    
-    RichText rt
-    bool     limitText
-
-    if (!null len && !null max)
-        limitText = true
-    else
-        limitText = false
-
-    if (limitText && len >= max)
-        return
-
-    setempty b
-
-    for rt in s do {
-        if (limitText && len >= max)
-            break
-        setempty tb2
-        tb2 += rt.text
-        Buffer wideChar = upperASCIIToWideChar(tb2, max)
-        if (!null wideChar)
-        {
-            tb2 = stringOf wideChar
-            delete wideChar
-        }
-        if (limitText)
-        {
-            truncateBuffer(tb2, len, max)
-        }
-        safeHTMLBuffer(tb2, true, true)
-        if (rt.bold)
-            b += (NLS_("<b>"))
-        if (rt.underline)
-            b += (NLS_("<u>"))
-        if (rt.italic)
-            b += (NLS_("<i>"))
-        if (rt.strikethru)
-            b += (NLS_("<s>"))
-        if (rt.superscript)
-            b += (NLS_("<sup>"))
-        if (rt.subscript)
-            b += (NLS_("<sub>"))
-        if (rt.charset == charsetSymbol)
-            b += (NLS_("<font face=\"Symbol\">"))
-        b += tb2
-        if (rt.charset == charsetSymbol)
-            b += (NLS_("</font>"))
-        if (rt.subscript)
-            b += (NLS_("</sub>"))
-        if (rt.superscript)
-            b += (NLS_("</sup>"))
-        if (rt.strikethru)
-            b += (NLS_("</s>"))
-        if (rt.italic)
-            b += (NLS_("</i>"))
-        if (rt.underline)
-            b += (NLS_("</u>"))
-        if (rt.bold)
-            b += (NLS_("</b>"))
-        if (rt.newline)
-            b += (NLS_("<br>"))
-    }
-}
-
-Buffer richTextProbeAttr(Object o, string attrName, int& len, int max) {
-    string s
-
-    setempty rtb
-
-    if (null o)
-        return rtb
-
-    if (attrName == (NLS_("Object Identifier")))
-        rtb += (identifier o (NLS_("")))
-    else if (attrName == (NLS_("Object Number")))
-        rtb += (number o (NLS_("")))
-    else if (attrName == (NLS_("Object Level")))
-        rtb += (level o (NLS_("")))
-
-    if (length(rtb) > 0) {
-        truncateBuffer(rtb, len, max)
-
-        return rtb
-    }
-
-    Module oldc = current
-    current = (module o)
-    if (!exists attribute attrName || !canRead o.attrName) {
-        if (! null oldc) current = oldc
-        return rtb
-    }
-
-    if (! null oldc) current = oldc
-
-    s = richTextWithOle o.attrName
-    convertRichText(rtb, s, len, max) 
-
-    return rtb
-}
-
 Object cellTable(Object o) {
 
   Object o2 = parent o
@@ -381,11 +210,15 @@ Object cellTable(Object o) {
     return null
 }
 
-void writeHTMLtoFile() {
-
+void flushHTML() {
   expFP << ob
   setempty ob
-  ob = (NLS_(""))
+}
+
+void writeHTMLtoFile() {
+  // Writing to the file after every small append is slow, so the output is written in larger blocks.
+  // flushHTML must be called before the file is closed.
+  if (length(ob) >= FLUSH_SIZE) flushHTML()
 }
 
 string guessExportName(string dirName, string modName) {
@@ -403,6 +236,16 @@ void addHTMLHeader(string modName)
   ob += (NLS_("<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/colresizable/1.6.0/colResizable-1.6.min.js\"></script>\n"))
   ob += (NLS_("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css\" />\n"))
   ob += (NLS_("<script src=\"/excel-bootstrap-table-filter-bundle.js\"></script>\n"))
+  // Large pictures are shown at a medium size; the viewer written by dumpCloser shows them enlarged
+  string imgMaxWidth  = IMAGE_MAX_WIDTH ""
+  string imgMaxHeight = IMAGE_MAX_HEIGHT ""
+  ob += (NLS_("<style>\n"))
+  ob += ("    #DoorsTable img { max-width: " imgMaxWidth "px; max-height: " imgMaxHeight "px; object-fit: contain; }\n")
+  ob += (NLS_("    #DoorsTable img.zoomable { cursor: zoom-in; }\n"))
+  ob += (NLS_("    #imageViewer { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.8); align-items: center; justify-content: center; cursor: zoom-out; }\n"))
+  ob += (NLS_("    #imageViewer.open { display: flex; }\n"))
+  ob += (NLS_("    #imageViewer img { max-width: 95vw; max-height: 95vh; background: #fff; box-shadow: 0 0 24px rgba(0, 0, 0, 0.6); }\n"))
+  ob += (NLS_("</style>\n"))
   ob += (NLS_("</head>\n"))
   ob += (NLS_("<BODY>\n"))
   writeHTMLtoFile()
@@ -417,7 +260,7 @@ string getBaselineStr(Baseline bLine)
 }
 
 void addHTMLFooter() {
-  Module currMod = current()
+  Module currMod = thisModule
   Baseline bLine = getMostRecentBaseline(currMod)
   ob += (NLS_("<p><DIV align=\"center\" style=\"color: grey;font-size: small;\">"))
   ob += (NLS_("Module: "fullName(currMod) " (Baseline " getBaselineStr(bLine) ")\n</br>"))
@@ -448,30 +291,73 @@ void closeApplet() {
 
 void dumpCloser() {
   ob += (NLS_("\n<script>\n    $(function () {\n      $(\'#DoorsTable\').excelTableFilter();\n    });\n    $(function() {\n        $(\"#DoorsTable\").colResizable({\n            liveDrag:true,\n            gripInnerHtml:\"<div class=\'grip\'></div>\", \n            draggingClass:\"dragging\"\n        });\n    });\n</script>\n"))
+  // Picture viewer: a picture that is shown smaller than its real size opens enlarged on the same page
+  // when clicked. A click anywhere or the Escape key closes it. Plain JavaScript, so it works offline.
+  string imgMaxWidth  = IMAGE_MAX_WIDTH ""
+  string imgMaxHeight = IMAGE_MAX_HEIGHT ""
+  ob += (NLS_("\n<div id=\"imageViewer\" title=\"Click or press Esc to close\"><img alt=\"\"></div>\n"))
+  ob += (NLS_("<script>\n"))
+  ob += (NLS_("(function () {\n"))
+  ob += (NLS_("  var viewer = document.getElementById('imageViewer');\n"))
+  ob += (NLS_("  var viewerImg = viewer.getElementsByTagName('img')[0];\n"))
+  ob += ("  var maxWidth = " imgMaxWidth ", maxHeight = " imgMaxHeight ";\n")
+  ob += (NLS_("  // true if the picture was made smaller by the size limit\n"))
+  ob += (NLS_("  function isShrunk(img) {\n"))
+  ob += (NLS_("    return (img.naturalWidth > img.clientWidth + 1 || img.naturalHeight > img.clientHeight + 1) &&\n"))
+  ob += (NLS_("           (img.clientWidth >= maxWidth - 1 || img.clientHeight >= maxHeight - 1);\n"))
+  ob += (NLS_("  }\n"))
+  ob += (NLS_("  function mark(img) {\n"))
+  ob += (NLS_("    if (isShrunk(img)) { img.className += ' zoomable'; img.title = 'Click to enlarge'; }\n"))
+  ob += (NLS_("  }\n"))
+  ob += (NLS_("  var images = document.querySelectorAll('#DoorsTable img');\n"))
+  ob += (NLS_("  for (var i = 0; i < images.length; i++) {\n"))
+  ob += (NLS_("    if (images[i].complete) mark(images[i]); else images[i].addEventListener('load', function () { mark(this); });\n"))
+  ob += (NLS_("    images[i].addEventListener('click', function () {\n"))
+  ob += (NLS_("      if (!isShrunk(this)) return;\n"))
+  ob += (NLS_("      viewerImg.src = this.src;\n"))
+  ob += (NLS_("      viewer.className = 'open';\n"))
+  ob += (NLS_("    });\n"))
+  ob += (NLS_("  }\n"))
+  ob += (NLS_("  function closeViewer() { viewer.className = ''; viewerImg.removeAttribute('src'); }\n"))
+  ob += (NLS_("  viewer.addEventListener('click', closeViewer);\n"))
+  ob += (NLS_("  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.keyCode === 27) closeViewer(); });\n"))
+  ob += (NLS_("})();\n"))
+  ob += (NLS_("</script>\n"))
   ob += (NLS_("\n</body>\n</html>"))
   writeHTMLtoFile()
 }
 
 Buffer linkIdent(Object o) {
-  int len = 0
-
+  // Label of a linked object: the start of its heading or text as plain text, followed by its identifier.
+  // Rich text with OLE objects is not read here, it is far too slow for every link.
   setempty tb
   current = module o
 
-  if (exists attribute AHeading)
+  if ((exists attribute AHeading) && canRead(o.AHeading))
   {
-    tb += richTextProbeAttr(o, AHeading, len, 40)
+    string heading = o.AHeading
+    tb = heading
+  }
+  if ((length(tb) == 0) && (exists attribute AShortText) && canRead(o.AShortText))
+  {
+    string shortText = o.AShortText
+    tb = shortText
+  }
+  if ((length(tb) == 0) && (exists attribute ALongText) && canRead(o.ALongText))
+  {
+    string longText = o.ALongText
+    tb = longText
   }
 
-  if ((length(tb) == 0) && (exists attribute AShortText))
+  if (length(tb) > LINK_TEXT_MAX)
   {
-    tb += richTextProbeAttr(o, AShortText, len, 40)
+    // do not cut a multi-byte UTF-8 character in half
+    int cut = LINK_TEXT_MAX
+    while ((cut > 0) && (intOf(tb[cut]) >= 128) && (intOf(tb[cut]) < 192)) cut--
+    length(tb, cut)
+    tb += ellipsis
   }
-
-  if ((length(tb) == 0) && (exists attribute ALongText))
-  {
-    tb += richTextProbeAttr(o, ALongText, len, 40)
-  }
+  safeHTMLBuffer(tb, true, true)
 
   (((tb += (NLS_(" ("))) += (identifier o)) +=  (NLS_(")")))
 
@@ -504,17 +390,26 @@ string getBaseFilename(Object obj, string pictureType, string from, string ident
     //In such a case, the Absolute number poses a lot of problems.
     
   return goodFileName(pictureType (uniqueID module fullName(module obj)) (uniqueOleNumber++) from (NLS_("-")) ident  (NLS_("-"))  )
-}     
+}
+
+string oleBaseName(Object obj, string from, string ident, bool hasOle)
+// DESCRIPTION : Base file name for the OLE objects exported by htmlText. A unique name is only created when
+//               the value contains OLE objects, because every created string stays in memory until the script ends.
+{
+    if (!hasOle) return (NLS_("OLE"))
+    return getBaseFilename(obj, (NLS_("OLE")), from, ident)
+}
 
 bool dumpBody(Object obj) {
     setempty tb
     current = module obj
-    bool isOutput = false     
-    
+    bool isOutput = false
+
     if (exists attribute ALongText)
     {
-        string oleBaseFileName  = getBaseFilename(obj, (NLS_("OLE")), (NLS_("Attribute")), ALongText)
-        htmlText(tb, obj.ALongText, true, false, preURL (NLS_("")), (NLS_("")), exportDir "\\" fullName(getParentFolder(current Module)) "\\", oleBaseFileName)  
+        bool hasOle = false
+        if (canRead(obj.ALongText)) hasOle = containsOle(obj.ALongText)
+        htmlText(tb, obj.ALongText, true, false, preURL (NLS_("")), (NLS_("")), moduleDir, oleBaseName(obj, (NLS_("Attribute")), ALongText, hasOle))
     }
     if (!outlining module obj && (length(tb) >0)) {
         isOutput = true
@@ -522,24 +417,24 @@ bool dumpBody(Object obj) {
         writeHTMLtoFile()
     }
     if (!outlining module obj){
-       
+
         bool isPicture = (probeAttr_(obj, (NLS_("Picture"))) == (NLS_("True")))
-        
+
         if (isPicture && showPictures(current) ){
             bool doPicture = true
 
-            // add entire path of the module with the picturename in the picture file name
-         
             string pictName = goodFileName (probeAttr_(obj,(NLS_("PictureName"))) (NLS_(".png")))
-            string longPictName = exportDir "\\" fullName(getParentFolder(current Module)) "\\" pictName
-            if (fileExists_ longPictName){
-                doPicture = fileOverwriteOK_(longPictName, true) 
-            }// if fileExists_
+            string longPictName = moduleDir pictName
+            // pictures of a previous export are overwritten without asking
+            if (fileExists_(longPictName) && !canOpenFile(longPictName, true)){
+                logError("Cannot overwrite picture " longPictName)
+                doPicture = false
+            }
             if (doPicture){
                  string s = exportPicture(obj, longPictName , formatPNG_)
-                 if (!null s and !reported) {
-                     reported = true
-                     errorBox dxlStrformat(getExtMsg("String_Error_exporting_picture_s",NLSTEMP_("Error exporting picture: %s")), s )
+                 if (!null s) {
+                     string objId = identifier(obj)
+                     logError("Cannot export the picture of " objId ": " s)
                  }
                  else{
                      (((ob += (NLS_("<br><img src="))) += pictName) += (NLS_("> ")))
@@ -548,15 +443,15 @@ bool dumpBody(Object obj) {
                  }
             }//doPicture
         }// isPicture ...
-    
-     }  // !outlining    
+
+     }  // !outlining
      if (isOutput){
          ob += (NLS_("<br>\n"))
          writeHTMLtoFile()
          return true
      }// isOutput
 
-    
+
     return false
 }
 
@@ -575,8 +470,8 @@ bool dumpTableAttributes (Object obj)
         {
             return false
         }
-        string oleBaseFileName  = getBaseFilename(obj, (NLS_("OLE")), (NLS_("Attribute")), attributeName)
-        htmlText(tb, obj.attributeName, true, false, preURL (NLS_("")), (NLS_("")),exportDir "\\", oleBaseFileName)  
+        bool hasOle = containsOle(obj.attributeName)
+        htmlText(tb, obj.attributeName, true, false, preURL (NLS_("")), (NLS_("")), moduleDir, oleBaseName(obj, (NLS_("Attribute")), attributeName, hasOle))
     }
 
     if ((length(tb) >0)) 
@@ -910,7 +805,7 @@ void htmlInlineTable(Object t)
 //****************************************************************************
 string exportPicture(Column col, Object obj, string basefileName, Buffer &tb)
 // DESCRIPTION : adds an html reference to a png of the picture in col for obj
-//               exports the picture to exportDir       
+//               exports the picture to moduleDir       
 //               htmlText must have called in the column.
 //               and hasPicture must have returned true.
 // RETURNS :     an error message if anything went wrong
@@ -919,7 +814,7 @@ string exportPicture(Column col, Object obj, string basefileName, Buffer &tb)
     Module m = module obj
     string pictureName =  basefileName (NLS_(".png"))
     
-    string error = exportPicture(col, obj, exportDir "\\" pictureName, formatPNG_)  
+    string error = exportPicture(col, obj, moduleDir pictureName, formatPNG_)
     if (hasPicture(col)) 
     {
         tb += (NLS_("<br><img src="))
@@ -946,6 +841,7 @@ void do_htmltable (Module m) {
 
   thisModName = fullName m
   thisModule = m
+  current = m
   lastCellTable = null
   addHTMLHeader(modName)
 
@@ -965,9 +861,16 @@ void do_htmltable (Module m) {
   ob += (NLS_("</tr>\n</thead>\n"))
   writeHTMLtoFile()
 
-  initNotDisplayedOpenModules() 
+  int objCount = 0
   for obj in m do 
   {
+    // Update the progress window regularly, so that DOORS stays responsive and the export can be cancelled
+    objCount++
+    if ((objCount % 100) == 0)
+    {
+      if (progressCheck(modName " (" objCount " objects)")) break
+    }
+
     if (isFormal && (cell obj)) {
         Object t = cellTable(obj)
         if (t == lastCellTable) continue
@@ -1037,9 +940,15 @@ void do_htmltable (Module m) {
       }
       else 
       {
-        setempty tb  
-        string oleBaseFilename  = getBaseFilename(obj, (NLS_("OLE")), (NLS_("Column")) ,columnIndex (NLS_("")))     
-        htmlText(tb, col, obj, true, false, preURL (NLS_("")), (NLS_("")), exportDir "\\", oleBaseFilename) 
+        setempty tb
+        // a unique OLE file name is only needed when the column's attribute contains OLE objects
+        bool colHasOle = false
+        string colAttr = attrName col
+        if ((!null colAttr) && (exists attribute colAttr))
+        {
+          if (canRead(obj.colAttr)) colHasOle = containsOle(obj.colAttr)
+        }
+        htmlText(tb, col, obj, true, false, preURL (NLS_("")), (NLS_("")), moduleDir, oleBaseName(obj, (NLS_("Column")), columnIndex (NLS_("")), colHasOle))
         if (hasDXLCanvas(col))
         {    
           string layoutBaseFilename =  getBaseFilename(obj, (NLS_("Layout")), (NLS_("Column")),columnIndex (NLS_("")))              
@@ -1048,9 +957,9 @@ void do_htmltable (Module m) {
           string error = exportPicture(col, obj,  layoutBaseFilename, tb)   
           if ((!null error) and !reportedColumnError)
           {
-            errorBox (dxlStrformat(getExtMsg("String_Error_exporting_picture_of_column_s_s",NLSTEMP_("The picture of the %s column was not exported. More information: %s.")), (title col) (NLS_("")), error)) 
-            reportedColumnError = true  
-          } 
+            logError("The picture of the " (title col) " column in " modName " was not exported: " error)
+            reportedColumnError = true
+          }
         } 
         else 
         {
@@ -1089,7 +998,6 @@ void do_htmltable (Module m) {
     ob += (NLS_("</tr>\n"))
     writeHTMLtoFile()
   } 
-  closeNotDisplayedOpenedModules()
 
   ob += (NLS_("</table>\n"))
   addHTMLFooter()
@@ -1182,7 +1090,7 @@ bool htmlExportListObject(Object obj) {
         setempty tb      
         
         string oleBaseFileName  = getBaseFilename(obj, (NLS_("OLE")), (NLS_("Column")), columnIndex (NLS_("")))
-        htmlText(tb, col, obj, true, false, preURL (NLS_("")), (NLS_("")),exportDir "\\", oleBaseFileName)
+        htmlText(tb, col, obj, true, false, preURL (NLS_("")), (NLS_("")), moduleDir, oleBaseFileName)
         if (!includeEmptyAttributes && length tb == 0) continue
 
         (((ob += (NLS_("\n<i>"))) += (title(col))) += (NLS_(":</i> ")))
@@ -1231,7 +1139,6 @@ void do_htmllist (Module m) {
 
   addHTMLHeader(thisModName)
 
-  initNotDisplayedOpenModules() 
   for obj in m do 
   {
     if (isFormal && (cell obj)) {
@@ -1245,83 +1152,10 @@ void do_htmllist (Module m) {
     if (htmlExportListObject(obj)) ob += (NLS_("<hr>\n"))
     writeHTMLtoFile()
   } // end of for object in module
-  closeNotDisplayedOpenedModules()
   addHTMLFooter()
   dumpCloser() 
 }
 
-string getLinkFileName(string modName) {
-  string fName
-  if (find(skpLinkFiles, modName, fName)) return fName
-
-  fName = tempFileName()
-  put(skpLinkFiles, modName, fName)
-  return fName
-}
-
-string removeNonReadableChars(string s1){
-  Buffer b = create
-  b = s1
-  int i = 0
-  while(i < length(b))
-  {
-    if(b[i] <= ' ')
-    {
-      set(b,i,' ')
-    } 
-    i++
-  }
-  string s = stringOf(b)
-  delete b
-  return s
-}
-
-void writeLinkInfoFile(string mn, Skip& skpInfo) {
-
-  Skip   skpLinks
-  string fn = getLinkFileName(mn)
-  Stream s = write(fn, CP_UTF8)
-  if (null s) return
-  for skpLinks in skpInfo do {
-    string l1, l2
-    string absNo = (string key skpInfo)
-    s << absNo (NLS_("\n"))
-    for l1 in skpLinks do {
-      l2= (string key skpLinks)
-      l1= removeNonReadableChars(l1)
-      l2= removeNonReadableChars(l2)
-      s << l1 (NLS_("\n"))
-      s << l2 (NLS_("\n"))
-    }
-    s << (NLS_("END\n"))
-  }
-  close s
-
-}
-
-void readLinkInfoFile(string mn, Skip& skpInfo) {
-
-  Skip   skpLinks
-  string absNo, l1, l2
-  string fn = getLinkFileName(mn)
-  Stream s = read(fn, CP_UTF8)
-  if (null s) return
-
-  while (!end(s)) {
-    s >> absNo
-    if (null absNo) continue
-    skpLinks = create
-    l1 = (NLS_(""))
-    while (l1 != (NLS_("END"))) {
-      s >> l1
-      if (l1 == (NLS_("END"))) break
-      s >> l2
-      put(skpLinks, l2, l1)
-    }
-    put(skpInfo, absNo (NLS_("")), skpLinks)
-  }
-  close s
-}
 
 
 //****************************************************************************
@@ -1380,169 +1214,101 @@ void addLinkToSkip(Skip skpDest, string moduleVersionString, Object o, bool outl
 
 
 
-bool fillLinkListForModule(Module m, bool recurse) {
+Skip fillLinkListForModule(Module m)
+// DESCRIPTION : Collects the links of every object in m for the Links column.
+//               The linked modules are loaded once and stay open, so that the next exported modules can
+//               reuse them. They are closed by the memory check in the main loop and at the end of the export.
+// RETURNS : skip list: absolute number -> skip list of links (see addLinkToSkip)
+{
   Link link
   LinkRef linkref
   Object o
-  string s
-  Skip skpTemp
-  Skip skpObjects
-  Skip skpLinks
-  string fullmname
   ModuleVersion modVersion
-  
-  fullmname = getNameWithVersion m
+  Skip skpLinkedMods = createString   // module name (with baseline) -> ModuleVersion
+  Skip skpObjects    = createString   // absolute number -> skip list of links
 
-  if (null m) {
-    return false
-  }
+  if (null m) return skpObjects
 
-  if (find(nameList, fullmname (NLS_("")))) {
-    return true
-  }
-
-  modVersion = moduleVersion m
-  put(nameList, fullmname (NLS_("")), modVersion) 
-
-  // First, fill a list of all modules linked to this one.
-  // Also fill in a list of linked objects, giving any with links an empty skip to store them in
-
-  skpTemp    = create
-  skpObjects = create
-
+  // First pass: find the objects with links and the modules at the other end of the links
   for o in m do {
-    bool started = false
     string absNo = probeAttr_(o, (NLS_("Absolute Number")))
     if (null absNo) continue
+    bool hasLinks = false
 
     for linkref in all (o<-(NLS_("*"))) do {
-      ModuleVersion modVersion = sourceVersion linkref
+      modVersion = sourceVersion linkref
       string s = fullName modVersion
-      if (!module s) 
+      if ((null s) || (!module s))
       {
         delete modVersion
         continue
       }
-      s = s getVersionSuffix(modVersion)
-      if (!started) {
-        skpLinks = create
-        put(skpObjects, absNo, skpLinks)
-        started = true
-      }
-
-      if (!find(skpTemp, s (NLS_(""))))
-      {
-        put(skpTemp, s (NLS_("")), modVersion)
-      }
-      else
+      hasLinks = true
+      string key = s getVersionSuffix(modVersion)
+      if (find(skpLinkedMods, key))
       {
         delete modVersion
       }
+      else
+      {
+        put(skpLinkedMods, key, modVersion)
+      }
     }
-  
+
     for link in all (o->(NLS_("*"))) do {
-      ModuleVersion modVersion = targetVersion link
+      modVersion = targetVersion link
       string s = fullName modVersion
-      
-      if (s == null)
+      if ((null s) || (!module s) || isDeleted(module modVersion))
       {
         delete modVersion
         continue
       }
-      
-      if (!module s || isDeleted(module modVersion))
+      hasLinks = true
+      string key = s getVersionSuffix(modVersion)
+      if (find(skpLinkedMods, key))
       {
         delete modVersion
-        continue
-      }
-      
-      s = s getVersionSuffix(modVersion)
-      if (!started) {
-        skpLinks = create
-        put(skpObjects, absNo, skpLinks)
-        started = true
-      }
-      if (!find(skpTemp, s (NLS_(""))))
-      {
-        put(skpTemp, s (NLS_("")), modVersion)
       }
       else
       {
-        delete modVersion
+        put(skpLinkedMods, key, modVersion)
       }
     }
-  }
 
-  // Open each of the linked modules in turn to fill in their link information
-  for modVersion in skpTemp do 
-  {
-    Module m2 = load(modVersion, false)
-    if (null m2) continue
-
-    if (!(isDeleted module modVersion))
+    if (hasLinks)
     {
-      string moduleVersionString = getNameWithVersion(modVersion)
-      for o in m do {
-        Object other_obj
-        string absNo = probeAttr_(o, (NLS_("Absolute Number")))
-
-        if (null absNo) continue
-
-        // if this object does not already have an attached list of links, ignore it
-        if (!find(skpObjects, absNo, skpLinks)) continue
-    
-        // fill in details of all links to / from module s
-        for link in all (o->(NLS_("*"))) do {
-          ModuleVersion other_mod_ver = targetVersion link
-
-            if (other_mod_ver != modVersion) 
-            {
-              delete other_mod_ver
-              continue
-            }
-            else 
-            {
-              delete other_mod_ver
-            }
-            other_obj = target link
-            addLinkToSkip(skpLinks, moduleVersionString, other_obj, true) 
-        } 
-        for link in all (o <-(NLS_("*"))) do {
-          ModuleVersion other_mod_ver = sourceVersion link
-          if (other_mod_ver != modVersion) 
-          {
-            delete other_mod_ver
-            continue
-          }
-          else 
-          {
-            delete other_mod_ver
-          }
-          other_obj = source link      
-          addLinkToSkip(skpLinks, moduleVersionString, other_obj, false) 
-        }
-      }
-    }
-    if ((m != m2) && (!find(skpOpenMods, fullName m2))) close m2
-  }
-  writeLinkInfoFile(fullmname, skpObjects)    
-
-  for skpLinks in skpObjects do {
-    delete skpLinks
-  }
-  delete skpObjects
-  if (!find(skpOpenMods, fullmname)){ close m}
-  if (recurse) {
-    for modVersion in skpTemp do {
-      Module nxtModule = load(modVersion, false)
-      if (!fillLinkListForModule(nxtModule, recurse)) {
-        delete skpTemp
-        return false
-      }
+      Skip skpNewLinks = createString
+      put(skpObjects, absNo, skpNewLinks)
     }
   }
-  delete skpTemp
-  return true
+
+  // Load the linked modules. A module that is already open is returned without being read again.
+  for modVersion in skpLinkedMods do {
+    Module m2 = load(modVersion, false)
+    delete modVersion
+  }
+  delete skpLinkedMods
+
+  // Second pass: one pass over the objects collects the links to all linked modules
+  for o in m do {
+    string absNo = probeAttr_(o, (NLS_("Absolute Number")))
+    if (null absNo) continue
+    Skip skpLinks
+    if (!find(skpObjects, absNo, skpLinks)) continue
+
+    for link in all (o->(NLS_("*"))) do {
+      Object targetObj = target link
+      if (null targetObj) continue
+      addLinkToSkip(skpLinks, fullName(module targetObj), targetObj, true)
+    }
+    for link in all (o<-(NLS_("*"))) do {
+      Object sourceObj = source link
+      if (null sourceObj) continue
+      addLinkToSkip(skpLinks, fullName(module sourceObj), sourceObj, false)
+    }
+  }
+
+  return skpObjects
 }
 
 void dumpSingleMod(Module m) {
@@ -1553,16 +1319,14 @@ void dumpSingleMod(Module m) {
 
   if (!canRead(m)) return
   isFormal = ((type m) == (NLS_("Formal")))
-    
-  // Read in the cached link information file
-  skpLinkInfo = create
-  string modNameStr = getNameWithVersion m
-  readLinkInfoFile(modNameStr, skpLinkInfo)
+
+  skpLinkInfo = fillLinkListForModule(m)
   do_htmltable(m)
   for skpTmp in skpLinkInfo do {
     delete skpTmp
   }
   delete skpLinkInfo
+  skpLinkInfo = null
 }
 
 void copyIfNotExists(string sdir, tdir, sfname, tfname) {
@@ -1570,68 +1334,46 @@ void copyIfNotExists(string sdir, tdir, sfname, tfname) {
   if (!fileExists_ tdir tfname) {
     s = copyFile(sdir sfname, tdir tfname)
     if (s != (NLS_(""))) {
-      ack dxlStrformat(getExtMsg("String_Icon_copy_failed_n_s",NLSTEMP_("Icon copy failed :\n%s")), s)
+      logError("Icon copy failed: " s)
     }
   }
 }
 
 void copyBullets() {
-    copyIfNotExists(imageLocation, exportDir "\\" fullName(getParentFolder(current Module)) "\\" , NLS_("bullet.gif"), NLS_("bullet.gif") )
+    copyIfNotExists(imageLocation, moduleDir, NLS_("bullet.gif"), NLS_("bullet.gif") )
 }
 
 void copyPictures() {
-  copyIfNotExists(imageLocation, exportDir, docTreesName, docTreesName)
-  copyIfNotExists(imageLocation, exportDir, bookName, bookName)
-  copyIfNotExists(imageLocation, exportDir, worldName, worldName)
-  copyIfNotExists(imageLocation, exportDir, docName, docName)
-  copyIfNotExists(imageLocation, exportDir, doorsicoName, doorsicoName)
-  copyIfNotExists(imageLocation, exportDir, URLouticoName, URLouticoName)
-  copyIfNotExists(imageLocation, exportDir, URLinicoName,  URLinicoName)
+  copyIfNotExists(imageLocation, moduleDir, docTreesName, docTreesName)
+  copyIfNotExists(imageLocation, moduleDir, bookName, bookName)
+  copyIfNotExists(imageLocation, moduleDir, worldName, worldName)
+  copyIfNotExists(imageLocation, moduleDir, docName, docName)
+  copyIfNotExists(imageLocation, moduleDir, doorsicoName, doorsicoName)
+  copyIfNotExists(imageLocation, moduleDir, URLouticoName, URLouticoName)
+  copyIfNotExists(imageLocation, moduleDir, URLinicoName,  URLinicoName)
 }
 
 void copyClasses() {
-  copyIfNotExists(imageLocation, exportDir, chDateFileSrcName, chDateFileDestName)
+  copyIfNotExists(imageLocation, moduleDir, chDateFileSrcName, chDateFileDestName)
 }
 
-void findOpenModules()
+void loadExportView(Module mod)
+// DESCRIPTION : Loads the export view if the module has one; otherwise the default view stays loaded.
 {
-  Module openModule
-  for openModule in database do {
-    if (canRead openModule) {
-      string moduleFullname = getNameWithVersion openModule
-      put(skpOpenMods, moduleFullname, moduleFullname)
+  bool found = false
+  string viewName
+  for viewName in views(mod) do {
+    if (viewName == EXPORT_VIEW_NAME) {
+      found = true
+      break
     }
   }
-}
+  if (!found) return
 
-void tidyUpModules() 
-{
-  Module openModule
-  for openModule in database do {
-    if (canRead openModule) {
-      string moduleFullname = getNameWithVersion openModule             
-      if (!find(skpOpenMods, moduleFullname)) {
-        close openModule
-      }
-    }
+  current = mod
+  if (!load(mod, view(EXPORT_VIEW_NAME))) {
+    logError("Cannot load view \"" EXPORT_VIEW_NAME "\" in " fullName(mod))
   }
-}
-
-Skip splitString(string s1, string delimit)
-{
-  int offset, len
-  Skip splited = create
-
-  while(findPlainText(s1, delimit, offset, len, false) && s1 != " " && length(s1)>0)
-  {
-    if( offset > 0 ){ put(splited, s1[0:offset-1], s1[0:offset-1]) }
-    s1 = s1[offset+length(delimit):length(s1)-1]
-  }
-  if(length(s1) > 0 && s1 != " ")
-  {   
-    put (splited, s1, s1)
-  }
-  return splited
 }
 
 void do_export_file(string inModName) {
@@ -1639,22 +1381,32 @@ void do_export_file(string inModName) {
   usePictures            = false
   useChangeMeter         = false
   includeEmptyAttributes = false
-  nameList               = null
-  skpOpenMods            = create
   isFormal               = false
 
   lastCellTable          = null
-  reported               = false 
   reportedColumnError    = false
-  skpLinkFiles           = create
-  skpLinkInfo            = create
+  skpLinkInfo            = null
 
-  rtb = create
+  expMod = read(inModName, false)
+  if (null expMod) {
+    logError("Cannot open module " inModName)
+    return
+  }
+
+  // A displayed module belongs to the user, so its view is not changed
+  if (!isVisible(expMod)) loadExportView(expMod)
+
+  // The HTML file is written to the directory of the module's folder
+  string folderDir = exportPathOf(fullName(getParentFolder(expMod)))
+  if (!makeDirs(folderDir)) {
+    logError("Skipped " inModName " because its folder cannot be created")
+    return
+  }
+  moduleDir = folderDir "\\"
+
   htmlBuf = create
   ob = create // outBuffer
   tb = create // tempBuffer
-  tb2 = create
-  tb3 = create
 
   // Temp buffers used in addLinkToSkip
   link1Buffer = create
@@ -1663,21 +1415,10 @@ void do_export_file(string inModName) {
   // Temp buffers used in htmlExportLinkInfo
   searchBuffer = create
 
-  /////////////////////////////////
-  bool   cancelled = false
-  ModuleVersion modVersion
-
-  ModName_ ModRef = module inModName
-  expMod = read(fullName ModRef, false)
-
   QT = (NLS_("\""))
 
   webDocumentPrefix = (NLS_(""))
   initPictureNames
-
-  string fileBase = getenv("USERPROFILE")
-  fileBase = fileBase "\\Desktop\\DoorsExport"
-  exportDir = fileBase
 
   if (usePictures) {
     copyPictures
@@ -1688,117 +1429,41 @@ void do_export_file(string inModName) {
   }
   copyBullets()
 
-  if (null nameList) {
-    nameList = create
-  } else {
-    delete nameList
-    nameList = create
-  }
-
-  findOpenModules()
-  fillLinkListForModule(expMod, false)
-
-  string modName = getNameWithVersion expMod
-  string expName = guessExportName(exportDir, modName)
-
+  string moduleFileName = name(expMod)
+  string expName = moduleDir moduleFileName ".html"
   expFP = write (expName,CP_UTF8)
-  dumpSingleMod(expMod)
-  close expFP
-    
-  tidyUpModules()
-  delete nameList
-  nameList = null
-  delete skpOpenMods
-  skpOpenMods = null
-  
-  // Delete the temporary link information files
-  for expName in skpLinkFiles do {
-      deleteFile expName
+  if (null expFP) {
+    logError("Cannot write " expName)
+  } else {
+    dumpSingleMod(expMod)
+    flushHTML()
+    close expFP
   }
-  delete skpLinkFiles 
-  skpLinkFiles = null
-  
-  if(expMod != null)     close expMod
 
-  setempty rtb  
-  setempty htmlBuf 
-  setempty ob
-  setempty tb 
-  setempty tb2
-  setempty tb3 
-  setempty link1Buffer 
-  setempty link2Buffer 
-  setempty searchBuffer   
+  // expMod stays open: later modules may link to it. The main loop closes modules when memory runs low.
 
-  delete rtb  
-  delete htmlBuf 
+  delete htmlBuf
   delete ob
-  delete tb 
-  delete tb2
-  delete tb3 
-  delete link1Buffer 
-  delete link2Buffer 
-  delete searchBuffer  
+  delete tb
+  delete link1Buffer
+  delete link2Buffer
+  delete searchBuffer
 
-  rtb  = null
   htmlBuf = null
-  ob= null
+  ob = null
   tb = null
-  tb2 = null
-  tb3 = null
   link1Buffer  = null
   link2Buffer  = null
   searchBuffer = null
 }
 
-void processFormal(string modName)
+int moduleCount = 0
+
+void collectModules(Folder f, Skip skpModules)
+// DESCRIPTION : Collects the formal modules below f, including those in sub-folders and sub-projects.
+//               No directory is created here: a folder's directory is created when a module in it is exported.
 {
-  do_export_file(modName)
-}
-
-void processFolder(Folder f)
-{
-  string fileBase = getenv("USERPROFILE")
-  fileBase = fileBase "\\Desktop\\DoorsExport" fullName(f)
-  Stat sta = create fileBase
-  Stream linkStream
-  if (null sta || !directory sta)
-  {
-    mkdir(fileBase)
-  }else{
-    delete sta
-  }
-}
-
-void initialProcessFolder(Folder f)
-{
-  string split = null
-  string delim = "/";
-  for split in splitString(fullName(f), delim) do { 
-    fileBase = fileBase "\\" split
-    Stat sta = create fileBase
-    Stream linkStream
-    if (null sta || !directory sta)
-    {
-      mkdir(fileBase)
-    }else{
-      delete sta
-    }
-  }
-}
-
-// This function scans all items in the given folder, recursing through sub-projects and folders. 
-bool initial = true;
-void scanFolder(Folder f)
-{
-
-  if (null f)
-  {
-    //print("NULL Folder parameter passed")
-    return
-  }
-
-  if(initial){initialProcessFolder(f); initial = false;}
+  if (null f) return
 
   Item itm
   for itm in f do
@@ -1806,22 +1471,18 @@ void scanFolder(Folder f)
     if (null itm) continue
     if (isDeleted(itm)) continue
 
-    print(fullName(itm) "\n")
-
-    if (type (itm) == "Folder")
+    string itemType = type(itm)
+    if (itemType == "Folder" || itemType == "Project")
     {
-      if( fullName(itm) != "/RNE/System/Standards" )
+      if (fullName(itm) != "/RNE/System/Standards")
       {
-        processFolder(folder(itm))
-        scanFolder(folder(itm))
+        collectModules(folder(fullName(itm)), skpModules)
       }
     }
-    else if (type (itm) == "Formal")
+    else if (itemType == "Formal")
     {
-      //string ModuleName = fullName(itm)
-      //ModName_ ModRef = module fullName(itm)
-      //Module mod = read(fullName ModRef, false)
-      processFormal(fullName(itm))
+      put(skpModules, moduleCount, fullName(itm))
+      moduleCount++
     }
   }
 }
@@ -1832,5 +1493,53 @@ void scanFolder(Folder f)
   MAIN
 ************************************/
 print dateOf(intOf(today()))
-scanFolder(current Folder)
+
+Skip skpModules = create    // index -> module name
+collectModules(current Folder, skpModules)
+print "\n" moduleCount " modules found\n"
+
+print "Export folder: " exportRoot "\n"
+if (!makeDirs(exportRoot)) {
+  print "ERROR: the export folder cannot be created, the export is stopped\n"
+  halt
+}
+initNotDisplayedOpenModules()   // modules that are open before the export are not closed by it
+
+if (!isBatch()) {
+  progressDB = create("Export all modules into HTML", styleFloating)
+  realize progressDB
+  hide progressDB
+  progressStart(progressDB, "Export all modules into HTML", "", moduleCount)
+}
+
+int exportedCount = 0
+string modName
+for modName in skpModules do
+{
+  if (progressCheck(modName)) break
+  print modName "\n"
+  do_export_file(modName)
+  exportedCount++
+  if (!null progressDB) progressStep(exportedCount)
+
+  // Linked modules stay open so that the next modules can reuse them. They are closed when DOORS uses too much memory.
+  iCountForMemCheck = ITERATION_STEP_SIZE
+  if (checkMemoryAndCloseModules(false)) {
+    int memoryUsage = getMemoryUsage()
+    print "WARNING: DOORS memory usage is still " memoryUsage " MB after closing modules\n"
+  }
+
+  if (exportCancelled) break
+}
+
+if (!null progressDB) {
+  progressStop()
+  destroy progressDB
+  progressDB = null
+}
+closeNotDisplayedOpenedModules()
+delete skpModules
+
+if (exportCancelled) print "Export cancelled by the user\n"
+print exportedCount " of " moduleCount " modules exported to " exportRoot "\n"
 print dateOf(intOf(today()))

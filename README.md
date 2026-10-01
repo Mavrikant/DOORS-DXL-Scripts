@@ -78,7 +78,13 @@ It prints every baseline of the current module with its CR number. The CR number
 
 #### Export All Modules into HTML
 
-These scripts recursively export all items under the project to a folder as a fancy-styled useful HTML report. The report is written to ```%USERPROFILE%\Desktop\DoorsExport```.
+It exports every formal module in the current folder, its subfolders and sub-projects to a fancy-styled, useful HTML report. The report is written to ```%USERPROFILE%\Desktop\DoorsExport```, in a directory tree that mirrors the DOORS folders. A directory is only created when a module in it is exported.
+
+- **View:** if a module has a view named `Export`, that view (and its columns) is used. Otherwise, the module's default view is used. Layout DXL columns are evaluated for every object, so a dedicated `Export` view without them makes the export much faster. A module that is open in a window keeps its current view.
+- **Pictures:** pictures larger than 600×400 px are shown smaller in the table, keeping their proportions. Clicking one shows it enlarged on the same page; a click anywhere or the Esc key closes it. The limits are `IMAGE_MAX_WIDTH` and `IMAGE_MAX_HEIGHT` at the top of the script.
+- **Progress:** when run interactively, a progress window shows the current module and has a **Cancel** button. After a cancel, the export stops within 100 objects, and the HTML file of the module being exported is left incomplete.
+- **Errors:** problems (a folder that cannot be created, a picture that cannot be exported, ...) are printed to the DXL output as `ERROR:` lines instead of dialog boxes, so a batch run never waits for a click.
+- **Memory:** linked modules stay open between modules so they are not loaded again. They are closed when DOORS uses more than 1000 MB (DOORS's `MEM_LEVEL_CLOSE` environment variable changes this limit) and at the end of the export.
 
 The following batch command can be used with **Task Scheduler** to periodically export modules.
 
