@@ -14,6 +14,7 @@
 //                                     between modules, progress bar with cancel, errors are logged instead of
 //                                     shown in dialogs, "Export" view is used when a module has one.
 // M. Serdar Karaman       2026-09-28  Large pictures are shown at a medium size and open enlarged on click.
+// M. Serdar Karaman       2026-10-01  List bullets are written as a Unicode character instead of the bullet.gif image.
 
 #include <utils\openModulesMemoryManagement.inc>
 #include <utils\doctools/itfutil.inc>
@@ -210,7 +211,33 @@ Object cellTable(Object o) {
     return null
 }
 
+// htmlText writes the bullets of rich text lists as <img src=bullet.gif> tags. They are replaced by a Unicode bullet,
+// so the image file does not have to be copied next to every exported module.
+const string BULLET_CHAR = "•&nbsp;"
+Regexp reBulletImg = regexp2 "<[iI][mM][gG][^>]*bullet.gif[^>]*>"
+
+void replaceBulletImages() {
+  int from = 0
+  int len  = length ob
+  Buffer res = null
+  while ((from < len) && search(reBulletImg, ob, from))
+  {
+    if (null res) res = create
+    int first = start 0
+    int last  = end 0
+    if (first > 0) res += ob[from : from + first - 1]
+    res += BULLET_CHAR
+    from += last + 1
+  }
+  if (null res) return
+  if (from < len) res += ob[from : len - 1]
+  setempty ob
+  ob += res
+  delete res
+}
+
 void flushHTML() {
+  replaceBulletImages()
   expFP << ob
   setempty ob
 }
@@ -1339,10 +1366,6 @@ void copyIfNotExists(string sdir, tdir, sfname, tfname) {
   }
 }
 
-void copyBullets() {
-    copyIfNotExists(imageLocation, moduleDir, NLS_("bullet.gif"), NLS_("bullet.gif") )
-}
-
 void copyPictures() {
   copyIfNotExists(imageLocation, moduleDir, docTreesName, docTreesName)
   copyIfNotExists(imageLocation, moduleDir, bookName, bookName)
@@ -1427,7 +1450,6 @@ void do_export_file(string inModName) {
   if (useChangeMeter) {
     copyClasses
   }
-  copyBullets()
 
   string moduleFileName = name(expMod)
   string expName = moduleDir moduleFileName ".html"
